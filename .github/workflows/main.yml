@@ -39,5 +39,5 @@ jobs:
           composer run test:phpcs
       - name: test:docs
         run: |
-          cd wp-content/plugins/
+          cd wp-content/plugins/ll-voordemensen
           composer run test:docs
