@@ -35,7 +35,7 @@ class Fields {
 	}
 
 	public function render_api_client_name_field() {
-		$setting = get_option( 'll_vdm_api_client_name' );
+		$setting = get_option( 'll_vdm_api_client_name', '' );
 		?>
 
 		<input type="text" name="ll_vdm_api_client_name" class="regular-text" value="<?php echo isset( $setting ) ? esc_attr( $setting ) : ''; ?>">
@@ -44,12 +44,12 @@ class Fields {
 	}
 
 	public function render_display_ticket_sales_screen_type_field() {
-		$setting = get_option( 'll_vdm_display_ticket_sales_screen_type' );
-
 		$options = array(
 			'popup' => __( 'Popup', 'll-vdm' ),
 			'side'  => __( 'Side', 'll-vdm' ),
 		);
+
+		$setting = get_option( 'll_vdm_display_ticket_sales_screen_type', 'popup' );
 		?>
 
 		<select id="ll_vdm_display_ticket_sales_screen_type" name="ll_vdm_display_ticket_sales_screen_type">
