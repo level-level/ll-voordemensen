@@ -2,8 +2,8 @@
 
 namespace LevelLevel\VoorDeMensen;
 
-class Assets
-{
+class Assets {
+
 	public function register_hooks(): void {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
@@ -15,10 +15,10 @@ class Assets
 		}
 
 		$display_type = get_option( 'll_vdm_display_ticket_sales_screen_type', 'popup' );
-		if( $display_type === 'side' ) {
-			wp_enqueue_script('vdm_loader','https://tickets.voordemensen.nl/'.rawurlencode($client_name).'/iframes/vdm_sideloader.js');
+		if ( $display_type === 'side' ) {
+			wp_enqueue_script( 'vdm_loader', 'https://tickets.voordemensen.nl/' . rawurlencode( $client_name ) . '/iframes/vdm_sideloader.js' );
 		} else {
-			wp_enqueue_script('vdm_loader','https://tickets.voordemensen.nl/'.rawurlencode($client_name).'/iframes/vdm_loader.js');
+			wp_enqueue_script( 'vdm_loader', 'https://tickets.voordemensen.nl/' . rawurlencode( $client_name ) . '/iframes/vdm_loader.js' );
 		}
 	}
 }
