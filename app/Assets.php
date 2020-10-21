@@ -15,7 +15,7 @@ class Assets {
 		}
 
 		$display_type = get_option( 'll_vdm_display_ticket_sales_screen_type', 'popup' );
-		$src = 'https://tickets.voordemensen.nl/' . rawurlencode( $client_name ) . '/iframes/vdm_loader.js';
+		$src          = 'https://tickets.voordemensen.nl/' . rawurlencode( $client_name ) . '/iframes/vdm_loader.js';
 		if ( $display_type === 'side' ) {
 			$src = 'https://tickets.voordemensen.nl/' . rawurlencode( $client_name ) . '/iframes/vdm_sideloader.js';
 		}
