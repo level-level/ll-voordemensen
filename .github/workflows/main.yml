@@ -1,0 +1,63 @@
+name: Build & test
+
+on: [push]
+
+jobs:
+  php:
+    name: PHP test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install PHP
+        uses: shivammathur/setup-php@1.3.7
+        with:
+          php-version: 7.3
+      - uses: actions/checkout@v2
+        with:
+          path: wp-content/plugins/
+      - name: Debugging
+        run: |
+          php --version
+          php -m
+          composer --version
+      - name: Composer build
+        run: |
+          ls -lsah
+          cd wp-content/plugins/
+          composer config http-basic.${{ secrets.SATIS_DOMAIN }} "${{ secrets.SATIS_USERNAME }}" "${{ secrets.SATIS_PASSWORD }}"
+          composer install --prefer-dist --no-suggest
+        env:
+          SATIS_DOMAIN: ${{ secrets.SATIS_DOMAIN }}
+          SATIS_USERNAME: ${{ secrets.SATIS_USERNAME }}
+          SATIS_PASSWORD: ${{ secrets.SATIS_PASSWORD }}
+      - name: test:composer
+        run: |
+          cd wp-content/plugins/
+          composer run test:composer
+      - name: test:phpcs
+        run: |
+          cd wp-content/plugins/
+          composer run test:phpcs
+      - name: test:twigcs
+        run: |
+          cd wp-content/plugins/
+          composer run test:twigcs
+      - name: test:unit
+        run: |
+          cd wp-content/plugins/
+          composer run test:unit
+      - name: integration:setup
+        run: |
+          cd wp-content/plugins/
+          composer run integration:setup
+      - name: test:ci:psalm
+        run: |
+          cd wp-content/plugins/
+          composer run test:ci:psalm
+      - name: integration:teardown
+        run: |
+          cd wp-content/plugins/
+          composer run integration:teardown
+      - name: test:docs
+        run: |
+          cd wp-content/plugins/
+          composer run test:docs

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="voordemensen">
+	<description>Level Level ruleset</description>
+	<config name="testVersion" value="7.0-"/>
+	<file>./app</file>
+	<file>./ll-voordemensen.php</file>
+
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<rule ref="LevelLevel"/>
+	<config name="testVersion" value="7.3-"/>
+
+</ruleset>

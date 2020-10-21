@@ -1,0 +1,6 @@
+template: |
+  ### Don't forget to bump the version number in ll-voordemensen.php
+
+  ## What’s Changed
+
+  $CHANGES

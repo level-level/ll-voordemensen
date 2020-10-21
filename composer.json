@@ -1,0 +1,60 @@
+{
+    "name": "level-level/ll-voordemensen",
+    "description": "Unofficial plugin to access the VoordeMensen ticket platform directly from WordPress",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Level Level",
+            "homepage": "https://level-level.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://satis.level-level.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.4",
+        "composer/installers": "^1.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "LevelLevel\\VoorDeMensen\\": "app/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "composer dump-autoload"
+        ],
+        "post-update-cmd": [
+            "composer dump-autoload"
+        ],
+        "test":[
+            "echo Running tests",
+            "@test:composer",
+            "@test:phpcs",
+            "@test:docs"
+        ],
+        "test:composer": [
+          "composer validate"
+        ],
+        "test:phpcs": [
+            "phpcs"
+        ],
+        "test:docs": [
+            "php-doc-check ./app -x vendor"
+        ],
+        "fix":[
+            "phpcbf"
+        ],
+        "make-pot": [
+            "wp i18n make-pot ./ --skip-js --slug=ll-vdm"
+        ]
+    },
+    "require-dev": {
+        "niels-de-blaauw/php-doc-check": "^0.2.2",
+        "level-level/coding-standards": "^1.0"
+    }
+}
