@@ -20,6 +20,6 @@ class Assets {
 			$src = 'https://tickets.voordemensen.nl/' . rawurlencode( $client_name ) . '/iframes/vdm_sideloader.js';
 		}
 
-		wp_enqueue_script( 'vdm_loader', $src, array(), LL_VDM_PLUGIN_VERSION, true );
+		wp_enqueue_script( 'll_vdm_external_script', $src, array(), LL_VDM_PLUGIN_VERSION, true );
 	}
 }
