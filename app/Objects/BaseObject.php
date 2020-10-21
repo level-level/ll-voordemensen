@@ -28,10 +28,6 @@ class BaseObject {
 		$this->post = $post;
 	}
 
-	public function get_post(): WP_Post {
-		return $this->post;
-	}
-
 	public static function get( int $id ) {
 		if ( ! isset( static::$posts[ $id ] ) ) {
 			$class = static::class;
@@ -62,9 +58,52 @@ class BaseObject {
 		);
 	}
 
-	public static function get_one( array $args = array() ): array {
+	public static function get_one( array $args = array() ) {
 		$args['posts_per_page'] = 1;
 		$one                    = static::get_many( $args );
 		return array_shift( $one );
+	}
+
+	public static function get_by_vdm_id( int $vdm_id ) {
+		$args = array(
+			'meta_query' => array(
+				array(
+					'key'   => 'vdm_id',
+					'value' => $vdm_id,
+				),
+			),
+		);
+		return static::get_one( $args );
+	}
+
+	public function get_object(): WP_Post {
+		return $this->post;
+	}
+
+	public function get_id() {
+		return $this->post->ID;
+	}
+
+	public function get_vdm_id(): int {
+		return (int) $this->get_meta( 'vdm_id' );
+	}
+
+	public function get_meta( string $key, bool $single = false ) {
+		return get_post_meta( $this->get_id(), $key, $single );
+	}
+
+	public function get_connected_posts( array $args = array() ): array {
+		$vdm_id       = $this->get_vdm_id();
+		$default_args = array(
+			'posts_per_page' => -1,
+			'meta_query'     => array(
+				array(
+					'key'   => 'll_vdm_id',
+					'value' => $vdm_id,
+				),
+			),
+		);
+		$args         = wp_parse_args( $args, $default_args );
+		return get_posts( $args );
 	}
 }
