@@ -2,8 +2,8 @@
 
 namespace LevelLevel\VoorDeMensen\Admin\Settings;
 
-class Menu
-{
+class Menu {
+
 	public function register_hooks(): void {
 		add_action( 'admin_menu', array( $this, 'add_menu_page' ) );
 	}
