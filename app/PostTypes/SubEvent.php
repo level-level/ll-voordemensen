@@ -53,6 +53,7 @@ class SubEvent {
 			'rest_base'             => 'll_vdm_sub_events',
 			'rest_controller_class' => WP_REST_Controller::class,
 		);
+		$args = apply_filters( 'll_vdm_sub_event_post_type_args', $args );
 		register_post_type( self::POST_TYPE_NAME, $args );
 	}
 }
