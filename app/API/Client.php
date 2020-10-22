@@ -16,7 +16,11 @@ class Client {
 	 * Get array of API event response objects
 	 */
 	public function get_events(): array {
-		$url      = $this->get_events_url();
+		$url = $this->get_events_url();
+		if ( ! $url ) {
+			return array();
+		}
+
 		$response = $this->request( $url );
 		if ( ! isset( $response['success'] ) || ! $response['success'] || ! is_array( $response['data'] ) ) {
 			return array();
@@ -28,7 +32,11 @@ class Client {
 	 * Get API event response object
 	 */
 	public function get_event( int $vdm_id ) {
-		$url      = $this->get_events_url( $vdm_id );
+		$url = $this->get_events_url( $vdm_id );
+		if ( ! $url ) {
+			return null;
+		}
+
 		$response = $this->request( $url );
 		if ( ! isset( $response['success'] ) || ! $response['success'] || ! is_array( $response['data'] ) || empty( $response['data'] ) ) {
 			return null;
