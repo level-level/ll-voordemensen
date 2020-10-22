@@ -25,7 +25,13 @@ class Client {
 		if ( ! isset( $response['success'] ) || ! $response['success'] || ! is_array( $response['data'] ) ) {
 			return array();
 		}
-		return $response['data'];
+
+		// Filter out object errors
+		return array_filter(
+			$response['data'], function( $api_event ) {
+				return isset( $api_event->event_id );
+			}
+		);
 	}
 
 	/**
@@ -41,7 +47,13 @@ class Client {
 		if ( ! isset( $response['success'] ) || ! $response['success'] || ! is_array( $response['data'] ) || empty( $response['data'] ) ) {
 			return null;
 		}
-		return is_object( $response['data'][0] ) ? $response['data'][0] : null;
+
+		// Filter out object errors
+		if ( ! is_object( $response['data'][0] ) || ! isset( $response['data'][0]->event_id ) ) {
+			return null;
+		}
+
+		return $response['data'][0];
 	}
 
 	/**
