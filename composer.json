@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": ">=5.6.4",
+        "php": "^7.1",
         "composer/installers": "^1.9"
     },
     "autoload": {
@@ -35,6 +35,7 @@
             "echo Running tests",
             "@test:composer",
             "@test:phpcs",
+            "@test:psalm",
             "@test:docs"
         ],
         "test:composer": [
@@ -42,6 +43,22 @@
         ],
         "test:phpcs": [
             "phpcs"
+        ],
+        "test:psalm": [
+            "./vendor/bin/psalm.phar"
+        ],
+        "integration:setup": [
+            "docker-compose up -d",
+            "echo Waiting for docker to become alive.",
+            "wget -q -O - --tries=10 localhost:8089/wp-admin",
+            "docker-compose run --rm wordpress-cli wp core install --url=localhost:8089 --title=Test --admin_user=admin --admin_password=password --admin_email=test@test.test",
+            "docker-compose run --rm wordpress-cli wp plugin activate ll-voordemensen"
+        ],
+        "test:ci:psalm": [
+            "docker-compose run --rm -w /var/www/html/wp-content/plugins/ll-voordemensen wordpress php vendor/bin/psalm.phar"
+        ],
+        "integration:teardown": [
+            "docker-compose down"
         ],
         "test:docs": [
             "php-doc-check ./app -x vendor"
@@ -55,6 +72,7 @@
     },
     "require-dev": {
         "niels-de-blaauw/php-doc-check": "^0.2.2",
-        "level-level/coding-standards": "^1.0"
+        "level-level/coding-standards": "^1.0",
+        "psalm/phar": "^4.0"
     }
 }
