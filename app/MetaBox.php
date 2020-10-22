@@ -2,10 +2,11 @@
 
 namespace LevelLevel\VoorDeMensen;
 
+use LevelLevel\VoorDeMensen\API\Client;
 use LevelLevel\VoorDeMensen\Objects\Event;
 use WP_Post;
 
-class Metabox {
+class MetaBox {
 	public function register_hooks() {
 		add_action('add_meta_boxes', array( $this, 'add_meta_box' ));
 	}
@@ -14,11 +15,15 @@ class Metabox {
 		add_meta_box(
 			'll_vdm_id',
 			__( 'VoordeMensen event', 'll-vdm' ),
-			array( 'render_meta_box_html' ),
+			array( $this, 'render_meta_box_html' ),
 		);
 	}
 
 	public function render_meta_box_html( WP_Post $post ) {
 		$event = Event::get_by_post_id( $post->ID );
+		$api_client = new Client();
+		$api_events = $api_client->get_events();
+
+		require_once LL_VDM_PLUGIN_PATH . 'templates/admin/metabox.php';
 	}
 }
