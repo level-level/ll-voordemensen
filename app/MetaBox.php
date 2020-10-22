@@ -21,21 +21,23 @@ class MetaBox {
 		add_meta_box(
 			'll-vdm',
 			__( 'VoordeMensen settings', 'll-vdm' ),
-			array( $this, 'render_meta_box_html' ),
+			array( $this, 'render_meta_box_html' )
 		);
 	}
 
 	public function render_meta_box_html( WP_Post $post ): void {
+		// phpcs:disable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
 		$event_vdm_id = (int) get_post_meta( $post->ID, 'll_vdm_event_id', true );
-		$api_client = new Client();
-		$api_events = $api_client->get_events();
+		$api_client   = new Client();
+		$api_events   = $api_client->get_events();
+		// phpcs:enable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
 
 		require_once LL_VDM_PLUGIN_PATH . 'templates/admin/metabox.php';
 	}
 
 	public function save_metabox_fields( int $post_id, WP_Post $post ): void {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-            return;
+			return;
 		}
 
 		$nonce_value = filter_input( INPUT_POST, 'll_vdm_metabox_nonce' );
