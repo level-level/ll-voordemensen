@@ -20,7 +20,7 @@ class BaseObject {
 	/**
 	 * Define $posts.
 	 *
-	 * @var BaseObject[] $posts
+	 * @var array $posts
 	 */
 	protected static $posts = array();
 
@@ -28,11 +28,20 @@ class BaseObject {
 		$this->post = $post;
 	}
 
+	/**
+	 * Get object by id
+	 *
+	 * @param int $id
+	 * @return static|null
+	 */
 	public static function get( int $id ) {
 		if ( ! isset( static::$posts[ $id ] ) ) {
 			$class = static::class;
 
 			try {
+				/**
+				 * @psalm-suppress UnsafeInstantiation
+				 */
 				static::$posts[ $id ] = new $class( get_post( $id ) );
 			} catch ( Exception $e ) {
 				static::$posts[ $id ] = null;
@@ -42,6 +51,12 @@ class BaseObject {
 		return static::$posts[ $id ];
 	}
 
+	/**
+	 * Get multiple objects
+	 *
+	 * @param array $args
+	 * @return static[]
+	 */
 	public static function get_many( array $args = array() ): array {
 		$args['post_type']     = static::$type;
 		$args['no_found_rows'] = true;
@@ -52,18 +67,33 @@ class BaseObject {
 
 		return array_map(
 			function( $post ) use ( $class ) {
-					return new $class( $post );
+				/**
+				 * @psalm-suppress UnsafeInstantiation
+				 */
+				return new $class( $post );
 			},
 			$query->posts
 		);
 	}
 
+	/**
+	 * Get single object
+	 *
+	 * @param array $args
+	 * @return static|null
+	 */
 	public static function get_one( array $args = array() ) {
 		$args['posts_per_page'] = 1;
 		$one                    = static::get_many( $args );
 		return array_shift( $one );
 	}
 
+	/**
+	 * Get object by vdm ID
+	 *
+	 * @param array $args
+	 * @return static|null
+	 */
 	public static function get_by_vdm_id( int $vdm_id ) {
 		$args = array(
 			'meta_query' => array(
@@ -80,7 +110,7 @@ class BaseObject {
 		return $this->post;
 	}
 
-	public function get_id() {
+	public function get_id(): int {
 		return $this->post->ID;
 	}
 
@@ -88,6 +118,13 @@ class BaseObject {
 		return (int) $this->get_meta( 'vdm_id' );
 	}
 
+	/**
+	 * Get meta value
+	 *
+	 * @param string $key
+	 * @param boolean $single
+	 * @return mixed
+	 */
 	public function get_meta( string $key, bool $single = false ) {
 		return get_post_meta( $this->get_id(), $key, $single );
 	}
