@@ -26,6 +26,10 @@ add_action(
 		if ( file_exists( $autoload_file ) ) {
 			require_once $autoload_file;
 		} else {
+			/**
+			 * Autoload using spl_autoload_register
+			 * @see https://www.php.net/manual/en/language.oop5.autoload.php#120258
+			 */
 			$autoload_dir = LL_VDM_PLUGIN_PATH . 'app' . DIRECTORY_SEPARATOR;
 			spl_autoload_register(
 				function ( string $class ) use ( $autoload_dir ) {
