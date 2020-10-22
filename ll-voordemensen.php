@@ -18,6 +18,7 @@ add_action(
 		$plugin_path = realpath( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR;
 		$plugin_data = get_plugin_data( __FILE__ );
 		define( 'LL_VDM_PLUGIN_VERSION', isset( $plugin_data['Version'] ) ? $plugin_data['Version'] : '' );
+		define( 'LL_VDM_PLUGIN_PATH', $plugin_path );
 
 		$autoload_file = $plugin_path . 'vendor/autoload.php';
 
@@ -26,8 +27,14 @@ add_action(
 		}
 
 		// Register hooks
+		( new LevelLevel\VoorDeMensen\Admin\Settings\Menu() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Admin\Settings\API\Section() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Admin\Settings\API\Settings() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Admin\Settings\Display\Section() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Admin\Settings\Display\Settings() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\PostTypes\Event() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\PostTypes\SubEvent() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Assets() )->register_hooks();
 
 		// Load textdomain
 		load_plugin_textdomain( 'll-vdm', false, basename( dirname( __FILE__ ) ) . '/languages/' );
