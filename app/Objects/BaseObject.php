@@ -18,9 +18,16 @@ class BaseObject {
 	protected $post;
 
 	/**
+	 * Microcache for parsed post content.
+	 *
+	 * @var null|string
+	 */
+	protected $content;
+
+	/**
 	 * Define $posts.
 	 *
-	 * @var BaseObject[] $posts
+	 * @var \LevelLevel\VoorDeMensen\Objects\BaseObject[] $posts
 	 */
 	protected static $posts = array();
 
@@ -80,7 +87,7 @@ class BaseObject {
 		return $this->post;
 	}
 
-	public function get_id() {
+	public function get_id(): int {
 		return $this->post->ID;
 	}
 
@@ -88,6 +95,49 @@ class BaseObject {
 		return (int) $this->get_meta( 'vdm_id' );
 	}
 
+	public function get_title(): string {
+		return get_the_title( $this->get_id() );
+	}
+
+	public function get_content(): string {
+		global $post;
+		if ( ! isset( $this->content ) ) {
+			setup_postdata( $this->post );
+
+			global $post;
+			if ( null === $post ) {
+				$post = $this->post;
+			}
+
+			ob_start();
+			the_content();
+
+			$this->content = ob_get_clean() ?: '';
+			wp_reset_postdata();
+		}
+
+		return $this->content;
+	}
+
+	public function has_thumbnail(): bool {
+		return has_post_thumbnail( $this->get_id() );
+	}
+
+	public function get_thumbnail_id(): int {
+		return get_post_thumbnail_id( $this->get_id() ) ?: 0;
+	}
+
+	public function get_thumbnail( $size = 'thumbnail', $attr = '' ): string {
+		return get_the_post_thumbnail( $this->get_id(), $size, $attr );
+	}
+
+	/**
+	 * Get meta value
+	 *
+	 * @param string $key
+	 * @param boolean $single
+	 * @return mixed
+	 */
 	public function get_meta( string $key, bool $single = false ) {
 		return get_post_meta( $this->get_id(), $key, $single );
 	}
