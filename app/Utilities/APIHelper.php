@@ -32,9 +32,9 @@ class APIHelper {
 			'ID'           => $event_id,
 			'post_status'  => 'publish',
 			'post_type'    => Event::$type,
-			'post_title'   => $api_event->event_name,
-			'post_name'    => sanitize_title( $api_event->event_name ),
-			'post_content' => '<p>' . esc_html( $api_event->event_text ) . '</p>',
+			'post_title'   => $api_event->event_name ?? '',
+			'post_name'    => sanitize_title( $api_event->event_name ?? '' ),
+			'post_content' => isset( $api_event->event_text ) ? '<p>' . esc_html( $api_event->event_text ) . '</p>' : '',
 		);
 		$post_data = apply_filters( 'll_vdm_update_event_post_data', $post_data, $api_event );
 
