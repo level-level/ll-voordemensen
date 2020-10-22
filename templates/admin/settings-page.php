@@ -5,15 +5,13 @@ if ( ! current_user_can( 'manage_options' ) ) {
 	exit;
 }
 
-// check if the user have submitted the settings
-// wordpress will add the "settings-updated" $_GET parameter to the url
-if ( isset( $_GET['settings-updated'] ) ) {
-	// add settings saved message with the class of "updated"
-	add_settings_error( 'vdm_messages', 'vdm_message', __( 'Opgeslagen', 'vdm' ), 'updated' );
+$is_updated = filter_input( INPUT_GET, 'settings-updated', FILTER_VALIDATE_BOOLEAN );
+if ( $is_updated ) {
+	add_settings_error( 'll_vdm_options', 'll-vdm-options-message', __( 'Settings saved', 'll-vdm' ), 'updated' );
 }
 
-// show error/update messages
-	settings_errors( 'vdm_messages' );
+
+settings_errors( 'll_vdm_options' );
 ?>
 
 <div class="wrap">
