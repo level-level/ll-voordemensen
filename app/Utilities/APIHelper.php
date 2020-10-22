@@ -2,6 +2,8 @@
 
 namespace LevelLevel\VoorDeMensen\Utilities;
 
+use DateTime;
+use DateTimeZone;
 use LevelLevel\VoorDeMensen\Objects\Event;
 use LevelLevel\VoorDeMensen\Objects\SubEvent;
 use LevelLevel\VoorDeMensen\Utilities\Image as ImageUtil;
@@ -104,9 +106,34 @@ class APIHelper {
 
 		update_post_meta( $post_id, 'short_text', $api_sub_event->event_short_text ?? null );
 		update_post_meta( $post_id, 'url', $api_sub_event->event_url ?? null );
-		update_post_meta( $post_id, 'date', $api_sub_event->event_url ?? null );
-		update_post_meta( $post_id, 'start_time', $api_sub_event->event_time ?? null );
-		update_post_meta( $post_id, 'end_time', $api_sub_event->event_end ?? null );
+
+		$start_timestamp = null;
+		$end_timestamp = null;
+		$timezone = new DateTimeZone( 'Europe/Amsterdam' ); // Plugin uses Europe/Amsterdam timestamps
+		if ( isset( $api_sub_event->event_date ) ) {
+			if ( isset( $api_sub_event->event_time ) ) {
+				$start_date = DateTime::createFromFormat( 'Y-m-d H:i:s', $api_sub_event->event_date . ' ' . $api_sub_event->event_time, $timezone );
+
+				if ( $start_date instanceof DateTime ) {
+					$start_timestamp = $start_date->getTimestamp();
+				}
+			}
+
+			if ( isset( $api_sub_event->event_end ) ) {
+				$end_date = DateTime::createFromFormat( 'Y-m-d H:i:s', $api_sub_event->event_date . ' ' . $api_sub_event->event_end, $timezone );
+
+				if ( $end_date instanceof DateTime ) {
+					$end_timestamp = $end_date->getTimestamp();
+					if ( $end_timestamp < $start_timestamp ) {
+						$end_date->modify('+1 day');
+						$end_timestamp = $end_date->getTimestamp();
+					}
+				}
+			}
+		}
+
+		update_post_meta( $post_id, 'start_date', $start_timestamp );
+		update_post_meta( $post_id, 'end_date', $start_timestamp );
 		update_post_meta( $post_id, 'rep', $api_sub_event->event_rep ?? null );
 		update_post_meta( $post_id, 'max_tickets_per_order', $api_sub_event->event_free ?? null );
 		update_post_meta( $post_id, 'location_name', $api_sub_event->location_name ?? null );
