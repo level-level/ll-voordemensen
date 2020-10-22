@@ -27,11 +27,11 @@ class Client {
 		}
 
 		// Filter out object errors
-		return array_filter( $response['data'], function( $api_event ) {
-			return isset( $api_event->event_id );
-		} );
-
-		return $response['data'];
+		return array_filter(
+			$response['data'], function( $api_event ) {
+				return isset( $api_event->event_id );
+			}
+		);
 	}
 
 	/**
