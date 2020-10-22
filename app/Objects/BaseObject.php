@@ -131,7 +131,7 @@ class BaseObject {
 	}
 
 	public function get_connected_posts( array $args = array() ): array {
-		$vdm_id       = $this->get_vdm_id();
+		$vdm_id     = $this->get_vdm_id();
 		$post_types = ( new PostTypesSetting() )->get_value();
 
 		if ( empty( $post_types ) ) {
