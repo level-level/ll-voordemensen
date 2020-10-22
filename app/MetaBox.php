@@ -35,6 +35,9 @@ class MetaBox {
 		require_once LL_VDM_PLUGIN_PATH . 'templates/admin/metabox.php';
 	}
 
+	/**
+	 * Save metabox input fields
+	 */
 	public function save_metabox_fields( int $post_id, WP_Post $post ): void {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
