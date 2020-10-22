@@ -8,7 +8,7 @@ class Menu {
 		add_action( 'admin_menu', array( $this, 'add_menu_page' ) );
 	}
 
-	public function add_menu_page() {
+	public function add_menu_page(): void {
 		add_menu_page(
 			__( 'VoordeMensen settings', 'll-vdm' ),
 			__( 'VoordeMensen', 'll-vdm' ),
@@ -19,7 +19,7 @@ class Menu {
 		);
 	}
 
-	public function render_settings_page() {
+	public function render_settings_page(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}

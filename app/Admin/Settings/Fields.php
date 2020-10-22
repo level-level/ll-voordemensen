@@ -9,12 +9,12 @@ class Fields {
 		add_action( 'admin_init', array( $this, 'register_fields' ) );
 	}
 
-	public function register_settings() {
+	public function register_settings(): void {
 		register_setting( 'll_vdm_options', 'll_vdm_api_client_name' );
 		register_setting( 'll_vdm_options', 'll_vdm_display_ticket_sales_screen_type' );
 	}
 
-	public function register_fields() {
+	public function register_fields(): void {
 		// API settings
 		add_settings_field(
 			'll_vdm_api_client_name',
@@ -34,7 +34,7 @@ class Fields {
 		);
 	}
 
-	public function render_api_client_name_field() {
+	public function render_api_client_name_field(): void {
 		$setting = get_option( 'll_vdm_api_client_name', '' );
 		?>
 
@@ -43,7 +43,7 @@ class Fields {
 		<?php
 	}
 
-	public function render_display_ticket_sales_screen_type_field() {
+	public function render_display_ticket_sales_screen_type_field(): void {
 		$options = array(
 			'popup' => __( 'Popup', 'll-vdm' ),
 			'side'  => __( 'Side', 'll-vdm' ),

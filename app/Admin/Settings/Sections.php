@@ -8,7 +8,7 @@ class Sections {
 		add_action( 'admin_init', array( $this, 'register_sections' ) );
 	}
 
-	public function register_sections() {
+	public function register_sections(): void {
 		add_settings_section( 'll_vdm_options_api', __( 'API Settings', 'll-vdm' ), array( $this, 'render_description' ), 'll_vdm_options' );
 		add_settings_section( 'll_vdm_options_display', __( 'Display Settings', 'll-vdm' ), array( $this, 'render_description' ), 'll_vdm_options' );
 	}
@@ -16,7 +16,7 @@ class Sections {
 	/**
 	 * Render a settings section description based on the section ID
 	 */
-	public function render_description( array $args ) {
+	public function render_description( array $args ): void {
 		$text = '';
 		$id   = $args['id'] ?? null;
 		switch ( $id ) {
