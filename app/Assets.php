@@ -2,6 +2,9 @@
 
 namespace LevelLevel\VoorDeMensen;
 
+use LevelLevel\VoorDeMensen\Admin\Settings\API\Fields\ClientName as ClientNameSetting;
+use LevelLevel\VoorDeMensen\Admin\Settings\Display\Fields\TicketSalesScreenType as TicketSalesScreenTypeSetting;
+
 class Assets {
 
 	public function register_hooks(): void {
@@ -9,12 +12,12 @@ class Assets {
 	}
 
 	public function enqueue_scripts(): void {
-		$client_name = get_option( 'll_vdm_api_client_name', null );
+		$client_name = ( new ClientNameSetting() )->get_value();
 		if ( empty( $client_name ) ) {
 			return;
 		}
 
-		$display_type = get_option( 'll_vdm_display_ticket_sales_screen_type', 'popup' );
+		$display_type = ( new TicketSalesScreenTypeSetting() )->get_value();
 		$src          = 'https://tickets.voordemensen.nl/' . rawurlencode( $client_name ) . '/iframes/vdm_loader.js';
 		if ( $display_type === 'side' ) {
 			$src = 'https://tickets.voordemensen.nl/' . rawurlencode( $client_name ) . '/iframes/vdm_sideloader.js';
