@@ -14,12 +14,24 @@ if ( $event instanceof LevelLevel\VoorDeMensen\Objects\Event ) {
 
 ?>
 
-<label for="vdm_event_id"><?php esc_html_e( 'VoordeMensen event', 'll-vdm' ) ?></label>
-<select name="vdm_event_id" id="vdm_event_id" >
-	<?php foreach ($api_events as $api_event) { ?>
-		<option value=""><?php echo esc_html_e( 'Select a VoordeMensen event', 'll-vdm' ); ?></option>
-		<option value="<?php echo esc_attr( $api_event->event_id ) ?>" <?php selected( (int) $api_event->event_id, $event_vdm_id, true ); ?>>
-			<?php echo esc_html( $api_event->event_id . ' | ' . $api_event->event_name ); ?>
-		</option>
-	<?php } ?>
-</select>
+<table class="form-table">
+	<tbody>
+		<tr>
+			<th>
+				<label for="vdm_event_id"><?php esc_html_e( 'Event', 'll-vdm' ) ?></label>
+			</th>
+			<td>
+				<select name="vdm_event_id" id="vdm_event_id" >
+					<option value=""><?php echo esc_html_e( 'Select a VoordeMensen event', 'll-vdm' ); ?></option>
+					<?php foreach ($api_events as $api_event) { ?>
+						<option value="<?php echo esc_attr( $api_event->event_id ) ?>" <?php selected( (int) $api_event->event_id, $event_vdm_id, true ); ?>>
+							<?php echo esc_html( $api_event->event_id . ' | ' . $api_event->event_name ); ?>
+						</option>
+					<?php } ?>
+				</select>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+

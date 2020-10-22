@@ -19,7 +19,7 @@ class MetaBox {
 
 		add_meta_box(
 			'll_vdm_id',
-			__( 'VoordeMensen event', 'll-vdm' ),
+			__( 'VoordeMensen settings', 'll-vdm' ),
 			array( $this, 'render_meta_box_html' ),
 		);
 	}
