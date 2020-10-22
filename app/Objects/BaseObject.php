@@ -99,6 +99,9 @@ class BaseObject {
 		return get_the_title( $this->get_id() );
 	}
 
+	/**
+	 * Get post content
+	 */
 	public function get_content(): string {
 		global $post;
 		if ( ! isset( $this->content ) ) {
@@ -106,7 +109,7 @@ class BaseObject {
 
 			global $post;
 			if ( null === $post ) {
-				$post = $this->post;
+				$post = $this->post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
 			}
 
 			ob_start();
@@ -129,6 +132,10 @@ class BaseObject {
 
 	public function get_thumbnail( $size = 'thumbnail', $attr = '' ): string {
 		return get_the_post_thumbnail( $this->get_id(), $size, $attr );
+	}
+
+	public function get_short_text(): string {
+		return (string) $this->get_meta( 'short_text' );
 	}
 
 	/**

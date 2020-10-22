@@ -38,7 +38,7 @@ class APIHelper {
 		);
 		$post_data = apply_filters( 'll_vdm_update_event_post_data', $post_data, $api_event );
 
-		$event_id   = wp_insert_post( $post_data );
+		$event_id = wp_insert_post( $post_data );
 		if ( ! $event_id || $event_id instanceof WP_Error ) {
 			return 0;
 		}
@@ -96,7 +96,7 @@ class APIHelper {
 		);
 		$post_data = apply_filters( 'll_vdm_update_sub_event_post_data', $post_data, $api_sub_event, $event_id );
 
-		$event_id   = wp_insert_post( $post_data );
+		$event_id = wp_insert_post( $post_data );
 		if ( ! $event_id || $event_id instanceof WP_Error ) {
 			return 0;
 		}
@@ -110,15 +110,16 @@ class APIHelper {
 		// Update meta
 		update_post_meta( $event_id, 'vdm_id', $api_sub_event->event_id );
 		update_post_meta( $event_id, 'event_id', $event_id );
-		update_post_meta( $event_id, 'vdm_event_id', $api_sub_event->event_main_id );
+		update_post_meta( $event_id, 'vdm_event_id', $api_sub_event->event_main_id ?? null );
 		update_post_meta( $event_id, 'vdm_location_id', $api_sub_event->location_id ?? null );
+		update_post_meta( $event_id, 'vdm_status', $api_sub_event->event_status ?? null );
 
 		update_post_meta( $event_id, 'short_text', $api_sub_event->event_short_text ?? null );
 		update_post_meta( $event_id, 'url', $api_sub_event->event_url ?? null );
 
 		$start_timestamp = null;
-		$end_timestamp = null;
-		$timezone = new DateTimeZone( 'Europe/Amsterdam' ); // Plugin uses Europe/Amsterdam timestamps
+		$end_timestamp   = null;
+		$timezone        = new DateTimeZone( 'Europe/Amsterdam' ); // Plugin uses Europe/Amsterdam timestamps
 		if ( isset( $api_sub_event->event_date ) ) {
 			if ( isset( $api_sub_event->event_time ) ) {
 				$start_date = DateTime::createFromFormat( 'Y-m-d H:i:s', $api_sub_event->event_date . ' ' . $api_sub_event->event_time, $timezone );
@@ -134,7 +135,7 @@ class APIHelper {
 				if ( $end_date instanceof DateTime ) {
 					$end_timestamp = $end_date->getTimestamp();
 					if ( $end_timestamp < $start_timestamp ) {
-						$end_date->modify('+1 day');
+						$end_date->modify( '+1 day' );
 						$end_timestamp = $end_date->getTimestamp();
 					}
 				}
@@ -142,7 +143,7 @@ class APIHelper {
 		}
 
 		update_post_meta( $event_id, 'start_date', $start_timestamp );
-		update_post_meta( $event_id, 'end_date', $start_timestamp );
+		update_post_meta( $event_id, 'end_date', $end_timestamp );
 		update_post_meta( $event_id, 'rep', $api_sub_event->event_rep ?? null );
 		update_post_meta( $event_id, 'max_tickets_per_order', $api_sub_event->event_free ?? null );
 		update_post_meta( $event_id, 'location_name', $api_sub_event->location_name ?? null );
