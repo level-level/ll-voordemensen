@@ -32,6 +32,9 @@ add_action(
 		( new LevelLevel\VoorDeMensen\Admin\Settings\API\Settings() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\Display\Section() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\Display\Settings() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\PostTypes\Event() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\PostTypes\SubEvent() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Assets() )->register_hooks();
 
 		// Load textdomain
 		load_plugin_textdomain( 'll-vdm', false, basename( dirname( __FILE__ ) ) . '/languages/' );
