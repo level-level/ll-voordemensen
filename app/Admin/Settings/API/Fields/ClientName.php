@@ -33,7 +33,7 @@ class ClientName extends BaseField {
 	}
 
 	public function render_field(): void {
-		$setting = get_option( 'll_vdm_api_client_name', '' );
+		$setting = $this->get_value();
 		?>
 
 		<input type="text" name="ll_vdm_api_client_name" class="regular-text" value="<?php echo isset( $setting ) ? esc_attr( $setting ) : ''; ?>">

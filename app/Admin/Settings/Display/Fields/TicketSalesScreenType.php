@@ -37,7 +37,7 @@ class TicketSalesScreenType extends BaseField {
 	public function render_field(): void {
 		$options = $this->get_options();
 
-		$setting = get_option( 'll_vdm_display_ticket_sales_screen_type', 'popup' );
+		$setting = $this->get_value();
 		?>
 
 		<select id="ll_vdm_display_ticket_sales_screen_type" name="ll_vdm_display_ticket_sales_screen_type">
