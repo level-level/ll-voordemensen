@@ -11,7 +11,11 @@ class Section {
 	}
 
 	public function register_section(): void {
-		add_settings_section( self::NAME, __( 'Display Settings', 'll-vdm' ), array( $this, 'render_description' ), 'll_vdm_options' );
+		add_settings_section( self::NAME, $this->get_label(), array( $this, 'render_description' ), 'll_vdm_options' );
+	}
+
+	public function get_label(): string {
+		return __( 'Display settings', 'll-vdm' );
 	}
 
 	/**

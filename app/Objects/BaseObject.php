@@ -3,6 +3,7 @@
 namespace LevelLevel\VoorDeMensen\Objects;
 
 use Exception;
+use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\PostTypes as PostTypesSetting;
 use WP_Post;
 
 class BaseObject {
@@ -131,7 +132,14 @@ class BaseObject {
 
 	public function get_connected_posts( array $args = array() ): array {
 		$vdm_id       = $this->get_vdm_id();
+		$post_types = ( new PostTypesSetting() )->get_value();
+
+		if ( empty( $post_types ) ) {
+			return array();
+		}
+
 		$default_args = array(
+			'post_type'      => $post_types,
 			'posts_per_page' => -1,
 			'meta_query'     => array(
 				array(

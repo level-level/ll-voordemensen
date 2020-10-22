@@ -1,6 +1,6 @@
 <?php
 
-namespace LevelLevel\VoorDeMensen\Admin\Settings\API\Fields;
+namespace LevelLevel\VoorDeMensen\Admin\Settings\General\Fields;
 
 class ClientName extends BaseField {
 
@@ -12,6 +12,10 @@ class ClientName extends BaseField {
 
 	public function get_label(): string {
 		return __( 'Client name', 'll-vdm' );
+	}
+
+	public function get_description(): string {
+		return __( 'The client name is required for the plugin to work.', 'll-vdm' );
 	}
 
 	public function get_value(): ?string {
@@ -36,7 +40,9 @@ class ClientName extends BaseField {
 		$setting = $this->get_value();
 		?>
 
-		<input type="text" name="ll_vdm_api_client_name" class="regular-text" value="<?php echo isset( $setting ) ? esc_attr( $setting ) : ''; ?>">
+		<p><label for="<?php echo esc_attr( $this->get_name() ); ?>"><?php echo esc_html( $this->get_description() ); ?></label></p>
+
+		<input type="text" id="<?php echo esc_attr( $this->get_name() ); ?>" name="<?php echo esc_attr( $this->get_name() ); ?>" class="regular-text" value="<?php echo isset( $setting ) ? esc_attr( $setting ) : ''; ?>">
 
 		<?php
 	}
