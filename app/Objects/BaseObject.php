@@ -103,7 +103,8 @@ class BaseObject {
 	 */
 	public static function get_by_vdm_id( int $vdm_id ) {
 		$args = array(
-			'meta_query' => array(
+			'post_status' => 'any',
+			'meta_query'  => array(
 				array(
 					'key'   => 'vdm_id',
 					'value' => $vdm_id,
