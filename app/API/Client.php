@@ -2,6 +2,7 @@
 
 namespace LevelLevel\VoorDeMensen\API;
 
+use LevelLevel\VoorDeMensen\Admin\Settings\API\Fields\ClientName as ClientNameSetting;
 use WP_Error;
 
 /**
@@ -91,7 +92,7 @@ class Client {
 	 * Get url for the events endpoint
 	 */
 	protected function get_events_url( int $vdm_id = null ): ?string {
-		$client_name = get_option( 'll_vdm_api_client_name', null );
+		$client_name = ( new ClientNameSetting() )->get_value();
 		if ( empty( $client_name ) ) {
 			return null;
 		}
