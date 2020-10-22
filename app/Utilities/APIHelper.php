@@ -18,7 +18,7 @@ class APIHelper {
 	 * @return integer
 	 */
 	public function create_or_update_event_object( $api_event ): int {
-		$vdm_id   = (int) $api_event->event_id ?? 0;
+		$vdm_id   = (int) $api_event->event_id;
 		$event    = Event::get_by_vdm_id( $vdm_id );
 		$event_id = 0;
 		if ( $event instanceof Event ) {
@@ -58,23 +58,27 @@ class APIHelper {
 
 		if ( isset( $api_event->sub_events ) && is_array( $api_event->sub_events ) ) {
 			foreach ( $api_event->sub_events as $api_sub_event ) {
+				if ( ! isset( $api_sub_event->event_id ) ) {
+					continue;
+				}
 				$this->create_or_update_sub_event_object( $event_id, $api_sub_event );
 			}
 		}
+		return $event_id;
 	}
 
 	/**
 	 * Create or update sub event object from api sub event data
 	 *
 	 * @param int $event_id
-	 * @param object $api_event
+	 * @param object $api_sub_event
 	 * @return integer
 	 */
 	public function create_or_update_sub_event_object( int $event_id, $api_sub_event ): int {
-		$vdm_id       = (int) $api_sub_event->event_id ?? 0;
+		$vdm_id       = (int) $api_sub_event->event_id;
 		$sub_event    = SubEvent::get_by_vdm_id( $vdm_id );
 		$sub_event_id = 0;
-		if ( $sub_event instanceof Event ) {
+		if ( $sub_event instanceof SubEvent ) {
 			$sub_event_id = $sub_event->get_id();
 		}
 
@@ -96,26 +100,26 @@ class APIHelper {
 		);
 		$post_data = apply_filters( 'll_vdm_update_sub_event_post_data', $post_data, $api_sub_event, $event_id );
 
-		$event_id = wp_insert_post( $post_data );
-		if ( ! $event_id || $event_id instanceof WP_Error ) {
+		$sub_event_id = wp_insert_post( $post_data );
+		if ( ! $sub_event_id || $sub_event_id instanceof WP_Error ) {
 			return 0;
 		}
 
 		// Set thumbnail
 		if ( ! empty( $api_sub_event->event_image ) ) {
 			$image_util = new ImageUtil();
-			$image_util->set_post_thumbnail( $event_id, $api_sub_event->event_image );
+			$image_util->set_post_thumbnail( $sub_event_id, $api_sub_event->event_image );
 		}
 
 		// Update meta
-		update_post_meta( $event_id, 'vdm_id', $api_sub_event->event_id );
-		update_post_meta( $event_id, 'event_id', $event_id );
-		update_post_meta( $event_id, 'vdm_event_id', $api_sub_event->event_main_id ?? null );
-		update_post_meta( $event_id, 'vdm_location_id', $api_sub_event->location_id ?? null );
-		update_post_meta( $event_id, 'vdm_status', $api_sub_event->event_status ?? null );
+		update_post_meta( $sub_event_id, 'vdm_id', $api_sub_event->event_id );
+		update_post_meta( $sub_event_id, 'event_id', $event_id );
+		update_post_meta( $sub_event_id, 'vdm_event_id', $api_sub_event->event_main_id ?? null );
+		update_post_meta( $sub_event_id, 'vdm_location_id', $api_sub_event->location_id ?? null );
+		update_post_meta( $sub_event_id, 'vdm_status', $api_sub_event->event_status ?? null );
 
-		update_post_meta( $event_id, 'short_text', $api_sub_event->event_short_text ?? null );
-		update_post_meta( $event_id, 'url', $api_sub_event->event_url ?? null );
+		update_post_meta( $sub_event_id, 'short_text', $api_sub_event->event_short_text ?? null );
+		update_post_meta( $sub_event_id, 'url', $api_sub_event->event_url ?? null );
 
 		$start_timestamp = null;
 		$end_timestamp   = null;
@@ -142,12 +146,13 @@ class APIHelper {
 			}
 		}
 
-		update_post_meta( $event_id, 'start_date', $start_timestamp );
-		update_post_meta( $event_id, 'end_date', $end_timestamp );
-		update_post_meta( $event_id, 'rep', $api_sub_event->event_rep ?? null );
-		update_post_meta( $event_id, 'max_tickets_per_order', $api_sub_event->event_free ?? null );
-		update_post_meta( $event_id, 'location_name', $api_sub_event->location_name ?? null );
+		update_post_meta( $sub_event_id, 'start_date', $start_timestamp );
+		update_post_meta( $sub_event_id, 'end_date', $end_timestamp );
+		update_post_meta( $sub_event_id, 'rep', $api_sub_event->event_rep ?? null );
+		update_post_meta( $sub_event_id, 'max_tickets_per_order', $api_sub_event->event_free ?? null );
+		update_post_meta( $sub_event_id, 'location_name', $api_sub_event->location_name ?? null );
 
-		do_action( 'll_vdm_after_insert_sub_event', $event_id, $api_sub_event );
+		do_action( 'll_vdm_after_insert_sub_event', $sub_event_id, $api_sub_event );
+		return $sub_event_id;
 	}
 }

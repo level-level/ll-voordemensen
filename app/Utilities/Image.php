@@ -53,7 +53,7 @@ class Image {
 			if ( ! $attachment_id || is_wp_error( $attachment_id ) ) {
 				return 0;
 			}
-			update_post_meta( $attachment_id, 'external_source', $image_url );
+			update_post_meta( (int) $attachment_id, 'external_source', $image_url );
 		} catch ( Exception $e ) {
 			remove_filter( 'http_request_timeout', array( $this, 'set_download_timeout' ) );
 			return 0;
@@ -122,44 +122,6 @@ class Image {
 			$image_url = 'http:' . $image_url;
 		}
 		return $image_url;
-	}
-
-	/**
-	 * Get image objects from attachment objects/ids
-	 *
-	 * @param int[]|\WP_Post[] $attachments
-	 *
-	 * @return array[] Image objects
-	 */
-	public function get_image_objects( array $attachments ): array {
-		$attachments = array();
-		foreach ( $attachments as $attachment ) {
-			$image_object = $this->get_image_object( $attachment );
-			if ( $image_object ) {
-				$attachments[] = $image_object;
-			}
-		}
-		return $attachments;
-	}
-
-	/**
-	 * Build an image object for display
-	 *
-	 * @param int|\WP_Post $attachment Attachment object or id
-	 *
-	 * @return array
-	 */
-	public function get_image_object( $attachment = null ): ?array {
-		if ( ! $attachment ) {
-			return null;
-		}
-
-		$attachment_data = acf_get_attachment( $attachment );
-		if ( false === $attachment_data ) {
-			return null;
-		}
-
-		return $attachment_data;
 	}
 
 	/**

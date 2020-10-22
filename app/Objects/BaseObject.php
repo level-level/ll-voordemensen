@@ -137,7 +137,6 @@ class BaseObject {
 		if ( ! isset( $this->content ) ) {
 			setup_postdata( $this->post );
 
-			global $post;
 			if ( null === $post ) {
 				$post = $this->post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
 			}
@@ -160,6 +159,13 @@ class BaseObject {
 		return get_post_thumbnail_id( $this->get_id() ) ?: 0;
 	}
 
+	/**
+	 * Get thumbnail
+	 *
+	 * @param string|array $size
+	 * @param string|array $attr
+	 * @return string
+	 */
 	public function get_thumbnail( $size = 'thumbnail', $attr = '' ): string {
 		return get_the_post_thumbnail( $this->get_id(), $size, $attr );
 	}
