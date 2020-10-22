@@ -14,6 +14,8 @@ class Client {
 
 	/**
 	 * Get array of API event response objects
+	 *
+	 * @return object[]
 	 */
 	public function get_events(): array {
 		$url = $this->get_events_url();
@@ -36,6 +38,9 @@ class Client {
 
 	/**
 	 * Get API event response object
+	 *
+	 * @param int $vdm_id
+	 * @return object|null
 	 */
 	public function get_event( int $vdm_id ) {
 		$url = $this->get_events_url( $vdm_id );
@@ -59,7 +64,7 @@ class Client {
 	/**
 	 * Perform an API request
 	 */
-	public function request( string $url, string $method = 'GET', array $request_args = array() ) {
+	public function request( string $url, string $method = 'GET', array $request_args = array() ): array {
 		$default_args     = array(
 			'method'  => $method,
 			'timeout' => 5,
