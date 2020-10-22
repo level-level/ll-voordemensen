@@ -1,9 +1,8 @@
 <?php
 
-namespace LevelLevel\VoorDeMensen;
+namespace LevelLevel\VoorDeMensen\Admin;
 
 use LevelLevel\VoorDeMensen\API\Client;
-use LevelLevel\VoorDeMensen\Objects\Event;
 use WP_Post;
 
 class MetaBox {
