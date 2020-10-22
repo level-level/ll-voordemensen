@@ -37,6 +37,18 @@ jobs:
         run: |
           cd wp-content/plugins/ll-voordemensen
           composer run test:phpcs
+      - name: integration:setup
+        run: |
+          cd wp-content/plugins/ll-voordemensen
+          composer run integration:setup
+      - name: test:ci:psalm
+        run: |
+          cd wp-content/plugins/ll-voordemensen
+          composer run test:ci:psalm
+      - name: integration:teardown
+        run: |
+          cd wp-content/plugins/ll-voordemensen
+          composer run integration:teardown
       - name: test:docs
         run: |
           cd wp-content/plugins/ll-voordemensen
