@@ -55,7 +55,6 @@
             "docker-compose run --rm wordpress-cli wp plugin activate ll-voordemensen"
         ],
         "test:ci:psalm": [
-            "docker-compose run --rm -w /var/www/html/wp-content/ wordpress ls -ali",
             "docker-compose run --rm -w /var/www/html/wp-content/plugins/ll-voordemensen wordpress php vendor/bin/psalm.phar"
         ],
         "integration:teardown": [
