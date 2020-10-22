@@ -81,7 +81,7 @@ class APIHelper {
 		$post_data = array(
 			'ID'           => $sub_event_id,
 			'post_status'  => $status,
-			'post_type'    => Event::$type,
+			'post_type'    => SubEvent::$type,
 			'post_title'   => $api_sub_event->event_name,
 			'post_name'    => sanitize_title( $api_sub_event->event_name ),
 			'post_content' => '<p>' . esc_html( $api_sub_event->event_text ) . '</p>',
