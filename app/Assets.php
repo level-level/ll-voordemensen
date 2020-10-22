@@ -8,7 +8,7 @@ class Assets {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
-	public function enqueue_scripts() {
+	public function enqueue_scripts(): void {
 		$client_name = get_option( 'll_vdm_api_client_name', null );
 		if ( empty( $client_name ) ) {
 			return;
