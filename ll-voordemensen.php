@@ -28,8 +28,10 @@ add_action(
 
 		// Register hooks
 		( new LevelLevel\VoorDeMensen\Admin\Settings\Menu() )->register_hooks();
-		( new LevelLevel\VoorDeMensen\Admin\Settings\Sections() )->register_hooks();
-		( new LevelLevel\VoorDeMensen\Admin\Settings\Fields() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Admin\Settings\API\Section() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Admin\Settings\API\Settings() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Admin\Settings\Display\Section() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Admin\Settings\Display\Settings() )->register_hooks();
 
 		// Load textdomain
 		load_plugin_textdomain( 'll-vdm', false, basename( dirname( __FILE__ ) ) . '/languages/' );
