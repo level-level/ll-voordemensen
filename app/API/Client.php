@@ -4,6 +4,11 @@ namespace LevelLevel\VoorDeMensen\API;
 
 use WP_Error;
 
+/**
+ * API client for VoordeMensen
+ *
+ * To test the integration, use 'demo' as client name
+ */
 class Client {
 	protected const BASE_API_URL = 'https://api.voordemensen.nl/v1/';
 
