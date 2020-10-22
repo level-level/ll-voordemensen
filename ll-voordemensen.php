@@ -26,6 +26,8 @@ add_action(
 		}
 
 		// Register hooks
+		( new LevelLevel\VoorDeMensen\PostTypes\Event() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\PostTypes\SubEvent() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Assets() )->register_hooks();
 
 		// Load textdomain
