@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8a6f7f7196c6ec4958da2b77c242f95",
+    "content-hash": "7a8d2ab32efa34206234767190e1791c",
     "packages": [
         {
             "name": "composer/installers",
@@ -503,6 +503,37 @@
             "time": "2019-06-07T19:13:52+00:00"
         },
         {
+            "name": "psalm/phar",
+            "version": "4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/psalm/phar.git",
+                "reference": "5553af24461a60b65378a07f74d19ac4d806a562"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/psalm/phar/zipball/5553af24461a60b65378a07f74d19ac4d806a562",
+                "reference": "5553af24461a60b65378a07f74d19ac4d806a562",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1"
+            },
+            "conflict": {
+                "vimeo/psalm": "*"
+            },
+            "bin": [
+                "psalm.phar"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Composer-based Psalm Phar",
+            "time": "2020-10-20T14:29:25+00:00"
+        },
+        {
             "name": "sirbrillig/phpcs-variable-analysis",
             "version": "v2.9.0",
             "source": {
@@ -790,7 +821,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6.4"
+        "php": "^7.1"
     },
     "platform-dev": [],
     "plugin-api-version": "1.1.0"
