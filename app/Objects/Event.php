@@ -6,7 +6,7 @@ class Event extends BaseObject {
 	public static $type = 'll_vdm_event';
 
 	public static function get_by_post_id( int $post_id ) {
-		$vdm_id = (int) get_post_meta( $post_id, 'll_vdm_id', true );
+		$vdm_id = (int) get_post_meta( $post_id, 'll_vdm_event_id', true );
 		if ( ! $vdm_id ) {
 			return null;
 		}

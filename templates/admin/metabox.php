@@ -3,14 +3,9 @@
 /**
  * Template for the admin metabox dropdown field
  *
- * @var \LevelLevel\VoorDeMensen\Objects\Event|null $event
+ * @var int $event_vdm_id
  * @var array $api_events
  */
-
-$event_vdm_id = 0;
-if ( $event instanceof LevelLevel\VoorDeMensen\Objects\Event ) {
-	$event_vdm_id = $event->get_vdm_id();
-}
 
 ?>
 
@@ -18,10 +13,10 @@ if ( $event instanceof LevelLevel\VoorDeMensen\Objects\Event ) {
 	<tbody>
 		<tr>
 			<th>
-				<label for="vdm_event_id"><?php esc_html_e( 'Event', 'll-vdm' ) ?></label>
+				<label for="ll-vdm-event-id"><?php esc_html_e( 'Event', 'll-vdm' ) ?></label>
 			</th>
 			<td>
-				<select name="vdm_event_id" id="vdm_event_id" >
+				<select name="ll_vdm_event_id" id="ll-vdm-event-id" >
 					<option value=""><?php echo esc_html_e( 'Select a VoordeMensen event', 'll-vdm' ); ?></option>
 					<?php foreach ($api_events as $api_event) { ?>
 						<option value="<?php echo esc_attr( $api_event->event_id ) ?>" <?php selected( (int) $api_event->event_id, $event_vdm_id, true ); ?>>
@@ -33,5 +28,5 @@ if ( $event instanceof LevelLevel\VoorDeMensen\Objects\Event ) {
 		</tr>
 	</tbody>
 </table>
-
+<?php  wp_nonce_field( 'll_vdm_metabox', 'll_vdm_metabox_nonce' ); ?>
 

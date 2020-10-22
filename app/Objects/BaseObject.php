@@ -155,7 +155,7 @@ class BaseObject {
 			'posts_per_page' => -1,
 			'meta_query'     => array(
 				array(
-					'key'   => 'll_vdm_id',
+					'key'   => 'll_vdm_event_id',
 					'value' => $vdm_id,
 				),
 			),
