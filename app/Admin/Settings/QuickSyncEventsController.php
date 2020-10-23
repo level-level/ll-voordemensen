@@ -11,7 +11,7 @@ class QuickSyncEventsController {
 	}
 
 	public function quick_sync_events(): void {
-		$nonce_valid = check_admin_referer( 'll_vdm_quick_sync_events', 'll_vdm' );
+		$nonce_valid = check_admin_referer( 'll_vdm_quick_sync_events', 'll_vdm_nonce' );
 		if ( ! $nonce_valid ) {
 			return;
 		}

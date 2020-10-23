@@ -52,7 +52,7 @@ settings_errors( Menu::NAME );
 		</p>
 
 		<?php
-			wp_nonce_field( 'll_vdm_quick_sync_events', 'll_vdm' );
+			wp_nonce_field( 'll_vdm_quick_sync_events', 'll_vdm_nonce' );
 		?>
 		<input type="hidden" name="action" value="ll_vdm_quick_sync_events">
 	</form>
