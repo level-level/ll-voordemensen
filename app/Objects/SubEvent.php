@@ -3,12 +3,17 @@
 namespace LevelLevel\VoorDeMensen\Objects;
 
 use DateTime;
+use DateTimeZone;
 
 class SubEvent extends BaseObject {
 	public static $type = 'll_vdm_sub_event';
 
 	public function get_event_id(): int {
 		return (int) $this->get_meta( 'event_id' );
+	}
+
+	public function get_event(): ?Event {
+		return Event::get( $this->get_event_id() );
 	}
 
 	public function get_vdm_event_id(): int {
@@ -40,8 +45,16 @@ class SubEvent extends BaseObject {
 		if ( ! $timestamp ) {
 			return null;
 		}
-		$date = ( new DateTime() )->setTimestamp( $timestamp );
-		return $date;
+		$date = DateTime::createFromFormat( 'U', $timestamp );
+		if ( $date instanceof DateTime ) {
+			$timezone    = (string) get_option('timezone_string') ?: null;
+			if ( ! empty( $timezone ) ) {
+				$datetimezone = new DateTimeZone( $timezone );
+				$date->setTimezone( $datetimezone );
+			}
+			return $date;
+		}
+		return null;
 	}
 
 	public function get_end_date(): ?DateTime {
@@ -49,8 +62,16 @@ class SubEvent extends BaseObject {
 		if ( ! $timestamp ) {
 			return null;
 		}
-		$date = ( new DateTime() )->setTimestamp( $timestamp );
-		return $date;
+		$date = DateTime::createFromFormat( 'U', $timestamp );
+		if ( $date instanceof DateTime ) {
+			$timezone    = (string) get_option('timezone_string') ?: null;
+			if ( ! empty( $timezone ) ) {
+				$datetimezone = new DateTimeZone( $timezone );
+				$date->setTimezone( $datetimezone );
+			}
+			return $date;
+		}
+		return null;
 	}
 
 	public function get_rep(): ?string {

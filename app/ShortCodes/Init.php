@@ -7,6 +7,8 @@ class Init {
 		EventBuyButton::class,
 		EventName::class,
 		EventContent::class,
+		EventExtraText::class,
+		EventDates::class,
 	);
 
 	public function register_hooks(): void {
