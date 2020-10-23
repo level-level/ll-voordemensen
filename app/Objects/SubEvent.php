@@ -8,19 +8,19 @@ class SubEvent extends BaseObject {
 	public static $type = 'll_vdm_sub_event';
 
 	public function get_event_id(): int {
-		return (int) $this->get_meta( 'event_id' );
+		return (int) $this->get_meta( 'event_id', true );
 	}
 
 	public function get_vdm_event_id(): int {
-		return (int) $this->get_meta( 'vdm_event_id' );
+		return (int) $this->get_meta( 'vdm_event_id', true );
 	}
 
 	public function get_vdm_location_id(): int {
-		return (int) $this->get_meta( 'vdm_location_id' );
+		return (int) $this->get_meta( 'vdm_location_id', true );
 	}
 
 	public function get_vdm_status(): ?string {
-		$status = $this->get_meta( 'vdm_status' );
+		$status = $this->get_meta( 'vdm_status', true );
 		if ( empty( $status ) ) {
 			return null;
 		}
@@ -28,7 +28,7 @@ class SubEvent extends BaseObject {
 	}
 
 	public function get_url(): ?string {
-		$url = $this->get_meta( 'url' );
+		$url = $this->get_meta( 'url', true );
 		if ( empty( $url ) ) {
 			return null;
 		}
@@ -36,7 +36,7 @@ class SubEvent extends BaseObject {
 	}
 
 	public function get_start_date(): ?DateTime {
-		$timestamp = (int) $this->get_meta( 'start_date' );
+		$timestamp = (int) $this->get_meta( 'start_date', true );
 		if ( ! $timestamp ) {
 			return null;
 		}
@@ -45,7 +45,7 @@ class SubEvent extends BaseObject {
 	}
 
 	public function get_end_date(): ?DateTime {
-		$timestamp = (int) $this->get_meta( 'end_date' );
+		$timestamp = (int) $this->get_meta( 'end_date', true );
 		if ( ! $timestamp ) {
 			return null;
 		}
@@ -54,7 +54,7 @@ class SubEvent extends BaseObject {
 	}
 
 	public function get_rep(): ?string {
-		$rep = $this->get_meta( 'rep' );
+		$rep = $this->get_meta( 'rep', true );
 		if ( empty( $rep ) ) {
 			return null;
 		}
@@ -62,7 +62,7 @@ class SubEvent extends BaseObject {
 	}
 
 	public function get_max_tickets_per_order(): ?int {
-		$max = $this->get_meta( 'max_tickets_per_order' );
+		$max = $this->get_meta( 'max_tickets_per_order', true );
 		if ( ! is_numeric( $max ) ) {
 			return null;
 		}
@@ -70,7 +70,7 @@ class SubEvent extends BaseObject {
 	}
 
 	public function get_location_name(): ?string {
-		$location = $this->get_meta( 'location_name' );
+		$location = $this->get_meta( 'location_name', true );
 		if ( empty( $location ) ) {
 			return null;
 		}

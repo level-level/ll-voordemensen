@@ -3,6 +3,7 @@
 namespace LevelLevel\VoorDeMensen\Admin\Settings\Display;
 
 use LevelLevel\VoorDeMensen\Admin\Settings\Display\Fields\TicketSalesScreenType;
+use LevelLevel\VoorDeMensen\Admin\Settings\Menu;
 
 class Settings {
 	public const FIELDS = array(
@@ -21,7 +22,7 @@ class Settings {
 				'description'  => $setting_field->get_description(),
 				'show_in_rest' => false,
 			);
-			register_setting( 'll_vdm_options', $setting_field->get_name(), $args );
+			register_setting( Menu::NAME, $setting_field->get_name(), $args );
 		}
 	}
 
@@ -32,7 +33,7 @@ class Settings {
 				$setting_field->get_name(),
 				$setting_field->get_label(),
 				array( $setting_field, 'render_field' ),
-				'll_vdm_options',
+				Menu::NAME,
 				Section::NAME,
 				array(
 					'label_for' => $setting_field->get_name(),
