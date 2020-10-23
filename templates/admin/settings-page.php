@@ -1,5 +1,6 @@
 <?php
 
+use LevelLevel\VoorDeMensen\Admin\Settings\Menu;
 use LevelLevel\VoorDeMensen\Sync\EventsSync;
 
 if ( ! current_user_can( 'manage_options' ) ) {
@@ -9,15 +10,15 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
 $is_updated = filter_input( INPUT_GET, 'settings-updated', FILTER_VALIDATE_BOOLEAN );
 if ( $is_updated ) {
-	add_settings_error( 'll_vdm_options', 'll-vdm-options-updated', __( 'Settings saved', 'll-vdm' ), 'updated' );
+	add_settings_error( Menu::NAME, 'll-vdm-options-updated', __( 'Settings saved', 'll-vdm' ), 'updated' );
 }
 
 $has_quick_synced_events = filter_input( INPUT_GET, 'll_vdm_quick_sync_events', FILTER_VALIDATE_BOOLEAN );
 if ( $has_quick_synced_events ) {
-	add_settings_error( 'll_vdm_options', 'll-vdm-quick-sync-events', sprintf( __( 'Synced latest %d events', 'll-vdm' ), EventsSync::RECENT_LIMIT ), 'updated' );
+	add_settings_error( Menu::NAME, 'll-vdm-quick-sync-events', sprintf( __( 'Synced latest %d events', 'll-vdm' ), EventsSync::RECENT_LIMIT ), 'updated' );
 }
 
-settings_errors( 'll_vdm_options' );
+settings_errors( Menu::NAME );
 ?>
 
 <div class="wrap">
@@ -26,8 +27,8 @@ settings_errors( 'll_vdm_options' );
 	</h1>
 	<form action="options.php" method="post">
 		<?php
-			settings_fields( 'll_vdm_options' );
-			do_settings_sections( 'll_vdm_options' );
+			settings_fields( Menu::NAME );
+			do_settings_sections( Menu::NAME );
 			submit_button();
 		?>
 	</form>
