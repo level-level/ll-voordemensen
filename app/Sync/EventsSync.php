@@ -82,7 +82,7 @@ class EventsSync {
 			'post_type'    => Event::$type,
 			'post_title'   => $api_event->event_name ?? '',
 			'post_name'    => sanitize_title( $api_event->event_name ?? '' ),
-			'post_content' => isset( $api_event->event_text ) ? '<p>' . esc_html( $api_event->event_text ) . '</p>' : '',
+			'post_content' => ! empty( $api_event->event_text ) ? '<p>' . esc_html( $api_event->event_text ) . '</p>' : '',
 		);
 		$post_data = apply_filters( 'll_vdm_update_event_post_data', $post_data, $api_event );
 
@@ -144,7 +144,7 @@ class EventsSync {
 			'post_type'    => SubEvent::$type,
 			'post_title'   => $api_sub_event->event_name,
 			'post_name'    => sanitize_title( $api_sub_event->event_name ),
-			'post_content' => isset( $api_sub_event->event_text ) ? '<p>' . esc_html( $api_sub_event->event_text ) . '</p>' : '',
+			'post_content' => ! empty( $api_sub_event->event_text ) ? '<p>' . esc_html( $api_sub_event->event_text ) . '</p>' : '',
 		);
 		$post_data = apply_filters( 'll_vdm_update_sub_event_post_data', $post_data, $api_sub_event, $event_id );
 
