@@ -40,10 +40,10 @@ class Client {
 	/**
 	 * Get API event response object
 	 *
-	 * @param int $vdm_id
+	 * @param string $vdm_id
 	 * @return object|null
 	 */
-	public function get_event( int $vdm_id ) {
+	public function get_event( string $vdm_id ) {
 		$url = $this->get_events_url( $vdm_id );
 		if ( ! $url ) {
 			return null;
@@ -60,6 +60,25 @@ class Client {
 		}
 
 		return $response['data'][0];
+	}
+
+	public function get_ticket_types( string $vdm_sub_event_id ): array {
+		$url = $this->get_ticket_types_url( $vdm_sub_event_id );
+		if ( ! $url ) {
+			return array();
+		}
+
+		$response = $this->request( $url );
+		if ( ! isset( $response['success'] ) || ! $response['success'] || ! is_array( $response['data'] ) ) {
+			return array();
+		}
+
+		// Filter out object errors
+		return array_filter(
+			$response['data'], function( $api_ticket_type ) {
+				return isset( $api_ticket_type->discount_id );
+			}
+		);
 	}
 
 	/**
@@ -91,17 +110,34 @@ class Client {
 	/**
 	 * Get url for the events endpoint
 	 */
-	protected function get_events_url( int $vdm_id = null ): ?string {
+	protected function get_events_url( string $vdm_id = null ): ?string {
+		$url_path = '/events/';
+		if ( $vdm_id ) {
+			$url_path .= $vdm_id;
+		}
+
+		return $this->generate_url( $url_path );
+	}
+
+	/**
+	 * Get url for the ticket_types endpoint
+	 */
+	protected function get_ticket_types_url( string $vdm_sub_event_id = null ): ?string {
+		$url_path = '/tickettypes/';
+		if ( $vdm_sub_event_id ) {
+			$url_path .= $vdm_sub_event_id;
+		}
+
+		return $this->generate_url( $url_path );
+	}
+
+	protected function generate_url( string $url_path ): ?string {
 		$client_name = ( new ClientNameSetting() )->get_value();
 		if ( empty( $client_name ) ) {
 			return null;
 		}
 
-		$url = self::BASE_API_URL . rawurldecode( $client_name ) . '/events/';
-		if ( $vdm_id ) {
-			$url .= $vdm_id;
-		}
-
+		$url = self::BASE_API_URL . rawurldecode( $client_name ) . '/' . trim( $url_path, '/\\' );
 		return $url;
 	}
 }

@@ -11,6 +11,7 @@ class Init {
 		EventDates::class,
 		EventLocations::class,
 		CartButton::class,
+		EventTicketTypes::class,
 	);
 
 	public function register_hooks(): void {

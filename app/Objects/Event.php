@@ -6,6 +6,27 @@ class Event extends BaseObject {
 	public static $type = 'll_vdm_event';
 
 	/**
+	 * Get object by vdm ID
+	 *
+	 * @param string $vdm_id
+	 * @param array $args
+	 * @return static|null
+	 */
+	public static function get_by_vdm_id( string $vdm_id, array $args = array() ) {
+		$default_args = array(
+			'post_status' => 'any',
+			'meta_query'  => array(
+				array(
+					'key'   => 'vdm_id',
+					'value' => $vdm_id,
+				),
+			),
+		);
+		$args         = wp_parse_args( $args, $default_args );
+		return static::get_one( $args );
+	}
+
+	/**
 	 * Get object by connected post ID
 	 *
 	 * @param integer $post_id

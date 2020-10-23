@@ -23,7 +23,7 @@ class EventContent extends BaseShortCode {
 		$args = $this->get_args( $user_args );
 
 		$content = '';
-		$event      = Event::get_by_post_id( (int) $args['post_id'] );
+		$event   = Event::get_by_post_id( (int) $args['post_id'] );
 		if ( $event instanceof Event ) {
 			$content = $event->get_content();
 		}

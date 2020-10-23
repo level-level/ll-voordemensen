@@ -4,9 +4,9 @@ namespace LevelLevel\VoorDeMensen\ShortCodes;
 
 use LevelLevel\VoorDeMensen\Objects\Event;
 
-class EventLocations extends BaseShortCode {
+class EventTicketTypes extends BaseShortCode {
 
-	public const NAME = 'event_locations';
+	public const NAME = 'event_ticket_types';
 
 	public function get_name(): string {
 		return self::PREFIX . self::NAME;
@@ -29,21 +29,20 @@ class EventLocations extends BaseShortCode {
 
 		$sub_events = $event->get_sub_events();
 
-		$locations = array();
-		foreach ( $sub_events as $sub_event ) {
-			$location_name = $sub_event->get_location_name();
-			if ( empty( $location_name ) ) {
-				continue;
-			}
-			$locations[] = $sub_event->get_location_name();
-		}
-		$locations = array_unique( $locations );
-
 		// Render html
 		$html = '<ul>';
-		foreach ( $locations as $location ) {
+		foreach ( $sub_events as $sub_event ) {
 			$html .= '<li>';
-			$html .= esc_html( $location );
+			$html .= '<h3>' . esc_html( $sub_event->get_title() ) . '</h3>';
+			$html .= '<ul>';
+
+			$ticket_types = $sub_event->get_ticket_types();
+			foreach ( $ticket_types as $ticket_type ) {
+				$html .= '<li>';
+				$html .= '&euro;' . number_format_i18n( $ticket_type->get_price(), 2 ) . ' (' . esc_html( $ticket_type->get_title() ) . ')';
+				$html .= '</li>';
+			}
+			$html .= '</ul>';
 			$html .= '</li>';
 		}
 		$html .= '</ul>';

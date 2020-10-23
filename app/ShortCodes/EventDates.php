@@ -24,22 +24,22 @@ class EventDates extends BaseShortCode {
 		// Prepare variables
 		$args = $this->get_args( $user_args );
 
-		$event      = Event::get_by_post_id( (int) $args['post_id'] );
+		$event = Event::get_by_post_id( (int) $args['post_id'] );
 		if ( ! $event instanceof Event ) {
 			return '';
 		}
 
-		$sub_events = $event->get_sub_events();
-		$date_format = (string) get_option('date_format') ?: 'Y-m-d';
-		$time_format = (string) get_option('time_format') ?: 'H-i';
+		$sub_events  = $event->get_sub_events();
+		$date_format = (string) get_option( 'date_format' ) ?: 'Y-m-d';
+		$time_format = (string) get_option( 'time_format' ) ?: 'H-i';
 
 		// Render html
-		$html  = '<ul>';
-		foreach ($sub_events as $sub_event) {
+		$html = '<ul>';
+		foreach ( $sub_events as $sub_event ) {
 			$start_date = $sub_event->get_start_date();
-			$end_date = $sub_event->get_end_date();
+			$end_date   = $sub_event->get_end_date();
 
-			if ( !$start_date instanceof DateTime ) {
+			if ( ! $start_date instanceof DateTime ) {
 				continue;
 			}
 
@@ -55,7 +55,7 @@ class EventDates extends BaseShortCode {
 			$html .= '</li>';
 		}
 		$html .= '</ul>';
-		$html = apply_filters( self::PREFIX . 'shortcode_' . self::NAME . '_html', $html, $args, $event );
+		$html  = apply_filters( self::PREFIX . 'shortcode_' . self::NAME . '_html', $html, $args, $event );
 		return $html;
 	}
 }

@@ -22,8 +22,8 @@ class EventExtraText extends BaseShortCode {
 		// Prepare variables
 		$args = $this->get_args( $user_args );
 
-		$text = '';
-		$event      = Event::get_by_post_id( (int) $args['post_id'] );
+		$text  = '';
+		$event = Event::get_by_post_id( (int) $args['post_id'] );
 		if ( $event instanceof Event ) {
 			$text = $event->get_short_text();
 		}

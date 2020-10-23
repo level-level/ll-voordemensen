@@ -62,6 +62,7 @@ add_action(
 		( new LevelLevel\VoorDeMensen\Admin\Settings\Display\Settings() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\PostTypes\Event() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\PostTypes\SubEvent() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\PostTypes\TicketType() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Sync\Setup() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Sync\EventsSync() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Assets() )->register_hooks();
