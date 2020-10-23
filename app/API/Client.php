@@ -1,6 +1,6 @@
 <?php
 
-namespace LevelLevel\VoorDeMensen\General;
+namespace LevelLevel\VoorDeMensen\API;
 
 use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\ClientName as ClientNameSetting;
 use WP_Error;
