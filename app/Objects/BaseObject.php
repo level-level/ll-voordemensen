@@ -48,6 +48,9 @@ class BaseObject {
 
 			$post = get_post( $id );
 			if ( $post instanceof WP_Post ) {
+				/**
+				 * @psalm-suppress UnsafeInstantiation
+				 */
 				static::$posts[ $id ] = new $class( $post );
 			} else {
 				static::$posts[ $id ] = null;

@@ -35,7 +35,7 @@ class EventLocations extends BaseShortCode {
 			if ( empty( $location_name ) ) {
 				continue;
 			}
-			$locations[] = $sub_event->get_location_name();
+			$locations[] = $location_name;
 		}
 		$locations = array_unique( $locations );
 
