@@ -28,5 +28,5 @@
 		</tr>
 	</tbody>
 </table>
-<?php  wp_nonce_field( 'll_vdm_metabox', 'll_vdm' ); ?>
+<?php  wp_nonce_field( 'll_vdm_metabox', 'll_vdm_nonce' ); ?>
 
