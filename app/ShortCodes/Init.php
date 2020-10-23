@@ -6,6 +6,7 @@ class Init {
 	protected const SHORTCODES = array(
 		EventBuyButton::class,
 		EventName::class,
+		EventContent::class,
 	);
 
 	public function register_hooks(): void {
