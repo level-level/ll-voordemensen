@@ -62,6 +62,12 @@ class Client {
 		return $response['data'][0];
 	}
 
+	/**
+	 * Get array of API ticket type objects for a sub event
+	 *
+	 * @param string $vdm_sub_event_id
+	 * @return array
+	 */
 	public function get_ticket_types( string $vdm_sub_event_id ): array {
 		$url = $this->get_ticket_types_url( $vdm_sub_event_id );
 		if ( ! $url ) {

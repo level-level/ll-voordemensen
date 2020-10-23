@@ -82,6 +82,11 @@ class SubEvent extends BaseObject {
 		return (string) $url;
 	}
 
+	/**
+	 * Get start date
+	 *
+	 * @return DateTime|null
+	 */
 	public function get_start_date(): ?DateTime {
 		$timestamp = (int) $this->get_meta( 'start_date', true );
 		if ( ! $timestamp ) {
@@ -99,6 +104,11 @@ class SubEvent extends BaseObject {
 		return null;
 	}
 
+	/**
+	 * Get end date
+	 *
+	 * @return DateTime|null
+	 */
 	public function get_end_date(): ?DateTime {
 		$timestamp = (int) $this->get_meta( 'end_date', true );
 		if ( ! $timestamp ) {
