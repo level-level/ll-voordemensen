@@ -9,6 +9,7 @@ class Init {
 		EventContent::class,
 		EventExtraText::class,
 		EventDates::class,
+		EventLocations::class,
 	);
 
 	public function register_hooks(): void {

@@ -2,11 +2,9 @@
 
 namespace LevelLevel\VoorDeMensen\ShortCodes;
 
-use DateTime;
-use DateTimeZone;
 use LevelLevel\VoorDeMensen\Objects\Event;
 
-class EventDates extends BaseShortCode {
+class EventLocations extends BaseShortCode {
 
 	public const NAME = 'event_dates';
 
@@ -30,28 +28,18 @@ class EventDates extends BaseShortCode {
 		}
 
 		$sub_events = $event->get_sub_events();
-		$date_format = (string) get_option('date_format') ?: 'Y-m-d';
-		$time_format = (string) get_option('time_format') ?: 'H-i';
+
+		$locations = array();
+		foreach ($sub_events as $sub_event) {
+			$locations[] = $sub_event->get_location_name();
+		}
+		$locations = array_unique( $locations );
 
 		// Render html
 		$html  = '<ul>';
-		foreach ($sub_events as $sub_event) {
-			$start_date = $sub_event->get_start_date();
-			$end_date = $sub_event->get_end_date();
-
-			if ( !$start_date instanceof DateTime ) {
-				continue;
-			}
-
+		foreach ($locations as $location) {
 			$html .= '<li>';
-			$html .= $start_date->format( $date_format ) . ' ' . $start_date->format( $time_format );
-			if ( $end_date instanceof DateTime ) {
-				$html .= __( ' to ', 'll-vdm' );
-				if ( $start_date->format( $date_format ) !== $end_date->format( $date_format ) ) {
-					$html .= $end_date->format( $date_format ) . ' ';
-				}
-				$html .= $end_date->format( $time_format );
-			}
+			$html .= esc_html( $location );
 			$html .= '</li>';
 		}
 		$html .= '</ul>';
