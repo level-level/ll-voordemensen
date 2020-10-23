@@ -13,21 +13,6 @@ class EventBuyButton extends BaseShortCode {
 	}
 
 	/**
-	 * Get shortcode args
-	 *
-	 * @param string|array $user_args
-	 * @return array
-	 */
-	protected function get_args( $user_args ): array {
-		$args = shortcode_atts(
-			array(
-				'post_id' => get_the_ID(),
-			), (array) $user_args, $this->get_name()
-		);
-		return $args;
-	}
-
-	/**
 	 * Get shortcode html
 	 *
 	 * @param string|array $user_args

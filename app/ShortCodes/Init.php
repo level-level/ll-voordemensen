@@ -2,11 +2,10 @@
 
 namespace LevelLevel\VoorDeMensen\ShortCodes;
 
-use LevelLevel\VoorDeMensen\ShortCodes\EventBuyButton;
-
 class Init {
 	protected const SHORTCODES = array(
 		EventBuyButton::class,
+		EventName::class,
 	);
 
 	public function register_hooks(): void {

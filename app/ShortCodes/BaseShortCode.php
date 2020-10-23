@@ -16,7 +16,14 @@ abstract class BaseShortCode {
 	 * @param string|array $user_args
 	 * @return array
 	 */
-	abstract protected function get_args( $user_args ): array;
+	protected function get_args( $user_args ): array {
+		$args = shortcode_atts(
+			array(
+				'post_id' => get_the_ID(),
+			), (array) $user_args, $this->get_name()
+		);
+		return $args;
+	}
 
 	/**
 	 * Get shortcode html
