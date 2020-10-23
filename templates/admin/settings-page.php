@@ -40,7 +40,7 @@ settings_errors( Menu::NAME );
 		</h2>
 
 		<p>
-			<?php echo esc_html_e( 'Events are synced automatically every hour', 'll-vdm' ); ?>
+			<?php echo esc_html_e( 'Events are synced automatically in the background.', 'll-vdm' ); ?>
 		</p>
 
 		<p>
