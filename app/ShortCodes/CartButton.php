@@ -4,9 +4,9 @@ namespace LevelLevel\VoorDeMensen\ShortCodes;
 
 use LevelLevel\VoorDeMensen\Objects\Event;
 
-class EventBuyButton extends BaseShortCode {
+class CartButton extends BaseShortCode {
 
-	public const NAME = 'event_buy_button';
+	public const NAME = 'cart_button';
 
 	public function get_name(): string {
 		return self::PREFIX . self::NAME;
@@ -23,7 +23,7 @@ class EventBuyButton extends BaseShortCode {
 		$args = $this->get_args( $user_args );
 
 		if ( empty( $content ) ) {
-			$content = __( 'Buy now', 'll-vdm' );
+			$content = __( 'Cart', 'll-vdm' );
 		}
 
 		$event        = Event::get_by_post_id( (int) $args['post_id'] );
@@ -33,7 +33,7 @@ class EventBuyButton extends BaseShortCode {
 		}
 
 		// Render html
-		$html  = '<button onclick="vdm_order(' . $event_vdm_id . ', \'' . esc_attr( session_id() ) . '\');" ' . disabled( $event_vdm_id, 0, false ) . '>';
+		$html  = '<button onclick="vdm_order(\'cart\', \'' . esc_attr( session_id() ) . '\');" ' . disabled( $event_vdm_id, 0, false ) . '>';
 		$html .= $content;
 		$html .= '</button>';
 		$html  = apply_filters( self::PREFIX . 'shortcode_' . self::NAME . '_html', $html, $args, $content, $event );

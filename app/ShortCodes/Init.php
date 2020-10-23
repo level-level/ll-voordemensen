@@ -10,6 +10,7 @@ class Init {
 		EventExtraText::class,
 		EventDates::class,
 		EventLocations::class,
+		CartButton::class,
 	);
 
 	public function register_hooks(): void {
