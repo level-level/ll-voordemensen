@@ -4,9 +4,9 @@ namespace LevelLevel\VoorDeMensen\ShortCodes;
 
 use LevelLevel\VoorDeMensen\Objects\Event;
 
-class BuyButton extends BaseShortCode {
+class EventBuyButton extends BaseShortCode {
 
-	public const NAME = 'buy_button';
+	public const NAME = 'event_buy_button';
 
 	public function get_name(): string {
 		return self::PREFIX . self::NAME;
