@@ -6,7 +6,7 @@ use LevelLevel\VoorDeMensen\Objects\Event;
 
 class EventLocations extends BaseShortCode {
 
-	public const NAME = 'event_dates';
+	public const NAME = 'event_locations';
 
 	public function get_name(): string {
 		return self::PREFIX . self::NAME;
@@ -22,7 +22,7 @@ class EventLocations extends BaseShortCode {
 		// Prepare variables
 		$args = $this->get_args( $user_args );
 
-		$event      = Event::get_by_post_id( (int) $args['post_id'] );
+		$event = Event::get_by_post_id( (int) $args['post_id'] );
 		if ( ! $event instanceof Event ) {
 			return '';
 		}
