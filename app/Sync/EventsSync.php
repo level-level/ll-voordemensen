@@ -4,6 +4,7 @@ namespace LevelLevel\VoorDeMensen\Sync;
 
 use DateTime;
 use DateTimeZone;
+use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\SyncEventsInterval as SyncEventsIntervalSetting;
 use LevelLevel\VoorDeMensen\API\Client;
 use LevelLevel\VoorDeMensen\Objects\Event;
 use LevelLevel\VoorDeMensen\Objects\SubEvent;
@@ -22,7 +23,19 @@ class EventsSync {
 
 	public function schedule_sync(): void {
 		if ( ! wp_next_scheduled( self::TRIGGER ) ) {
-			wp_schedule_event( time(), 'hourly', self::TRIGGER );
+			$schedule = ( new SyncEventsIntervalSetting() )->get_value();
+			wp_schedule_event( time(), $schedule, self::TRIGGER );
+		}
+	}
+
+	public function reschedule_sync() {
+		$this->unschedule_sync();
+		$this->schedule_sync();
+	}
+
+	protected function unschedule_sync() {
+		if ( wp_next_scheduled( self::TRIGGER ) ) {
+			wp_clear_scheduled_hook( self::TRIGGER );
 		}
 	}
 

@@ -35,7 +35,7 @@ settings_errors( 'll_vdm_options' );
 	<form action="<?php echo esc_attr( admin_url( 'admin-post.php' ) ); ?>" method="post">
 
 		<h2>
-			<?php echo esc_html_e( 'Sync events', 'll-vdm' ); ?>
+			<?php echo esc_html_e( 'Manually sync events', 'll-vdm' ); ?>
 		</h2>
 
 		<p>

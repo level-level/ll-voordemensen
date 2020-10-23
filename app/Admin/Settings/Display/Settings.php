@@ -13,6 +13,13 @@ class Settings {
 	public function register_hooks(): void {
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_init', array( $this, 'register_fields' ) );
+
+		foreach ( self::FIELDS as $setting_field_class ) {
+			$setting_field = new $setting_field_class();
+			if ( is_callable( array( $setting_field, 'register_hooks' ) ) ) {
+				$setting_field->register_hooks();
+			}
+		}
 	}
 
 	public function register_settings(): void {
