@@ -16,12 +16,14 @@ class BuyButton extends BaseShortCode {
 	 * Get shortcode args
 	 *
 	 * @param string|array $user_args
-	 * @return string
+	 * @return array
 	 */
 	protected function get_args( $user_args ): array {
-		$args = shortcode_atts( array(
-			'post_id' => get_the_ID(),
-		), $user_args, $this->get_name() );
+		$args = shortcode_atts(
+			array(
+				'post_id' => get_the_ID(),
+			), (array) $user_args, $this->get_name()
+		);
 		return $args;
 	}
 
@@ -39,17 +41,17 @@ class BuyButton extends BaseShortCode {
 			$content = __( 'Buy now', 'll-vdm' );
 		}
 
-		$event = Event::get_by_post_id( (int) $args['post_id'] );
+		$event        = Event::get_by_post_id( (int) $args['post_id'] );
 		$event_vdm_id = 0;
 		if ( $event instanceof Event ) {
 			$event_vdm_id = $event->get_vdm_id();
 		}
 
 		// Render html
-		$html = '<button onclick="vdm_order(' . esc_attr( $event_vdm_id ) . ', \'' . esc_attr( session_id() ) .'\');" ' . disabled( $event_vdm_id, 0, false ) . '>';
+		$html  = '<button onclick="vdm_order(' . $event_vdm_id . ', \'' . esc_attr( session_id() ) . '\');" ' . disabled( $event_vdm_id, 0, false ) . '>';
 		$html .= $content;
 		$html .= '</button>';
-		$html = apply_filters( self::PREFIX . 'shortcode_' . self::NAME . '_html', $html, $args, $content, $event );
+		$html  = apply_filters( self::PREFIX . 'shortcode_' . self::NAME . '_html', $html, $args, $content, $event );
 		return $html;
 	}
 }
