@@ -7,6 +7,8 @@ abstract class BaseField {
 
 	abstract public function get_label(): string;
 
+	abstract public function get_description(): string;
+
 	/**
 	 * Get field value
 	 *

@@ -53,8 +53,8 @@ add_action(
 
 		// Register hooks
 		( new LevelLevel\VoorDeMensen\Admin\Settings\Menu() )->register_hooks();
-		( new LevelLevel\VoorDeMensen\Admin\Settings\API\Section() )->register_hooks();
-		( new LevelLevel\VoorDeMensen\Admin\Settings\API\Settings() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Admin\Settings\General\Section() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Admin\Settings\General\Settings() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\Display\Section() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\Display\Settings() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\PostTypes\Event() )->register_hooks();

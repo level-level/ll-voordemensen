@@ -2,8 +2,8 @@
 
 namespace LevelLevel\VoorDeMensen;
 
-use LevelLevel\VoorDeMensen\Admin\Settings\API\Fields\ClientName as ClientNameSetting;
 use LevelLevel\VoorDeMensen\Admin\Settings\Display\Fields\TicketSalesScreenType as TicketSalesScreenTypeSetting;
+use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\ClientName as ClientNameSetting;
 
 class Assets {
 

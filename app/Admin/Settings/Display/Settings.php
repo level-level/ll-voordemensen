@@ -17,7 +17,11 @@ class Settings {
 	public function register_settings(): void {
 		foreach ( self::FIELDS as $setting_field_class ) {
 			$setting_field = new $setting_field_class();
-			register_setting( 'll_vdm_options', $setting_field->get_name() );
+			$args          = array(
+				'description'  => $setting_field->get_description(),
+				'show_in_rest' => false,
+			);
+			register_setting( 'll_vdm_options', $setting_field->get_name(), $args );
 		}
 	}
 
@@ -29,7 +33,11 @@ class Settings {
 				$setting_field->get_label(),
 				array( $setting_field, 'render_field' ),
 				'll_vdm_options',
-				Section::NAME
+				Section::NAME,
+				array(
+					'label_for' => $setting_field->get_name(),
+					'class'     => $setting_field->get_name() . '_field',
+				)
 			);
 		}
 	}

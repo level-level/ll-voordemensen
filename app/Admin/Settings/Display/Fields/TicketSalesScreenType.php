@@ -14,6 +14,10 @@ class TicketSalesScreenType extends BaseField {
 		return __( 'Ticket sales screen type', 'll-vdm' );
 	}
 
+	public function get_description(): string {
+		return __( 'Choose how the ticket sales are shown on your site. With a popup overlay, or on the side of the screen.', 'll-vdm' );
+	}
+
 	public function get_value(): ?string {
 		$default = $this->get_default_value();
 		$value   = (string) get_option( $this->get_name(), $default );
@@ -40,16 +44,15 @@ class TicketSalesScreenType extends BaseField {
 		$setting = $this->get_value();
 		?>
 
-		<select id="ll_vdm_display_ticket_sales_screen_type" name="ll_vdm_display_ticket_sales_screen_type">
+		<p><label for="<?php echo esc_attr( $this->get_name() ); ?>"><?php echo esc_html( $this->get_description() ); ?></label></p>
+
+		<select id="<?php echo esc_attr( $this->get_name() ); ?>" name="<?php echo esc_attr( $this->get_name() ); ?>">
 			<?php foreach ( $options as $option_name => $option_label ) { ?>
 				<option value="<?php echo esc_attr( $option_name ); ?>" <?php selected( $option_name, $setting, true ); ?>>
 					<?php echo esc_html( $option_label ); ?>
 				</option>
 			<?php } ?>
 		</select>
-		<label for="ll_vdm_display_ticket_sales_screen_type">
-			<?php esc_html_e( 'Choose how the ticket sales are shown on your site. With a popup overlay, or on the side of the screen.', 'll-vdm' ); ?>
-		</label>
 
 		<?php
 	}
