@@ -52,6 +52,7 @@ add_action(
 		}
 
 		// Register hooks
+		( new LevelLevel\VoorDeMensen\Admin\MetaBox() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\Menu() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\General\Section() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\General\Settings() )->register_hooks();

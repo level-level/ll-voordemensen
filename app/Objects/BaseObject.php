@@ -19,6 +19,13 @@ class BaseObject {
 	protected $post;
 
 	/**
+	 * Microcache for parsed post content.
+	 *
+	 * @var null|string
+	 */
+	protected $content;
+
+	/**
 	 * Define $posts.
 	 *
 	 * @var array $posts
@@ -97,7 +104,8 @@ class BaseObject {
 	 */
 	public static function get_by_vdm_id( int $vdm_id ) {
 		$args = array(
-			'meta_query' => array(
+			'post_status' => 'any',
+			'meta_query'  => array(
 				array(
 					'key'   => 'vdm_id',
 					'value' => $vdm_id,
@@ -117,6 +125,55 @@ class BaseObject {
 
 	public function get_vdm_id(): int {
 		return (int) $this->get_meta( 'vdm_id' );
+	}
+
+	public function get_title(): string {
+		return get_the_title( $this->get_id() );
+	}
+
+	/**
+	 * Get post content
+	 */
+	public function get_content(): string {
+		global $post;
+		if ( ! isset( $this->content ) ) {
+			setup_postdata( $this->post );
+
+			if ( null === $post ) {
+				$post = $this->post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
+			}
+
+			ob_start();
+			the_content();
+
+			$this->content = ob_get_clean() ?: '';
+			wp_reset_postdata();
+		}
+
+		return $this->content;
+	}
+
+	public function has_thumbnail(): bool {
+		return has_post_thumbnail( $this->get_id() );
+	}
+
+	public function get_thumbnail_id(): int {
+		return get_post_thumbnail_id( $this->get_id() ) ?: 0;
+	}
+
+	/**
+	 * Get thumbnail
+	 *
+	 * @param string|array $size
+	 * @param string|array $attr
+	 * @return string
+	 */
+	public function get_thumbnail( $size = 'thumbnail', $attr = '' ): string {
+		return get_the_post_thumbnail( $this->get_id(), $size, $attr );
+	}
+
+	public function get_short_text(): string {
+		return (string) $this->get_meta( 'short_text' );
 	}
 
 	/**
@@ -143,7 +200,7 @@ class BaseObject {
 			'posts_per_page' => -1,
 			'meta_query'     => array(
 				array(
-					'key'   => 'll_vdm_id',
+					'key'   => 'll_vdm_event_id',
 					'value' => $vdm_id,
 				),
 			),
