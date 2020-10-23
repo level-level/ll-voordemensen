@@ -12,11 +12,11 @@ class Event extends BaseObject {
 	 * @return static|null
 	 */
 	public static function get_by_post_id( int $post_id ) {
-		$vevent_id = (int) get_post_meta( $post_id, 'll_vdm_event_id', true );
-		if ( ! $vevent_id ) {
+		$event_id = (int) get_post_meta( $post_id, 'll_vdm_event_id', true );
+		if ( ! $event_id ) {
 			return null;
 		}
 
-		return static::get( $vevent_id );
+		return static::get( $event_id );
 	}
 }
