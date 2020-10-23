@@ -3,6 +3,7 @@
 namespace LevelLevel\VoorDeMensen\Admin;
 
 use LevelLevel\VoorDeMensen\API\Client;
+use LevelLevel\VoorDeMensen\Objects\Event;
 use WP_Post;
 
 class MetaBox {
@@ -26,9 +27,15 @@ class MetaBox {
 
 	public function render_meta_box_html( WP_Post $post ): void {
 		// phpcs:disable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
-		$event_vdm_id = (int) get_post_meta( $post->ID, 'll_vdm_event_id', true );
-		$api_client   = new Client();
-		$api_events   = $api_client->get_events();
+		$event_id = (int) get_post_meta( $post->ID, 'll_vdm_event_id', true );
+		$events   = Event::get_many(
+			array(
+				'posts_per_page' => -1,
+				'meta_key'       => 'vdm_id',
+				'orderby'        => 'meta_value_num',
+				'order'          => 'DESC',
+			)
+		);
 		// phpcs:enable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
 
 		require_once LL_VDM_PLUGIN_PATH . 'templates/admin/metabox.php';
@@ -43,12 +50,12 @@ class MetaBox {
 		}
 
 		$nonce_value = filter_input( INPUT_POST, 'll_vdm_metabox_nonce' );
-		$nonce_valid = wp_verify_nonce( $nonce_value, 'll_vdm_metabox' );
+		$nonce_valid = wp_verify_nonce( $nonce_value, 'll_vdm' );
 		if ( ! $nonce_valid ) {
 			return;
 		}
 
-		$vdm_event_id = filter_input( INPUT_POST, 'll_vdm_event_id', FILTER_VALIDATE_INT ) ?: 0;
-		update_post_meta( $post_id, 'll_vdm_event_id', $vdm_event_id );
+		$event_id = filter_input( INPUT_POST, 'll_vdm_event_id', FILTER_VALIDATE_INT ) ?: 0;
+		update_post_meta( $post_id, 'll_vdm_event_id', $event_id );
 	}
 }

@@ -55,12 +55,15 @@ add_action(
 		( new LevelLevel\VoorDeMensen\Init() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\MetaBox() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\Menu() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Admin\Settings\QuickSyncEventsController() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\General\Section() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\General\Settings() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\Display\Section() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\Display\Settings() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\PostTypes\Event() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\PostTypes\SubEvent() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Sync\Setup() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Sync\EventsSync() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Assets() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\ShortCodes\Init() )->register_hooks();
 

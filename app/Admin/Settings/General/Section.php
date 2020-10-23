@@ -2,6 +2,8 @@
 
 namespace LevelLevel\VoorDeMensen\Admin\Settings\General;
 
+use LevelLevel\VoorDeMensen\Admin\Settings\Menu;
+
 class Section {
 
 	public const NAME = 'll_vdm_options_general';
@@ -11,7 +13,7 @@ class Section {
 	}
 
 	public function register_section(): void {
-		add_settings_section( self::NAME, $this->get_label(), array( $this, 'render_description' ), 'll_vdm_options' );
+		add_settings_section( self::NAME, $this->get_label(), array( $this, 'render_description' ), Menu::NAME );
 	}
 
 	public function get_label(): string {
