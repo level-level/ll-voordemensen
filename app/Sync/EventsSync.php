@@ -13,8 +13,8 @@ use WP_Error;
 
 class EventsSync {
 
-	protected const TRIGGER      = 'll_vdm_sync_events';
-	public const RECENT_LIMIT    = 10;
+	protected const TRIGGER   = 'll_vdm_sync_events';
+	public const RECENT_LIMIT = 10;
 
 	public function register_hooks(): void {
 		add_action( self::TRIGGER, array( $this, 'sync_all' ) );
@@ -28,26 +28,26 @@ class EventsSync {
 		}
 	}
 
-	public function reschedule_sync() {
+	public function reschedule_sync(): void {
 		$this->unschedule_sync();
 		$this->schedule_sync();
 	}
 
-	protected function unschedule_sync() {
+	protected function unschedule_sync(): void {
 		if ( wp_next_scheduled( self::TRIGGER ) ) {
 			wp_clear_scheduled_hook( self::TRIGGER );
 		}
 	}
 
-	public function sync_all() {
+	public function sync_all(): void {
 		$this->sync();
 	}
 
-	public function sync_recent() {
+	public function sync_recent(): void {
 		$this->sync( self::RECENT_LIMIT );
 	}
 
-	protected function sync( int $limit = null ) {
+	protected function sync( int $limit = null ): void {
 		$client     = new Client();
 		$api_events = $client->get_events();
 		if ( $limit !== null ) {

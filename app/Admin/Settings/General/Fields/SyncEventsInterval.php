@@ -8,7 +8,7 @@ class SyncEventsInterval extends BaseField {
 
 	protected const NAME = 'sync_events_interval';
 
-	public function register_hooks() {
+	public function register_hooks(): void {
 		add_action( 'update_option_' . $this->get_name(), array( $this, 'maybe_reschedule_events_sync' ), 10, 2 );
 	}
 
@@ -28,7 +28,7 @@ class SyncEventsInterval extends BaseField {
 		$default = $this->get_default_value();
 		$value   = get_option( $this->get_name(), $default );
 		$options = array_keys( $this->get_options() );
-		if ( ! in_array( $value, $options ) ) {
+		if ( ! in_array( $value, $options, true ) ) {
 			return $default;
 		}
 		return $value;

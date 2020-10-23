@@ -23,7 +23,7 @@ class QuickSyncEventsController {
 		$sync = new EventsSync();
 		$sync->sync_recent();
 
-		$redirect = admin_url( 'admin.php?page=' . urlencode( Menu::NAME ) );
+		$redirect     = admin_url( 'admin.php?page=' . rawurlencode( Menu::NAME ) );
 		$http_referer = filter_input( INPUT_POST, '_wp_http_referer' );
 		if ( $http_referer ) {
 			$redirect = $http_referer;
