@@ -4,6 +4,8 @@ namespace LevelLevel\VoorDeMensen\Admin\Settings;
 
 class Menu {
 
+	public const NAME = 'll_vdm_options';
+
 	public function register_hooks(): void {
 		add_action( 'admin_menu', array( $this, 'add_menu_page' ) );
 	}
@@ -13,7 +15,7 @@ class Menu {
 			__( 'VoordeMensen settings', 'll-vdm' ),
 			__( 'VoordeMensen', 'll-vdm' ),
 			'manage_options',
-			'll_vdm_options',
+			self::NAME,
 			array( $this, 'render_settings_page' ),
 			'dashicons-tickets'
 		);

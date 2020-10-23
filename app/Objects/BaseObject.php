@@ -124,7 +124,7 @@ class BaseObject {
 	}
 
 	public function get_vdm_id(): int {
-		return (int) $this->get_meta( 'vdm_id' );
+		return (int) $this->get_meta( 'vdm_id', true );
 	}
 
 	public function get_title(): string {
@@ -173,7 +173,7 @@ class BaseObject {
 	}
 
 	public function get_short_text(): string {
-		return (string) $this->get_meta( 'short_text' );
+		return (string) $this->get_meta( 'short_text', true );
 	}
 
 	/**

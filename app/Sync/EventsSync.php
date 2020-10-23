@@ -1,15 +1,63 @@
 <?php
 
-namespace LevelLevel\VoorDeMensen\Utilities;
+namespace LevelLevel\VoorDeMensen\Sync;
 
 use DateTime;
 use DateTimeZone;
+use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\SyncEventsInterval as SyncEventsIntervalSetting;
+use LevelLevel\VoorDeMensen\API\Client;
 use LevelLevel\VoorDeMensen\Objects\Event;
 use LevelLevel\VoorDeMensen\Objects\SubEvent;
 use LevelLevel\VoorDeMensen\Utilities\Image as ImageUtil;
 use WP_Error;
 
-class APIHelper {
+class EventsSync {
+
+	protected const TRIGGER   = 'll_vdm_sync_events';
+	public const RECENT_LIMIT = 10;
+
+	public function register_hooks(): void {
+		add_action( self::TRIGGER, array( $this, 'sync_all' ) );
+		$this->schedule_sync();
+	}
+
+	public function schedule_sync(): void {
+		if ( ! wp_next_scheduled( self::TRIGGER ) ) {
+			$schedule = ( new SyncEventsIntervalSetting() )->get_value();
+			wp_schedule_event( time(), $schedule, self::TRIGGER );
+		}
+	}
+
+	public function reschedule_sync(): void {
+		$this->unschedule_sync();
+		$this->schedule_sync();
+	}
+
+	protected function unschedule_sync(): void {
+		if ( wp_next_scheduled( self::TRIGGER ) ) {
+			wp_clear_scheduled_hook( self::TRIGGER );
+		}
+	}
+
+	public function sync_all(): void {
+		$this->sync();
+	}
+
+	public function sync_recent(): void {
+		$this->sync( self::RECENT_LIMIT );
+	}
+
+	protected function sync( int $limit = null ): void {
+		$client     = new Client();
+		$api_events = $client->get_events();
+		if ( $limit !== null ) {
+			$api_events = array_slice( $api_events, -$limit );
+		}
+
+		foreach ( $api_events as $api_event ) {
+			$this->create_or_update_event( $api_event );
+		}
+	}
 
 	/**
 	 * Create or update event object from api event data
@@ -17,7 +65,7 @@ class APIHelper {
 	 * @param object $api_event
 	 * @return integer
 	 */
-	public function create_or_update_event_object( $api_event ): int {
+	protected function create_or_update_event( $api_event ): int {
 		$vdm_id   = (int) $api_event->event_id;
 		$event    = Event::get_by_vdm_id( $vdm_id );
 		$event_id = 0;
@@ -34,7 +82,7 @@ class APIHelper {
 			'post_type'    => Event::$type,
 			'post_title'   => $api_event->event_name ?? '',
 			'post_name'    => sanitize_title( $api_event->event_name ?? '' ),
-			'post_content' => isset( $api_event->event_text ) ? '<p>' . esc_html( $api_event->event_text ) . '</p>' : '',
+			'post_content' => ! empty( $api_event->event_text ) ? '<p>' . esc_html( $api_event->event_text ) . '</p>' : '',
 		);
 		$post_data = apply_filters( 'll_vdm_update_event_post_data', $post_data, $api_event );
 
@@ -61,7 +109,7 @@ class APIHelper {
 				if ( ! isset( $api_sub_event->event_id ) ) {
 					continue;
 				}
-				$this->create_or_update_sub_event_object( $event_id, $api_sub_event );
+				$this->create_or_update_sub_event( $event_id, $api_sub_event );
 			}
 		}
 		return $event_id;
@@ -74,7 +122,7 @@ class APIHelper {
 	 * @param object $api_sub_event
 	 * @return integer
 	 */
-	public function create_or_update_sub_event_object( int $event_id, $api_sub_event ): int {
+	protected function create_or_update_sub_event( int $event_id, $api_sub_event ): int {
 		$vdm_id       = (int) $api_sub_event->event_id;
 		$sub_event    = SubEvent::get_by_vdm_id( $vdm_id );
 		$sub_event_id = 0;
@@ -96,7 +144,7 @@ class APIHelper {
 			'post_type'    => SubEvent::$type,
 			'post_title'   => $api_sub_event->event_name,
 			'post_name'    => sanitize_title( $api_sub_event->event_name ),
-			'post_content' => '<p>' . esc_html( $api_sub_event->event_text ) . '</p>',
+			'post_content' => ! empty( $api_sub_event->event_text ) ? '<p>' . esc_html( $api_sub_event->event_text ) . '</p>' : '',
 		);
 		$post_data = apply_filters( 'll_vdm_update_sub_event_post_data', $post_data, $api_sub_event, $event_id );
 
