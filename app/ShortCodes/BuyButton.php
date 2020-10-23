@@ -40,12 +40,13 @@ class BuyButton extends BaseShortCode {
 		}
 
 		$event = Event::get_by_post_id( (int) $args['post_id'] );
-		if ( ! $event instanceof Event ) {
-			return '';
+		$event_vdm_id = 0;
+		if ( $event instanceof Event ) {
+			$event_vdm_id = $event->get_vdm_id();
 		}
 
 		// Render html
-		$html = '<button onclick="vdm_order(' . esc_attr( $event->get_vdm_id() ) . ', \'' . esc_attr( session_id() ) .'\');">';
+		$html = '<button onclick="vdm_order(' . esc_attr( $event_vdm_id ) . ', \'' . esc_attr( session_id() ) .'\');" ' . disabled( $event_vdm_id, 0, false ) . '>';
 		$html .= $content;
 		$html .= '</button>';
 		$html = apply_filters( self::PREFIX . 'shortcode_' . self::NAME . '_html', $html, $args, $content, $event );
