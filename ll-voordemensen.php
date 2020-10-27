@@ -52,6 +52,7 @@ add_action(
 		}
 
 		// Register hooks
+		( new LevelLevel\VoorDeMensen\Init() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\MetaBox() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\Menu() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\QuickSyncEventsController() )->register_hooks();
@@ -61,9 +62,11 @@ add_action(
 		( new LevelLevel\VoorDeMensen\Admin\Settings\Display\Settings() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\PostTypes\Event() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\PostTypes\SubEvent() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\PostTypes\TicketType() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Sync\Setup() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Sync\EventsSync() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Assets() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\ShortCodes\Init() )->register_hooks();
 
 		// Load textdomain
 		load_plugin_textdomain( 'll-vdm', false, basename( dirname( __FILE__ ) ) . '/languages/' );

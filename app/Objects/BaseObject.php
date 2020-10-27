@@ -46,12 +46,13 @@ class BaseObject {
 		if ( ! isset( static::$posts[ $id ] ) ) {
 			$class = static::class;
 
-			try {
+			$post = get_post( $id );
+			if ( $post instanceof WP_Post ) {
 				/**
 				 * @psalm-suppress UnsafeInstantiation
 				 */
-				static::$posts[ $id ] = new $class( get_post( $id ) );
-			} catch ( Exception $e ) {
+				static::$posts[ $id ] = new $class( $post );
+			} else {
 				static::$posts[ $id ] = null;
 			}
 		}
@@ -96,25 +97,6 @@ class BaseObject {
 		return array_shift( $one );
 	}
 
-	/**
-	 * Get object by vdm ID
-	 *
-	 * @param array $args
-	 * @return static|null
-	 */
-	public static function get_by_vdm_id( int $vdm_id ) {
-		$args = array(
-			'post_status' => 'any',
-			'meta_query'  => array(
-				array(
-					'key'   => 'vdm_id',
-					'value' => $vdm_id,
-				),
-			),
-		);
-		return static::get_one( $args );
-	}
-
 	public function get_object(): WP_Post {
 		return $this->post;
 	}
@@ -123,8 +105,12 @@ class BaseObject {
 		return $this->post->ID;
 	}
 
-	public function get_vdm_id(): int {
-		return (int) $this->get_meta( 'vdm_id', true );
+	public function get_vdm_id(): ?string {
+		$vdm_id = (string) $this->get_meta( 'vdm_id', true );
+		if ( empty( $vdm_id ) ) {
+			return null;
+		}
+		return $vdm_id;
 	}
 
 	public function get_title(): string {
@@ -207,5 +193,9 @@ class BaseObject {
 		);
 		$args         = wp_parse_args( $args, $default_args );
 		return get_posts( $args );
+	}
+
+	public function delete(): void {
+		wp_delete_post( $this->get_id(), true );
 	}
 }

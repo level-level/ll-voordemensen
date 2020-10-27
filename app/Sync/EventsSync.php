@@ -8,6 +8,7 @@ use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\SyncEventsInterval as 
 use LevelLevel\VoorDeMensen\API\Client;
 use LevelLevel\VoorDeMensen\Objects\Event;
 use LevelLevel\VoorDeMensen\Objects\SubEvent;
+use LevelLevel\VoorDeMensen\Objects\TicketType;
 use LevelLevel\VoorDeMensen\Utilities\Image as ImageUtil;
 use WP_Error;
 
@@ -66,7 +67,7 @@ class EventsSync {
 	 * @return integer
 	 */
 	protected function create_or_update_event( $api_event ): int {
-		$vdm_id   = (int) $api_event->event_id;
+		$vdm_id   = (string) $api_event->event_id;
 		$event    = Event::get_by_vdm_id( $vdm_id );
 		$event_id = 0;
 		if ( $event instanceof Event ) {
@@ -123,7 +124,7 @@ class EventsSync {
 	 * @return integer
 	 */
 	protected function create_or_update_sub_event( int $event_id, $api_sub_event ): int {
-		$vdm_id       = (int) $api_sub_event->event_id;
+		$vdm_id       = (string) $api_sub_event->event_id;
 		$sub_event    = SubEvent::get_by_vdm_id( $vdm_id );
 		$sub_event_id = 0;
 		if ( $sub_event instanceof SubEvent ) {
@@ -201,6 +202,85 @@ class EventsSync {
 		update_post_meta( $sub_event_id, 'location_name', $api_sub_event->location_name ?? null );
 
 		do_action( 'll_vdm_after_insert_sub_event', $sub_event_id, $api_sub_event );
+
+		$this->create_or_update_ticket_types( $sub_event_id, $api_sub_event->event_id );
+
 		return $sub_event_id;
+	}
+
+	protected function create_or_update_ticket_types( int $sub_event_id, string $vdm_sub_event_id ): void {
+		$client           = new Client();
+		$api_ticket_types = $client->get_ticket_types( $vdm_sub_event_id );
+
+		// Update ticket types
+		$updated_ids = array();
+		foreach ( $api_ticket_types as $api_ticket_type ) {
+			$updated_ids[] = $this->create_or_update_ticket_type( $sub_event_id, $api_ticket_type );
+		}
+
+		// Delete removed ticket type
+		$old_ticket_types = TicketType::get_many(
+			array(
+				'posts_per_page' => -1,
+				'post_status'    => 'any',
+				'post__not_in'   => $updated_ids,
+				'meta_query'     => array(
+					array(
+						'key'   => 'sub_event_id',
+						'value' => $sub_event_id,
+					),
+				),
+			)
+		);
+		foreach ( $old_ticket_types as $old_ticket_type ) {
+			do_action( 'll_vdm_before_delete_ticket_type', $sub_event_id, $old_ticket_type );
+			$old_ticket_type->delete();
+			do_action( 'll_vdm_after_insert_ticket_type', $sub_event_id );
+		}
+	}
+
+	/**
+	 * Create or update ticket type object from ticket type data
+	 *
+	 * @param int $event_id
+	 * @param object $api_ticket_type
+	 * @return integer
+	 */
+	protected function create_or_update_ticket_type( int $sub_event_id, $api_ticket_type ): int {
+		$vdm_id         = (string) $api_ticket_type->discount_id;
+		$ticket_type    = TicketType::get_by_vdm_id_and_sub_event_id( $vdm_id, $sub_event_id );
+		$ticket_type_id = 0;
+		if ( $ticket_type instanceof TicketType ) {
+			$ticket_type_id = $ticket_type->get_id();
+		}
+
+		do_action( 'll_vdm_before_insert_ticket_type', $sub_event_id, $api_ticket_type );
+
+		// Update post object
+		$post_data = array(
+			'ID'          => $ticket_type_id,
+			'post_status' => 'publish',
+			'post_type'   => TicketType::$type,
+			'post_title'  => $api_ticket_type->discount_name,
+			'post_name'   => sanitize_title( $api_ticket_type->discount_name ),
+		);
+		$post_data = apply_filters( 'll_vdm_update_ticket_type_post_data', $post_data, $sub_event_id, $api_ticket_type );
+
+		$ticket_type_id = wp_insert_post( $post_data );
+		if ( ! $ticket_type_id || $ticket_type_id instanceof WP_Error ) {
+			return 0;
+		}
+
+		// Update meta
+		update_post_meta( $ticket_type_id, 'vdm_id', $api_ticket_type->discount_id );
+		update_post_meta( $ticket_type_id, 'sub_event_id', $sub_event_id );
+
+		update_post_meta( $ticket_type_id, 'base_price', (float) $api_ticket_type->base_price );
+		update_post_meta( $ticket_type_id, 'discount_type', $api_ticket_type->discount_type );
+		update_post_meta( $ticket_type_id, 'discount_value', (float) $api_ticket_type->discount_value );
+		update_post_meta( $ticket_type_id, 'discounted_price', (float) $api_ticket_type->discounted_price );
+
+		do_action( 'll_vdm_after_insert_ticket_type', $ticket_type_id, $api_ticket_type );
+		return $ticket_type_id;
 	}
 }
