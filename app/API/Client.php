@@ -40,7 +40,6 @@ class Client {
 	/**
 	 * Get API event response object
 	 *
-	 * @param string $vdm_id
 	 * @return object|null
 	 */
 	public function get_event( string $vdm_id ) {

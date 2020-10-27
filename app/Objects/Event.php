@@ -8,8 +8,6 @@ class Event extends BaseObject {
 	/**
 	 * Get object by vdm ID
 	 *
-	 * @param string $vdm_id
-	 * @param array $args
 	 * @return static|null
 	 */
 	public static function get_by_vdm_id( string $vdm_id, array $args = array() ) {
