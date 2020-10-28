@@ -1,0 +1,74 @@
+<?php
+
+namespace LevelLevel\VoorDeMensen\Objects;
+
+class Location extends BaseObject {
+	public static $type = 'll_vdm_location';
+
+	/**
+	 * Get object by vdm ID
+	 *
+	 * @return static|null
+	 */
+	public static function get_by_vdm_id( string $vdm_id, array $args = array() ) {
+		$default_args = array(
+			'post_status' => 'any',
+			'meta_query'  => array(
+				array(
+					'key'   => 'vdm_id',
+					'value' => $vdm_id,
+				),
+			),
+		);
+		$args         = wp_parse_args( $args, $default_args );
+		return static::get_one( $args );
+	}
+
+	public function get_address(): ?string {
+		$address = $this->get_meta( 'address', true );
+		if ( empty( $address ) ) {
+			return null;
+		}
+		return (string) $address;
+	}
+
+	public function get_address_1(): ?string {
+		$address_1 = $this->get_meta( 'address_1', true );
+		if ( empty( $address_1 ) ) {
+			return null;
+		}
+		return (string) $address_1;
+	}
+
+	public function get_zip_code(): ?string {
+		$zip_code = $this->get_meta( 'zip_code', true );
+		if ( empty( $zip_code ) ) {
+			return null;
+		}
+		return (string) $zip_code;
+	}
+
+	public function get_city(): ?string {
+		$city = $this->get_meta( 'city', true );
+		if ( empty( $city ) ) {
+			return null;
+		}
+		return (string) $city;
+	}
+
+	public function get_country(): ?string {
+		$country = $this->get_meta( 'country', true );
+		if ( empty( $country ) ) {
+			return null;
+		}
+		return (string) $country;
+	}
+
+	public function get_phone(): ?string {
+		$phone = $this->get_meta( 'phone', true );
+		if ( empty( $phone ) ) {
+			return null;
+		}
+		return (string) $phone;
+	}
+}

@@ -4,45 +4,18 @@ namespace LevelLevel\VoorDeMensen\Sync;
 
 use DateTime;
 use DateTimeZone;
-use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\SyncEventsInterval as SyncEventsIntervalSetting;
 use LevelLevel\VoorDeMensen\API\Client;
 use LevelLevel\VoorDeMensen\Objects\Event;
+use LevelLevel\VoorDeMensen\Objects\Location;
 use LevelLevel\VoorDeMensen\Objects\SubEvent;
 use LevelLevel\VoorDeMensen\Objects\TicketType;
 use LevelLevel\VoorDeMensen\Utilities\Image as ImageUtil;
 use WP_Error;
 
-class EventsSync {
+class EventsSync extends BaseSync {
 
 	protected const TRIGGER   = 'll_vdm_sync_events';
 	public const RECENT_LIMIT = 10;
-
-	public function register_hooks(): void {
-		add_action( self::TRIGGER, array( $this, 'sync_all' ) );
-		$this->schedule_sync();
-	}
-
-	public function schedule_sync(): void {
-		if ( ! wp_next_scheduled( self::TRIGGER ) ) {
-			$schedule = ( new SyncEventsIntervalSetting() )->get_value();
-			wp_schedule_event( time(), $schedule, self::TRIGGER );
-		}
-	}
-
-	public function reschedule_sync(): void {
-		$this->unschedule_sync();
-		$this->schedule_sync();
-	}
-
-	protected function unschedule_sync(): void {
-		if ( wp_next_scheduled( self::TRIGGER ) ) {
-			wp_clear_scheduled_hook( self::TRIGGER );
-		}
-	}
-
-	public function sync_all(): void {
-		$this->sync();
-	}
 
 	public function sync_recent(): void {
 		$this->sync( self::RECENT_LIMIT );
@@ -164,6 +137,14 @@ class EventsSync {
 		update_post_meta( $sub_event_id, 'vdm_id', $api_sub_event->event_id );
 		update_post_meta( $sub_event_id, 'event_id', $event_id );
 		update_post_meta( $sub_event_id, 'vdm_event_id', $api_sub_event->event_main_id ?? null );
+
+		$location_id     = 0;
+		$location_vdm_id = $api_sub_event->location_id ?? null;
+		$location        = Location::get_by_vdm_id( (string) $location_vdm_id );
+		if ( $location instanceof Location ) {
+			$location_id = $location->get_id();
+		}
+		update_post_meta( $sub_event_id, 'location_id', $location_id );
 		update_post_meta( $sub_event_id, 'vdm_location_id', $api_sub_event->location_id ?? null );
 		update_post_meta( $sub_event_id, 'vdm_status', $api_sub_event->event_status ?? null );
 
@@ -199,7 +180,6 @@ class EventsSync {
 		update_post_meta( $sub_event_id, 'end_date', $end_timestamp );
 		update_post_meta( $sub_event_id, 'rep', $api_sub_event->event_rep ?? null );
 		update_post_meta( $sub_event_id, 'max_tickets_per_order', $api_sub_event->event_free ?? null );
-		update_post_meta( $sub_event_id, 'location_name', $api_sub_event->location_name ?? null );
 
 		do_action( 'll_vdm_after_insert_sub_event', $sub_event_id, $api_sub_event );
 
