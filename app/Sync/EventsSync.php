@@ -133,15 +133,10 @@ class EventsSync {
 
 		do_action( 'll_vdm_before_insert_sub_event', $event_id, $api_sub_event );
 
-		$status = 'draft';
-		if ( isset( $api_sub_event->event_status ) && $api_sub_event->event_status === 'pub' ) {
-			$status = 'publish';
-		}
-
 		// Update post object
 		$post_data = array(
 			'ID'           => $sub_event_id,
-			'post_status'  => $status,
+			'post_status'  => $this->api_event_status_to_post_status( $api_sub_event->event_status ?? 'unpub' ),
 			'post_type'    => SubEvent::$type,
 			'post_title'   => $api_sub_event->event_name,
 			'post_name'    => sanitize_title( $api_sub_event->event_name ),
@@ -221,6 +216,27 @@ class EventsSync {
 		$this->create_or_update_ticket_types( $sub_event_id, $api_sub_event->event_id );
 
 		return $sub_event_id;
+	}
+
+	/**
+	 * Convert event api status to wp post status
+	 *
+	 * @param string $api_satus One of pub, unpub, nosal, arch, trash
+	 */
+	protected function api_event_status_to_post_status( string $api_satus ): string {
+		$status = 'draft';
+		switch ( $api_satus ) {
+			case 'pub':
+				$status = 'publish';
+				break;
+			case 'arch':
+				$status = 'publish';
+				break;
+			case 'trash':
+				$status = 'trash';
+				break;
+		}
+		return $status;
 	}
 
 	protected function create_or_update_ticket_types( int $sub_event_id, string $vdm_sub_event_id ): void {
