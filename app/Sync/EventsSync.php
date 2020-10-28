@@ -170,10 +170,12 @@ class EventsSync {
 		update_post_meta( $sub_event_id, 'short_text', $api_sub_event->event_short_text ?? null );
 		update_post_meta( $sub_event_id, 'url', $api_sub_event->event_url ?? null );
 
+		// Dates logic
 		$start_timestamp = null;
 		$end_timestamp   = null;
 		$timezone        = new DateTimeZone( 'Europe/Amsterdam' ); // Plugin uses Europe/Amsterdam timestamps
 		if ( isset( $api_sub_event->event_date ) ) {
+			// Get event start datetime
 			if ( isset( $api_sub_event->event_time ) ) {
 				$start_date = DateTime::createFromFormat( 'Y-m-d H:i:s', $api_sub_event->event_date . ' ' . $api_sub_event->event_time, $timezone );
 
@@ -182,9 +184,20 @@ class EventsSync {
 				}
 			}
 
+			// Get event end datetime
 			if ( isset( $api_sub_event->event_end ) ) {
+				// Get end date from date and end time fields
 				$end_date = DateTime::createFromFormat( 'Y-m-d H:i:s', $api_sub_event->event_date . ' ' . $api_sub_event->event_end, $timezone );
 
+				// If event duration is over multiple dates, and event_view_end is filled in correctly, use that as end date
+				if ( isset( $api_sub_event->event_view_end ) && $api_sub_event->event_view_end !== '0000-00-00 00:00:00' ) {
+					$alt_end_date = DateTime::createFromFormat( 'Y-m-d H:i:s', $api_sub_event->event_view_end, $timezone );
+					if ( $alt_end_date instanceof DateTime && $alt_end_date->getTimestamp() > ( $start_timestamp ?: 0 ) ) {
+						$end_date = $alt_end_date;
+					}
+				}
+
+				// Get end date, and add 1 day if end date is before start date as a fix for events with duration over 1 day
 				if ( $end_date instanceof DateTime ) {
 					$end_timestamp = $end_date->getTimestamp();
 					if ( $end_timestamp < $start_timestamp ) {
@@ -195,8 +208,10 @@ class EventsSync {
 			}
 		}
 
+		// Store the dates
 		update_post_meta( $sub_event_id, 'start_date', $start_timestamp );
 		update_post_meta( $sub_event_id, 'end_date', $end_timestamp );
+
 		update_post_meta( $sub_event_id, 'rep', $api_sub_event->event_rep ?? null );
 		update_post_meta( $sub_event_id, 'max_tickets_per_order', $api_sub_event->event_free ?? null );
 		update_post_meta( $sub_event_id, 'location_name', $api_sub_event->location_name ?? null );
