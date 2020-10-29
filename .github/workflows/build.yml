@@ -81,19 +81,21 @@ jobs:
         run: |
           rm -rf 7.3linux.sh
           cd wp-content/plugins/ll-voordemensen/
+          rm -rf development
           rm -rf node_modules
           rm -rf src
-          rm -rf development
-          rm -rf composer.*
-          rm -rf package-lock.json
-          rm -rf package.json
           rm -rf .editorconfig
           rm -rf .gitignore
           rm -rf .eslintrc
-          rm -rf .jshintrc
           rm -rf .stylelintignore
           rm -rf .stylelintrc.json
+          rm -rf composer.*
+          rm -rf package-lock.json
+          rm -rf package.json
           rm -rf phpcs.xml.dist
+          rm -rf psalm-autoloader.php
+          rm -rf psalm.baseline.xml
+          rm -rf psalm.xml.dist
           rm -rf webpack.*
       - name: Generate zip file
         run: |
