@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a8d2ab32efa34206234767190e1791c",
+    "content-hash": "0e494122b8ce5bb562811ab8a21e319f",
     "packages": [
         {
             "name": "composer/installers",
@@ -194,22 +194,22 @@
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
-            "version": "v0.5.0",
+            "version": "v0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dealerdirect/phpcodesniffer-composer-installer.git",
-                "reference": "e749410375ff6fb7a040a68878c656c2e610b132"
+                "reference": "e8d808670b8f882188368faaf1144448c169c0b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/e749410375ff6fb7a040a68878c656c2e610b132",
-                "reference": "e749410375ff6fb7a040a68878c656c2e610b132",
+                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/e8d808670b8f882188368faaf1144448c169c0b7",
+                "reference": "e8d808670b8f882188368faaf1144448c169c0b7",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0",
-                "php": "^5.3|^7",
-                "squizlabs/php_codesniffer": "^2|^3"
+                "composer-plugin-api": "^1.0 || ^2.0",
+                "php": ">=5.3",
+                "squizlabs/php_codesniffer": "^2 || ^3 || 4.0.x-dev"
             },
             "require-dev": {
                 "composer/composer": "*",
@@ -256,25 +256,25 @@
                 "stylecheck",
                 "tests"
             ],
-            "time": "2018-10-26T13:21:45+00:00"
+            "time": "2020-06-25T14:57:39+00:00"
         },
         {
             "name": "level-level/coding-standards",
-            "version": "v1.0.4",
+            "version": "v1.0.7",
             "source": {
                 "type": "git",
                 "url": "git@github.com:level-level/coding-standards.git",
-                "reference": "89f6b6b32fa147751284176c12a56fc3f978ee1d"
+                "reference": "45cde449c408ffe85e5dd4b9b5de82bf60a688c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://satis.level-level.com/packages/level-level/coding-standards/level-level-coding-standards-89f6b6b32fa147751284176c12a56fc3f978ee1d-zip-b6aaae.zip",
-                "reference": "89f6b6b32fa147751284176c12a56fc3f978ee1d",
-                "shasum": "aad8bcce4a4888a61668888173d8a96b7a3d97e1"
+                "url": "https://satis.level-level.com/packages/level-level/coding-standards/level-level-coding-standards-45cde449c408ffe85e5dd4b9b5de82bf60a688c1-zip-dd0ecb.zip",
+                "reference": "45cde449c408ffe85e5dd4b9b5de82bf60a688c1",
+                "shasum": "9e346831c0a63f218b709cf33416a43335a28c69"
             },
             "require": {
                 "automattic/vipwpcs": "^2.1",
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
                 "phpcompatibility/php-compatibility": "^9.3",
                 "slevomat/coding-standard": "^5.0",
                 "wp-coding-standards/wpcs": "^2.1"
@@ -295,7 +295,7 @@
                 }
             ],
             "description": "Level Level Coding standards",
-            "time": "2020-07-17T08:24:43+00:00"
+            "time": "2020-10-27T07:32:30+00:00"
         },
         {
             "name": "niels-de-blaauw/php-doc-check",
@@ -623,16 +623,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.5.6",
+            "version": "3.5.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "e97627871a7eab2f70e59166072a6b767d5834e0"
+                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/e97627871a7eab2f70e59166072a6b767d5834e0",
-                "reference": "e97627871a7eab2f70e59166072a6b767d5834e0",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/9d583721a7157ee997f235f327de038e7ea6dac4",
+                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4",
                 "shasum": ""
             },
             "require": {
@@ -670,7 +670,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2020-08-10T04:50:15+00:00"
+            "time": "2020-10-23T02:01:07+00:00"
         },
         {
             "name": "ulrichsg/getopt-php",
