@@ -14,8 +14,13 @@ use WP_Error;
 
 class EventsSync extends BaseSync {
 
-	protected const TRIGGER   = 'll_vdm_sync_events';
-	public const RECENT_LIMIT = 10;
+	protected const TRIGGER           = 'll_vdm_sync_events';
+	public const RECENT_LIMIT         = 10;
+	protected const API_STATUSSES_MAP = array(
+		'pub'   => 'publish',
+		'arch'  => 'publish',
+		'trash' => 'trash',
+	);
 
 	public function sync_recent(): void {
 		$this->sync( self::RECENT_LIMIT );
@@ -124,6 +129,7 @@ class EventsSync extends BaseSync {
 		$end_timestamp   = null;
 		$timezone        = new DateTimeZone( 'Europe/Amsterdam' ); // Plugin uses Europe/Amsterdam timestamps
 		if ( isset( $api_sub_event->event_date ) ) {
+			// Get event start datetime
 			if ( isset( $api_sub_event->event_time ) ) {
 				$start_date = DateTime::createFromFormat( 'Y-m-d H:i:s', $api_sub_event->event_date . ' ' . $api_sub_event->event_time, $timezone );
 
@@ -132,9 +138,20 @@ class EventsSync extends BaseSync {
 				}
 			}
 
+			// Get event end datetime
 			if ( isset( $api_sub_event->event_end ) ) {
+				// Get end date from date and end time fields
 				$end_date = DateTime::createFromFormat( 'Y-m-d H:i:s', $api_sub_event->event_date . ' ' . $api_sub_event->event_end, $timezone );
 
+				// If event duration is over multiple dates, and event_view_end is filled in correctly, use that as end date
+				if ( isset( $api_sub_event->event_view_end ) && $api_sub_event->event_view_end !== '0000-00-00 00:00:00' ) {
+					$alt_end_date = DateTime::createFromFormat( 'Y-m-d H:i:s', $api_sub_event->event_view_end, $timezone );
+					if ( $alt_end_date instanceof DateTime && $alt_end_date->getTimestamp() > ( $start_timestamp ?: 0 ) ) {
+						$end_date = $alt_end_date;
+					}
+				}
+
+				// Get end date, and add 1 day if end date is before start date as a fix for events with duration over 1 day
 				if ( $end_date instanceof DateTime ) {
 					$end_timestamp = $end_date->getTimestamp();
 					if ( $end_timestamp < $start_timestamp ) {
@@ -186,6 +203,18 @@ class EventsSync extends BaseSync {
 		$this->create_or_update_ticket_types( $sub_event_id, $api_sub_event->event_id );
 
 		return $sub_event_id;
+	}
+
+	/**
+	 * Convert event api status to wp post status
+	 *
+	 * @param string $api_status One of pub, unpub, nosal, arch, trash
+	 */
+	protected function api_event_status_to_post_status( string $api_status ): string {
+		if ( isset( self::API_STATUSSES_MAP[ $api_status ] ) ) {
+			return self::API_STATUSSES_MAP[ $api_status ];
+		}
+		return 'draft';
 	}
 
 	protected function create_or_update_ticket_types( int $sub_event_id, string $vdm_sub_event_id ): void {
