@@ -8,7 +8,52 @@ use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\ClientName as ClientNa
 class Assets {
 
 	public function register_hooks(): void {
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+	}
+
+	public function is_development_mode(): bool {
+		return ! file_exists( LL_VDM_PLUGIN_PATH . 'dist/main.js' );
+	}
+
+	public function enqueue() {
+		if ( $this->is_development_mode() ) {
+			$this->enqueue_development( 'll_vdm_main', array( 'jquery' ), '/src/main.js', true );
+		} else {
+			$this->enqueue_production();
+		}
+	}
+
+	public function enqueue_development( string $handle, array $deps, string $path, bool $in_footer ): void {
+		$src = $this->get_development_src( $path );
+		wp_enqueue_script( $handle, $src, $deps, LL_VDM_PLUGIN_VERSION, $in_footer );
+	}
+
+	public function enqueue_production(): void {
+		wp_enqueue_script( 'll_vdm_main', LL_VDM_PLUGIN_PATH . 'dist/main.js', array( 'jquery' ), LL_VDM_PLUGIN_VERSION, true );
+		wp_enqueue_style( 'll_vdm_main', LL_VDM_PLUGIN_PATH . 'dist/main.css', array(), LL_VDM_PLUGIN_VERSION, 'all' );
+	}
+
+	public function get_development_src( string $path = '' ): string {
+		$config   = $this->get_src_config();
+		$protocol = $config['secure'] ? 'https' : 'http';
+		return $protocol . '://localhost:' . $config['port'] . $path;
+	}
+
+	/**
+	 * Get config settings from development/config.default.json and (optional) development/config.local.json
+	 */
+	public function get_src_config(): array {
+		$local_config_path = LL_VDM_PLUGIN_PATH . 'development/config.local.json';
+		$local_config      = array();
+		$manifest          = json_decode( file_get_contents( LL_VDM_PLUGIN_PATH . 'development/config.default.json' ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+		if ( file_exists( $local_config_path ) ) {
+			$local_config = json_decode( file_get_contents( $local_config_path ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		}
+
+		// Merge the two config files and the local config is always leading
+		return array_merge( $manifest['config'], $local_config );
 	}
 
 	public function enqueue_scripts(): void {
