@@ -30,8 +30,8 @@ class Assets {
 	}
 
 	public function enqueue_production(): void {
-		wp_enqueue_script( 'll_vdm_main', LL_VDM_PLUGIN_PATH . 'dist/main.js', array( 'jquery' ), LL_VDM_PLUGIN_VERSION, true );
-		wp_enqueue_style( 'll_vdm_main', LL_VDM_PLUGIN_PATH . 'dist/main.css', array(), LL_VDM_PLUGIN_VERSION, 'all' );
+		wp_enqueue_script( 'll_vdm_main', LL_VDM_PLUGIN_URL . 'dist/main.js', array( 'jquery' ), LL_VDM_PLUGIN_VERSION, true );
+		wp_enqueue_style( 'll_vdm_main', LL_VDM_PLUGIN_URL . 'dist/main.css', array(), LL_VDM_PLUGIN_VERSION, 'all' );
 	}
 
 	public function get_development_src( string $path = '' ): string {
