@@ -73,10 +73,6 @@ jobs:
         run: |
           cd wp-content/plugins/ll-voordemensen/
           composer install --prefer-dist --no-suggest --no-dev --optimize-autoloader --ignore-platform-reqs
-      - name: Add version to ll-voordemensen.php
-        run: |
-          cd wp-content/plugins/ll-voordemensen/
-          echo "/* Version: ${{ github.event.release.tag_name }} */" | cat - ll-voordemensen.css > ll-voordemensen.temp && mv ll-voordemensen.temp ll-voordemensen.css
       - name: Remove source files
         run: |
           rm -rf 7.3linux.sh
