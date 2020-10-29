@@ -9,14 +9,14 @@ class Assets {
 
 	public function register_hooks(): void {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_external_vdm_script' ) );
 	}
 
 	public function is_development_mode(): bool {
 		return ! file_exists( LL_VDM_PLUGIN_PATH . 'dist/main.js' );
 	}
 
-	public function enqueue() {
+	public function enqueue(): void {
 		if ( $this->is_development_mode() ) {
 			$this->enqueue_development( 'll_vdm_main', array( 'jquery' ), '/src/main.js', true );
 		} else {
@@ -56,7 +56,7 @@ class Assets {
 		return array_merge( $manifest['config'], $local_config );
 	}
 
-	public function enqueue_scripts(): void {
+	public function enqueue_external_vdm_script(): void {
 		$client_name = ( new ClientNameSetting() )->get_value();
 		if ( empty( $client_name ) ) {
 			return;
