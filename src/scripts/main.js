@@ -1,4 +1,5 @@
-import './modules/example-module.js';
+import './modules/cart-button.js';
+import './modules/event-buy-button.js';
 
 ( function( app, $ ) {
 	'use strict';
@@ -7,7 +8,7 @@ import './modules/example-module.js';
 		const $this   = $( elem );
 		const module  = $this.attr( 'data-ll-vdm-module' );
 		if ( module === undefined ) {
-			throw 'Module not defined (use data-ll-vdm-module="")';
+			throw 'LL VdM module not defined (use data-ll-vdm-module="")';
 		} else if ( module in app ) {
 			new app[ module ]( elem );
 			$this.attr( 'data-initialized', true );

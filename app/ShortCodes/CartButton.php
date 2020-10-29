@@ -33,7 +33,7 @@ class CartButton extends BaseShortCode {
 		}
 
 		// Render html
-		$html  = '<button onclick="vdm_order(\'cart\', \'' . esc_attr( session_id() ) . '\');" ' . disabled( $event_vdm_id, 0, false ) . '>';
+		$html  = '<button data-ll-vdm-module="cartButton">';
 		$html .= $content;
 		$html .= '</button>';
 		$html  = apply_filters( self::PREFIX . 'shortcode_' . self::NAME . '_html', $html, $args, $content, $event );
