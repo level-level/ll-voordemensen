@@ -14,8 +14,13 @@ use WP_Error;
 
 class EventsSync {
 
-	protected const TRIGGER   = 'll_vdm_sync_events';
-	public const RECENT_LIMIT = 10;
+	protected const TRIGGER           = 'll_vdm_sync_events';
+	public const RECENT_LIMIT         = 10;
+	protected const API_STATUSSES_MAP = array(
+		'pub'   => 'publish',
+		'arch'  => 'publish',
+		'trash' => 'trash',
+	);
 
 	public function register_hooks(): void {
 		add_action( self::TRIGGER, array( $this, 'sync_all' ) );
@@ -221,22 +226,13 @@ class EventsSync {
 	/**
 	 * Convert event api status to wp post status
 	 *
-	 * @param string $api_satus One of pub, unpub, nosal, arch, trash
+	 * @param string $api_status One of pub, unpub, nosal, arch, trash
 	 */
-	protected function api_event_status_to_post_status( string $api_satus ): string {
-		$status = 'draft';
-		switch ( $api_satus ) {
-			case 'pub':
-				$status = 'publish';
-				break;
-			case 'arch':
-				$status = 'publish';
-				break;
-			case 'trash':
-				$status = 'trash';
-				break;
+	protected function api_event_status_to_post_status( string $api_status ): string {
+		if ( isset( self::API_STATUSSES_MAP[ $api_status ] ) ) {
+			return self::API_STATUSSES_MAP[ $api_status ];
 		}
-		return $status;
+		return 'draft';
 	}
 
 	protected function create_or_update_ticket_types( int $sub_event_id, string $vdm_sub_event_id ): void {
