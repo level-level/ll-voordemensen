@@ -1,13 +1,13 @@
 {
-    "name": "clarkson-theme-dawn",
+    "name": "ll-voordemensen",
     "version": "0.0.1",
-    "description": "clarkson-theme-dawn webpack",
+    "description": "ll-voordemensen webpack",
     "main": "main.js",
     "author": "Level Level",
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/level-level/clarkson-theme-dawn.git"
+        "url": "https://github.com/level-level/ll-voordemensen.git"
     },
     "dependencies": {
         "@babel/polyfill": "^7.11.5"
