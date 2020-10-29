@@ -45,6 +45,15 @@ class LocationsSync extends BaseSync {
 			'post_type'   => Location::$type,
 			'post_title'  => $api_location->location_name ?? '',
 			'post_name'   => sanitize_title( $api_location->location_name ?? '' ),
+			'meta_input'  => array(
+				'vdm_id'    => $api_location->location_id,
+				'address'   => $api_location->location_address ?? null,
+				'address_1' => $api_location->location_address1 ?? null,
+				'zip_code'  => $api_location->ocation_zip ?? null,
+				'city'      => $api_location->location_city ?? null,
+				'country'   => $api_location->location_country ?? null,
+				'phone'     => $api_location->location_phone ?? null,
+			),
 		);
 		$post_data = apply_filters( 'll_vdm_update_location_post_data', $post_data, $api_location );
 
@@ -52,16 +61,6 @@ class LocationsSync extends BaseSync {
 		if ( ! $location_id || $location_id instanceof WP_Error ) {
 			return 0;
 		}
-
-		// Update meta
-		update_post_meta( $location_id, 'vdm_id', $api_location->location_id );
-
-		update_post_meta( $location_id, 'address', $api_location->location_address ?? null );
-		update_post_meta( $location_id, 'address_1', $api_location->location_address1 ?? null );
-		update_post_meta( $location_id, 'zip_code', $api_location->location_zip ?? null );
-		update_post_meta( $location_id, 'city', $api_location->location_city ?? null );
-		update_post_meta( $location_id, 'country', $api_location->location_country ?? null );
-		update_post_meta( $location_id, 'phone', $api_location->location_phone ?? null );
 
 		do_action( 'll_vdm_after_insert_location', $location_id, $api_location );
 		return $location_id;
