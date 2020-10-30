@@ -87,6 +87,30 @@ class Client {
 	}
 
 	/**
+	 * Get array of API location response objects
+	 *
+	 * @return object[]
+	 */
+	public function get_locations(): array {
+		$url = $this->get_locations_url();
+		if ( ! $url ) {
+			return array();
+		}
+
+		$response = $this->request( $url );
+		if ( ! isset( $response['success'] ) || ! $response['success'] || ! is_array( $response['data'] ) ) {
+			return array();
+		}
+
+		// Filter out object errors
+		return array_filter(
+			$response['data'], function( $api_event ) {
+				return isset( $api_event->location_id );
+			}
+		);
+	}
+
+	/**
 	 * Perform an API request
 	 */
 	public function request( string $url, string $method = 'GET', array $request_args = array() ): array {
@@ -133,6 +157,14 @@ class Client {
 			$url_path .= $vdm_sub_event_id;
 		}
 
+		return $this->generate_url( $url_path );
+	}
+
+	/**
+	 * Get url for the locations endpoint
+	 */
+	protected function get_locations_url(): ?string {
+		$url_path = '/locations/';
 		return $this->generate_url( $url_path );
 	}
 

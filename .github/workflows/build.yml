@@ -53,23 +53,11 @@ jobs:
         run: |
           cd wp-content/plugins/ll-voordemensen/
           npm run build
-      - name: Setup Satis authentication
-        run: |
-          cd wp-content/plugins/ll-voordemensen/
-          composer config http-basic.${{ secrets.SATIS_DOMAIN }} "${{ secrets.SATIS_USERNAME }}" "${{ secrets.SATIS_PASSWORD }}"
-        env:
-          SATIS_DOMAIN: ${{ secrets.SATIS_DOMAIN }}
-          SATIS_USERNAME: ${{ secrets.SATIS_USERNAME }}
-          SATIS_PASSWORD: ${{ secrets.SATIS_PASSWORD }}
-      - name: Install Composer dependencies (including dev)
-        run: |
-          cd wp-content/plugins/ll-voordemensen/
-          composer install --prefer-dist --no-suggest --ignore-platform-reqs
       - name: Generate translations
         run: |
           cd wp-content/plugins/ll-voordemensen/
           composer run make-pot
-      - name: Install composer optimized dependencies (excluding dev)
+      - name: Install composer dependencies (excluding dev)
         run: |
           cd wp-content/plugins/ll-voordemensen/
           composer install --prefer-dist --no-suggest --no-dev --optimize-autoloader --ignore-platform-reqs

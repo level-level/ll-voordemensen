@@ -4,15 +4,15 @@ namespace LevelLevel\VoorDeMensen\Sync;
 
 use DateTime;
 use DateTimeZone;
-use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\SyncEventsInterval as SyncEventsIntervalSetting;
 use LevelLevel\VoorDeMensen\API\Client;
 use LevelLevel\VoorDeMensen\Objects\Event;
+use LevelLevel\VoorDeMensen\Objects\Location;
 use LevelLevel\VoorDeMensen\Objects\SubEvent;
 use LevelLevel\VoorDeMensen\Objects\TicketType;
 use LevelLevel\VoorDeMensen\Utilities\Image as ImageUtil;
 use WP_Error;
 
-class EventsSync {
+class EventsSync extends BaseSync {
 
 	protected const TRIGGER           = 'll_vdm_sync_events';
 	public const RECENT_LIMIT         = 10;
@@ -21,33 +21,6 @@ class EventsSync {
 		'arch'  => 'publish',
 		'trash' => 'trash',
 	);
-
-	public function register_hooks(): void {
-		add_action( self::TRIGGER, array( $this, 'sync_all' ) );
-		$this->schedule_sync();
-	}
-
-	public function schedule_sync(): void {
-		if ( ! wp_next_scheduled( self::TRIGGER ) ) {
-			$schedule = ( new SyncEventsIntervalSetting() )->get_value();
-			wp_schedule_event( time(), $schedule, self::TRIGGER );
-		}
-	}
-
-	public function reschedule_sync(): void {
-		$this->unschedule_sync();
-		$this->schedule_sync();
-	}
-
-	protected function unschedule_sync(): void {
-		if ( wp_next_scheduled( self::TRIGGER ) ) {
-			wp_clear_scheduled_hook( self::TRIGGER );
-		}
-	}
-
-	public function sync_all(): void {
-		$this->sync();
-	}
 
 	public function sync_recent(): void {
 		$this->sync( self::RECENT_LIMIT );
@@ -89,6 +62,10 @@ class EventsSync {
 			'post_title'   => $api_event->event_name ?? '',
 			'post_name'    => sanitize_title( $api_event->event_name ?? '' ),
 			'post_content' => ! empty( $api_event->event_text ) ? '<p>' . $api_event->event_text . '</p>' : '',
+			'meta_input'   => array(
+				'vdm_id'     => $api_event->event_id,
+				'short_text' => $api_event->event_short_text ?? null,
+			),
 		);
 		$post_data = apply_filters( 'll_vdm_update_event_post_data', $post_data, $api_event );
 
@@ -102,11 +79,6 @@ class EventsSync {
 			$image_util = new ImageUtil();
 			$image_util->set_post_thumbnail( $event_id, $api_event->event_image );
 		}
-
-		// Update meta
-		update_post_meta( $event_id, 'vdm_id', $api_event->event_id );
-
-		update_post_meta( $event_id, 'short_text', $api_event->event_short_text ?? null );
 
 		do_action( 'll_vdm_after_insert_event', $event_id, $api_event );
 
@@ -138,39 +110,21 @@ class EventsSync {
 
 		do_action( 'll_vdm_before_insert_sub_event', $event_id, $api_sub_event );
 
-		// Update post object
-		$post_data = array(
-			'ID'           => $sub_event_id,
-			'post_status'  => $this->api_event_status_to_post_status( $api_sub_event->event_status ?? 'unpub' ),
-			'post_type'    => SubEvent::$type,
-			'post_title'   => $api_sub_event->event_name,
-			'post_name'    => sanitize_title( $api_sub_event->event_name ),
-			'post_content' => ! empty( $api_sub_event->event_text ) ? '<p>' . $api_sub_event->event_text . '</p>' : '',
-		);
-		$post_data = apply_filters( 'll_vdm_update_sub_event_post_data', $post_data, $api_sub_event, $event_id );
-
-		$sub_event_id = wp_insert_post( $post_data );
-		if ( ! $sub_event_id || $sub_event_id instanceof WP_Error ) {
-			return 0;
+		// Prepare status
+		$status = 'draft';
+		if ( isset( $api_sub_event->event_status ) && $api_sub_event->event_status === 'pub' ) {
+			$status = 'publish';
 		}
 
-		// Set thumbnail
-		if ( ! empty( $api_sub_event->event_image ) ) {
-			$image_util = new ImageUtil();
-			$image_util->set_post_thumbnail( $sub_event_id, $api_sub_event->event_image );
+		// Prepare location
+		$location_id     = 0;
+		$location_vdm_id = $api_sub_event->location_id ?? null;
+		$location        = Location::get_by_vdm_id( (string) $location_vdm_id );
+		if ( $location instanceof Location ) {
+			$location_id = $location->get_id();
 		}
 
-		// Update meta
-		update_post_meta( $sub_event_id, 'vdm_id', $api_sub_event->event_id );
-		update_post_meta( $sub_event_id, 'event_id', $event_id );
-		update_post_meta( $sub_event_id, 'vdm_event_id', $api_sub_event->event_main_id ?? null );
-		update_post_meta( $sub_event_id, 'vdm_location_id', $api_sub_event->location_id ?? null );
-		update_post_meta( $sub_event_id, 'vdm_status', $api_sub_event->event_status ?? null );
-
-		update_post_meta( $sub_event_id, 'short_text', $api_sub_event->event_short_text ?? null );
-		update_post_meta( $sub_event_id, 'url', $api_sub_event->event_url ?? null );
-
-		// Dates logic
+		// Prepare start and end time
 		$start_timestamp = null;
 		$end_timestamp   = null;
 		$timezone        = new DateTimeZone( 'Europe/Amsterdam' ); // Plugin uses Europe/Amsterdam timestamps
@@ -208,13 +162,41 @@ class EventsSync {
 			}
 		}
 
-		// Store the dates
-		update_post_meta( $sub_event_id, 'start_date', $start_timestamp );
-		update_post_meta( $sub_event_id, 'end_date', $end_timestamp );
+		// Update post object
+		$post_data = array(
+			'ID'           => $sub_event_id,
+			'post_status'  => $status,
+			'post_type'    => SubEvent::$type,
+			'post_title'   => $api_sub_event->event_name,
+			'post_name'    => sanitize_title( $api_sub_event->event_name ),
+			'post_content' => ! empty( $api_sub_event->event_text ) ? '<p>' . $api_sub_event->event_text . '</p>' : '',
+			'meta_input'   => array(
+				'vdm_id'                => $api_sub_event->event_id,
+				'event_id'              => $event_id,
+				'vdm_event_id'          => $api_sub_event->event_main_id ?? null,
+				'location_id'           => $location_id,
+				'vdm_location_id'       => $api_sub_event->location_id ?? null,
+				'vdm_status'            => $api_sub_event->event_status ?? null,
+				'short_text'            => $api_sub_event->event_short_text ?? null,
+				'url'                   => $api_sub_event->event_url ?? null,
+				'start_date'            => $start_timestamp,
+				'end_date'              => $end_timestamp,
+				'rep'                   => $api_sub_event->event_rep ?? null,
+				'max_tickets_per_order' => $api_sub_event->event_free ?? null,
+			),
+		);
+		$post_data = apply_filters( 'll_vdm_update_sub_event_post_data', $post_data, $api_sub_event, $event_id );
 
-		update_post_meta( $sub_event_id, 'rep', $api_sub_event->event_rep ?? null );
-		update_post_meta( $sub_event_id, 'max_tickets_per_order', $api_sub_event->event_free ?? null );
-		update_post_meta( $sub_event_id, 'location_name', $api_sub_event->location_name ?? null );
+		$sub_event_id = wp_insert_post( $post_data );
+		if ( ! $sub_event_id || $sub_event_id instanceof WP_Error ) {
+			return 0;
+		}
+
+		// Set thumbnail
+		if ( ! empty( $api_sub_event->event_image ) ) {
+			$image_util = new ImageUtil();
+			$image_util->set_post_thumbnail( $sub_event_id, $api_sub_event->event_image );
+		}
 
 		do_action( 'll_vdm_after_insert_sub_event', $sub_event_id, $api_sub_event );
 
@@ -290,6 +272,14 @@ class EventsSync {
 			'post_type'   => TicketType::$type,
 			'post_title'  => $api_ticket_type->discount_name,
 			'post_name'   => sanitize_title( $api_ticket_type->discount_name ),
+			'meta_input'  => array(
+				'vdm_id'           => $api_ticket_type->discount_id,
+				'sub_event_id'     => $sub_event_id,
+				'base_price'       => (float) $api_ticket_type->base_price,
+				'discount_type'    => $api_ticket_type->discount_type,
+				'discount_value'   => (float) $api_ticket_type->discount_value,
+				'discounted_price' => (float) $api_ticket_type->discounted_price,
+			),
 		);
 		$post_data = apply_filters( 'll_vdm_update_ticket_type_post_data', $post_data, $sub_event_id, $api_ticket_type );
 
@@ -297,15 +287,6 @@ class EventsSync {
 		if ( ! $ticket_type_id || $ticket_type_id instanceof WP_Error ) {
 			return 0;
 		}
-
-		// Update meta
-		update_post_meta( $ticket_type_id, 'vdm_id', $api_ticket_type->discount_id );
-		update_post_meta( $ticket_type_id, 'sub_event_id', $sub_event_id );
-
-		update_post_meta( $ticket_type_id, 'base_price', (float) $api_ticket_type->base_price );
-		update_post_meta( $ticket_type_id, 'discount_type', $api_ticket_type->discount_type );
-		update_post_meta( $ticket_type_id, 'discount_value', (float) $api_ticket_type->discount_value );
-		update_post_meta( $ticket_type_id, 'discounted_price', (float) $api_ticket_type->discounted_price );
 
 		do_action( 'll_vdm_after_insert_ticket_type', $ticket_type_id, $api_ticket_type );
 		return $ticket_type_id;

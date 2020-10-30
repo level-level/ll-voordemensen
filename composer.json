@@ -73,6 +73,8 @@
     "require-dev": {
         "niels-de-blaauw/php-doc-check": "^0.2.2",
         "psalm/phar": "^4.0",
-        "level-level/coding-standards": "^1.0"
+        "wp-coding-standards/wpcs": "^2.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+        "phpcompatibility/php-compatibility": "^9.3"
     }
 }

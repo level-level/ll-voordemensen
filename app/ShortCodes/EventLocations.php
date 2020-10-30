@@ -3,6 +3,7 @@
 namespace LevelLevel\VoorDeMensen\ShortCodes;
 
 use LevelLevel\VoorDeMensen\Objects\Event;
+use LevelLevel\VoorDeMensen\Objects\Location;
 
 class EventLocations extends BaseShortCode {
 
@@ -31,11 +32,11 @@ class EventLocations extends BaseShortCode {
 
 		$locations = array();
 		foreach ( $sub_events as $sub_event ) {
-			$location_name = $sub_event->get_location_name();
-			if ( empty( $location_name ) ) {
+			$location = $sub_event->get_location();
+			if ( ! $location instanceof Location ) {
 				continue;
 			}
-			$locations[] = $location_name;
+			$locations[] = $location->get_title();
 		}
 		$locations = array_unique( $locations );
 
