@@ -14,6 +14,7 @@ class Init {
 		EventTicketTypes::class,
 		EventBuyButtons::class,
 		CartCounter::class,
+		Calendar::class,
 	);
 
 	public function register_hooks(): void {
