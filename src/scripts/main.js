@@ -1,3 +1,4 @@
+import './modules/calendar.js';
 import './modules/cart-button.js';
 import './modules/cart-counter.js';
 import './modules/event-buy-button.js';
