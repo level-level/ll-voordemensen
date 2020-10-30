@@ -4,7 +4,7 @@ export default class SessionHelper {
 	}
 
 	getName() {
-		return ll_vdm.api.client_name;
+		return ll_vdm.session.name;
 	}
 
 	getId() {
