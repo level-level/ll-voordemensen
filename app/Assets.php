@@ -56,6 +56,16 @@ class Assets {
 		return array_merge( $manifest['config'], $local_config );
 	}
 
+	/**
+	 * Get the stylesheet directory uri based on your current environment
+	 */
+	public function get_assets_directory_url(): string {
+		if ( $this->is_development_mode() ) {
+			return $this->get_development_src( '/src' );
+		}
+		return LL_VDM_PLUGIN_URL . 'dist';
+	}
+
 	public function enqueue_external_vdm_script(): void {
 		$client_name = ( new ClientNameSetting() )->get_value();
 		if ( empty( $client_name ) ) {
