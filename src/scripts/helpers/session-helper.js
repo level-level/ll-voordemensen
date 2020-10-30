@@ -10,7 +10,7 @@ export default class SessionHelper {
 			return null;
 		}
 
-		const sessionIdCookieParts = fullSessionIdCookie.split( '=', 2 )[ 1 ];
+		const sessionIdCookieParts = fullSessionIdCookie.split( '=', 2 );
 		if ( sessionIdCookieParts.length < 2 && sessionIdCookieParts[ 1 ].length > 0 ) {
 			return null;
 		}
