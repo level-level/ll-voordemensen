@@ -2,6 +2,8 @@
 
 namespace LevelLevel\VoorDeMensen\Objects;
 
+use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\PostTypes as PostTypesSetting;
+
 class Event extends BaseObject {
 	public static $type = 'll_vdm_event';
 
@@ -57,6 +59,28 @@ class Event extends BaseObject {
 		);
 		$args         = wp_parse_args( $args, $default_args );
 		return SubEvent::get_many( $args );
+	}
+
+	public function get_connected_posts( array $args = array() ): array {
+		$vdm_id     = $this->get_vdm_id();
+		$post_types = ( new PostTypesSetting() )->get_value();
+
+		if ( empty( $post_types ) ) {
+			return array();
+		}
+
+		$default_args = array(
+			'post_type'      => $post_types,
+			'posts_per_page' => -1,
+			'meta_query'     => array(
+				array(
+					'key'   => 'll_vdm_event_id',
+					'value' => $vdm_id,
+				),
+			),
+		);
+		$args         = wp_parse_args( $args, $default_args );
+		return get_posts( $args );
 	}
 
 	public function get_short_text(): string {
