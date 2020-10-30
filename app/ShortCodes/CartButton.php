@@ -26,17 +26,11 @@ class CartButton extends BaseShortCode {
 			$content = __( 'Cart', 'll-vdm' );
 		}
 
-		$event        = Event::get_by_post_id( (int) $args['post_id'] );
-		$event_vdm_id = 0;
-		if ( $event instanceof Event ) {
-			$event_vdm_id = $event->get_vdm_id();
-		}
-
 		// Render html
-		$html  = '<button onclick="vdm_order(\'cart\', \'' . esc_attr( session_id() ) . '\');" ' . disabled( $event_vdm_id, 0, false ) . '>';
+		$html  = '<button data-ll-vdm-module="cartButton">';
 		$html .= $content;
 		$html .= '</button>';
-		$html  = apply_filters( self::PREFIX . 'shortcode_' . self::NAME . '_html', $html, $args, $content, $event );
+		$html  = apply_filters( self::PREFIX . 'shortcode_' . self::NAME . '_html', $html, $args, $content );
 		return $html;
 	}
 }

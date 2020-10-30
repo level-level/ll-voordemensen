@@ -8,8 +8,7 @@
   },
   "extends": [
     "plugin:@wordpress/eslint-plugin/recommended",
-    "eslint:recommended",
-    "plugin:react/recommended"
+    "eslint:recommended"
   ],
   "settings": {
     "react": {
@@ -18,10 +17,7 @@
   },
   "globals": {
     "module": true,
-    "jQuery": true,
-    "FWP": true,
-    "google": true,
-    "$": true
+    "jQuery": true
   },
   "rules": {
     "space-in-parens": ["warn", "always"],

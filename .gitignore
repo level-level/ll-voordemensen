@@ -1,4 +1,13 @@
-/vendor/
 /.idea/
+/cache/
+/dist/
 /node_modules/
-/app/Dependencies/*
+/development/config.local.json
+bundle-analyzer.json
+/languages/*
+/vendor/
+
+# Ignore Mac OSX related files
+.DS_Store
+.AppleDouble
+.LSOverride

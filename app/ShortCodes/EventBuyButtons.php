@@ -38,7 +38,7 @@ class EventBuyButtons extends BaseShortCode {
 				continue;
 			}
 			$vdm_id = $sub_event->get_vdm_id();
-			$html   = '<button onclick="vdm_order(' . $vdm_id . ', \'' . esc_attr( session_id() ) . '\');" ' . disabled( $vdm_id, 0, false ) . '>';
+			$html   = '<button data-ll-vdm-module="eventBuyButton" data-vdm-event-id="' . $vdm_id . '" ' . disabled( $vdm_id, 0, false ) . '>';
 			$html  .= $start_date->format( $date_format ) . ' ' . $start_date->format( $time_format );
 			$html  .= '</button>';
 		}

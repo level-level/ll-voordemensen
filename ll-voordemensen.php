@@ -17,8 +17,10 @@ add_action(
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		$plugin_path = realpath( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR;
 		$plugin_data = get_plugin_data( __FILE__ );
+		$plugin_url  = plugin_dir_url( __FILE__ );
 		define( 'LL_VDM_PLUGIN_VERSION', isset( $plugin_data['Version'] ) ? $plugin_data['Version'] : '' );
 		define( 'LL_VDM_PLUGIN_PATH', $plugin_path );
+		define( 'LL_VDM_PLUGIN_URL', $plugin_url );
 		define( 'LL_VDM_PLUGIN_NAMESPACE', 'LevelLevel\\VoorDeMensen\\' );
 
 		// Autoload files
