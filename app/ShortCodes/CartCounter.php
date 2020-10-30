@@ -21,8 +21,8 @@ class CartCounter extends BaseShortCode {
 		$args = $this->get_args( $user_args );
 
 		// Render html
-		$html  = '<span data-ll-vdm-module="cartCounter"></span>';
-		$html  = apply_filters( self::PREFIX . 'shortcode_' . self::NAME . '_html', $html, $args );
+		$html = '<span data-ll-vdm-module="cartCounter"></span>';
+		$html = apply_filters( self::PREFIX . 'shortcode_' . self::NAME . '_html', $html, $args );
 		return $html;
 	}
 }

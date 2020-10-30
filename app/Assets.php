@@ -36,10 +36,10 @@ class Assets {
 		wp_enqueue_style( 'll_vdm_main', LL_VDM_PLUGIN_URL . 'dist/main.css', array(), LL_VDM_PLUGIN_VERSION, 'all' );
 	}
 
-	public function localize() {
+	public function localize(): void {
 		$data = array(
 			'api' => array(
-				'base_url' => Client::BASE_API_URL,
+				'base_url'    => Client::BASE_API_URL,
 				'client_name' => ( new ClientNameSetting() )->get_value(),
 			),
 		);
