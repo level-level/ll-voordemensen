@@ -142,12 +142,12 @@ class SubEvent extends BaseObject {
 		return (int) $max;
 	}
 
-	public function get_location_name(): ?string {
-		$location = $this->get_meta( 'location_name', true );
-		if ( empty( $location ) ) {
-			return null;
-		}
-		return (string) $location;
+	public function get_location_id(): int {
+		return (int) $this->get_meta( 'location_id', true );
+	}
+
+	public function get_location(): ?Location {
+		return Location::get( $this->get_location_id() );
 	}
 
 	/**

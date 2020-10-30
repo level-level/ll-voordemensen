@@ -3,13 +3,14 @@
 namespace LevelLevel\VoorDeMensen\Admin\Settings\General\Fields;
 
 use LevelLevel\VoorDeMensen\Sync\EventsSync;
+use LevelLevel\VoorDeMensen\Sync\LocationsSync;
 
 class SyncEventsInterval extends BaseField {
 
 	protected const NAME = 'sync_events_interval';
 
 	public function register_hooks(): void {
-		add_action( 'update_option_' . $this->get_name(), array( $this, 'maybe_reschedule_events_sync' ), 10, 2 );
+		add_action( 'update_option_' . $this->get_name(), array( $this, 'maybe_reschedule_syncs' ), 10, 2 );
 	}
 
 	public function get_name(): string {
@@ -80,11 +81,11 @@ class SyncEventsInterval extends BaseField {
 	 * @param mixed $value
 	 * @return void
 	 */
-	public function maybe_reschedule_events_sync( $old_value, $value ): void {
+	public function maybe_reschedule_syncs( $old_value, $value ): void {
 		if ( $old_value === $value ) {
 			return;
 		}
-		$sync = new EventsSync();
-		$sync->reschedule_sync();
+		( new LocationsSync() )->reschedule_sync();
+		( new EventsSync() )->reschedule_sync();
 	}
 }
