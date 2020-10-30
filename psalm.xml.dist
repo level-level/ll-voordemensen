@@ -12,6 +12,8 @@
 >
     <projectFiles>
         <directory name="./app" />
+		<directory name="./templates" />
+		<file name="ll-voordemensen.php" />
         <ignoreFiles>
             <directory name="vendor" />
         </ignoreFiles>
