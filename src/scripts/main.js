@@ -1,4 +1,5 @@
 import './modules/cart-button.js';
+import './modules/cart-counter.js';
 import './modules/event-buy-button.js';
 
 ( function( app, $ ) {

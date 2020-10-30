@@ -4,6 +4,7 @@ namespace LevelLevel\VoorDeMensen;
 
 use LevelLevel\VoorDeMensen\Admin\Settings\Display\Fields\TicketSalesScreenType as TicketSalesScreenTypeSetting;
 use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\ClientName as ClientNameSetting;
+use LevelLevel\VoorDeMensen\API\Client;
 
 class Assets {
 
@@ -22,6 +23,7 @@ class Assets {
 		} else {
 			$this->enqueue_production();
 		}
+		$this->localize();
 	}
 
 	public function enqueue_development( string $handle, array $deps, string $path, bool $in_footer ): void {
@@ -32,6 +34,16 @@ class Assets {
 	public function enqueue_production(): void {
 		wp_enqueue_script( 'll_vdm_main', LL_VDM_PLUGIN_URL . 'dist/main.js', array( 'jquery' ), LL_VDM_PLUGIN_VERSION, true );
 		wp_enqueue_style( 'll_vdm_main', LL_VDM_PLUGIN_URL . 'dist/main.css', array(), LL_VDM_PLUGIN_VERSION, 'all' );
+	}
+
+	public function localize() {
+		$data = array(
+			'api' => array(
+				'base_url' => Client::BASE_API_URL,
+				'client_name' => ( new ClientNameSetting() )->get_value(),
+			),
+		);
+		wp_localize_script( 'll_vdm_main', 'll_vdm', $data );
 	}
 
 	public function get_development_src( string $path = '' ): string {

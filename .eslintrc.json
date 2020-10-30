@@ -17,7 +17,8 @@
   },
   "globals": {
     "module": true,
-    "jQuery": true
+    "jQuery": true,
+    "ll_vdm": true
   },
   "rules": {
     "space-in-parens": ["warn", "always"],
