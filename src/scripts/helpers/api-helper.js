@@ -7,7 +7,6 @@ export default class APIHelper {
 	}
 
 	getCart() {
-		console.log( this.getCartUrl() );
 		return this.$.ajax( {
 			method: "GET",
 			url: this.getCartUrl(),
