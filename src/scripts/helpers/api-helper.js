@@ -25,7 +25,7 @@ export default class APIHelper {
 
 	getCartUrl() {
 		let urlPath = '/cart/';
-		const sessionId = this.sessionHelper.getSessionId();
+		const sessionId = this.sessionHelper.getId();
 		if ( sessionId ) {
 			urlPath += sessionId;
 		}

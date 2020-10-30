@@ -18,7 +18,7 @@ import SessionHelper from '../helpers/session-helper';
 				if ( typeof window.vdm_order === 'undefined' ) {
 					return;
 				}
-				window.vdm_order( eventId, sessionHelper.getSessionId() );
+				window.vdm_order( eventId, sessionHelper.getId() );
 			} );
 		}
 

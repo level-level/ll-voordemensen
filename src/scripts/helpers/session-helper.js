@@ -3,9 +3,13 @@ export default class SessionHelper {
 		this.$ = jQuery;
 	}
 
-	getSessionId() {
+	getName() {
+		return ll_vdm.api.client_name;
+	}
+
+	getId() {
 		const cookies = document.cookie.split( '; ' );
-		const fullSessionIdCookie = cookies.find( row => row.startsWith( 'PHPSESSID' ) );
+		const fullSessionIdCookie = cookies.find( row => row.startsWith( this.getName() ) );
 		if ( ! fullSessionIdCookie ) {
 			return null;
 		}

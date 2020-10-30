@@ -5,6 +5,7 @@ namespace LevelLevel\VoorDeMensen;
 use LevelLevel\VoorDeMensen\Admin\Settings\Display\Fields\TicketSalesScreenType as TicketSalesScreenTypeSetting;
 use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\ClientName as ClientNameSetting;
 use LevelLevel\VoorDeMensen\API\Client;
+use LevelLevel\VoorDeMensen\Utilities\Session;
 
 class Assets {
 
@@ -38,9 +39,12 @@ class Assets {
 
 	public function localize(): void {
 		$data = array(
-			'api' => array(
+			'api'     => array(
 				'base_url'    => Client::BASE_API_URL,
 				'client_name' => ( new ClientNameSetting() )->get_value(),
+			),
+			'session' => array(
+				'name' => ( new Session() )->get_name(),
 			),
 		);
 		wp_localize_script( 'll_vdm_main', 'll_vdm', $data );

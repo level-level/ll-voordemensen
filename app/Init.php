@@ -2,6 +2,8 @@
 
 namespace LevelLevel\VoorDeMensen;
 
+use LevelLevel\VoorDeMensen\Utilities\Session;
+
 class Init {
 
 	public function register_hooks(): void {
@@ -9,9 +11,6 @@ class Init {
 	}
 
 	public function create_session(): void {
-		if ( session_id() ) {
-			return;
-		}
-		session_start();
+		( new Session() )->create();
 	}
 }

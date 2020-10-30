@@ -17,7 +17,7 @@ import SessionHelper from '../helpers/session-helper';
 				if ( typeof window.vdm_order === 'undefined' ) {
 					return;
 				}
-				window.vdm_order( 'cart', sessionHelper.getSessionId() );
+				window.vdm_order( 'cart', sessionHelper.getId() );
 			} );
 		}
 
