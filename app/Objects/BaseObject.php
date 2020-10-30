@@ -158,10 +158,6 @@ class BaseObject {
 		return get_the_post_thumbnail( $this->get_id(), $size, $attr );
 	}
 
-	public function get_short_text(): string {
-		return (string) $this->get_meta( 'short_text', true );
-	}
-
 	/**
 	 * Get meta value
 	 *

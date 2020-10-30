@@ -50,6 +50,10 @@ class SubEvent extends BaseObject {
 		return Event::get( $this->get_event_id() );
 	}
 
+	public function get_short_text(): string {
+		return (string) $this->get_meta( 'short_text', true );
+	}
+
 	public function get_vdm_event_id(): ?string {
 		$vdm_event_id = (string) $this->get_meta( 'vdm_event_id', true );
 		if ( empty( $vdm_event_id ) ) {

@@ -58,4 +58,8 @@ class Event extends BaseObject {
 		$args         = wp_parse_args( $args, $default_args );
 		return SubEvent::get_many( $args );
 	}
+
+	public function get_short_text(): string {
+		return (string) $this->get_meta( 'short_text', true );
+	}
 }
