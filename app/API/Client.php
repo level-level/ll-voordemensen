@@ -11,7 +11,7 @@ use WP_Error;
  * To test the integration, use 'demo' as client name
  */
 class Client {
-	protected const BASE_API_URL = 'https://api.voordemensen.nl/v1/';
+	public const BASE_API_URL = 'https://api.voordemensen.nl/v1/';
 
 	/**
 	 * Get array of API event response objects

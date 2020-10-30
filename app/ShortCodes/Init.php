@@ -13,6 +13,7 @@ class Init {
 		CartButton::class,
 		EventTicketTypes::class,
 		EventBuyButtons::class,
+		CartCounter::class,
 	);
 
 	public function register_hooks(): void {
