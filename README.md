@@ -7,7 +7,7 @@ Unofficial plugin to access the VoordeMensen ticket platform directly from WordP
 ## Installation
 To download and install this plugin in your WordPress website, follow the steps below.
 
-1. Go to the [releases tab](https://github.com/level-level/ll-voordemensen/releases) and find the latest release
+1. Go to the [releases tab](https://github.com/level-level/ll-voordemensen/releases) and find the latest release.
 2. Download the zip named `ll-voordemensen-x.x.x.zip` (where x.x.x is the version number).
 3. Rename the downloaded zip to `ll-voordemensen.zip`.
 4. Extract the zip file. Make sure it puts the contents in a directory called `ll-voordemensen`.
@@ -22,7 +22,7 @@ To configure the plugin, just fill in your client name in the VoordeMensen plugi
 1. Create a new WordPress installation using the latest twenty-* theme.
 2. Navigate to the `wp-content/plugins` directory.
 3. Clone this repo there, so it creates the `ll-voordemensen` directory.
-4. Navigate to the `ll-voordemensen` directory, and from there, run
+4. Navigate to the `ll-voordemensen` directory, and from there, run:
 
 ```bash
 composer-install
@@ -30,7 +30,7 @@ npm ci
 npm run build
 ```
 
-Run `composer run test` to verify results locally (more info about tests later in this file)
+Run `composer run test` to verify results locally (more info about tests later in this file).
 
 ### Composer
 Composer is used to manage the autoloading and automatic testing. More on the testing subject can be found later in this document.
@@ -49,7 +49,10 @@ Composer is used to manage the autoloading and automatic testing. More on the te
   - `npm run bundle-analyzer`
 
 If you run into any problems locally with the initial installation of the node_modules (especially webpack) try setting your local environment to DEV by executing the following on your CLI:
-  - `export NODE_ENV=development`
+
+```bash
+export NODE_ENV=development
+```
 
 The cause of the problem is probably the Node version and the default state it's in (it used to install all packages, but recently changed to production modules only).
 
@@ -82,7 +85,7 @@ For example placing a logo in the header:
 We use default browser lazyloading for images.
 Usage example:
 ```html
-<img src="{{ assets.get_assets_directory_url() }}/images/thumbnail.jpg" loading="lazy" alt="">
+<img src="<?php echo ( new \LevelLevel\VoorDeMensen\Assets() )->get_assets_directory_url(); ?>/images/thumbnail.jpg" loading="lazy" alt="">
 ```
 
 #### Linter
@@ -100,6 +103,7 @@ There are multiple code tests in place.
 - Composer, to check if the composer files are intact
 - PHPCS, to check if you are following the Level Level PHP code standards
 - Psalm tests, that searches for possible mistakes in your code
+- PHP Doc Check, to check if complicated functions have comments explaining the functionality
 
 #### GitHub actions
 On every pull-request, a GitHub action is run that verifies the project, based on the
