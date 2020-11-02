@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:  VoordeMensen
- * Version:      0.1.0
+ * Version:      0.1.1
  * Description:  Unofficial plugin to access the VoordeMensen ticket platform directly from WordPress
  * Author:       Level Level
  * Author URI:   https://www.level-level.com
