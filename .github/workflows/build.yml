@@ -69,8 +69,9 @@ jobs:
           rm -rf node_modules
           rm -rf src
           rm -rf .editorconfig
-          rm -rf .gitignore
           rm -rf .eslintrc
+          rm -rf .eslintrc.json
+          rm -rf .gitignore
           rm -rf .stylelintignore
           rm -rf .stylelintrc.json
           rm -rf auth.json
