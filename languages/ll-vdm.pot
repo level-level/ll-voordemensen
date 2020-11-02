@@ -1,0 +1,545 @@
+# Copyright (C) 2020 Level Level
+# This file is distributed under the same license as the VoordeMensen plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: VoordeMensen 0.2.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ll-vdm\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-11-02T16:58:44+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: ll-vdm\n"
+
+#. Plugin Name of the plugin
+#: app/Admin/Settings/Menu.php:16
+msgid "VoordeMensen"
+msgstr ""
+
+#. Description of the plugin
+msgid "Unofficial plugin to access the VoordeMensen ticket platform directly from WordPress"
+msgstr ""
+
+#. Author of the plugin
+msgid "Level Level"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.level-level.com"
+msgstr ""
+
+#: app/Admin/MetaBox.php:23
+#: app/Admin/Settings/Menu.php:15
+msgid "VoordeMensen settings"
+msgstr ""
+
+#: app/Admin/Settings/Display/Fields/TicketSalesScreenType.php:14
+msgid "Ticket sales screen type"
+msgstr ""
+
+#: app/Admin/Settings/Display/Fields/TicketSalesScreenType.php:18
+msgid "Choose how the ticket sales are shown on your site. With a popup overlay, or on the side of the screen."
+msgstr ""
+
+#: app/Admin/Settings/Display/Fields/TicketSalesScreenType.php:36
+msgid "Popup"
+msgstr ""
+
+#: app/Admin/Settings/Display/Fields/TicketSalesScreenType.php:37
+msgid "Side"
+msgstr ""
+
+#: app/Admin/Settings/Display/Section.php:20
+msgid "Display settings"
+msgstr ""
+
+#: app/Admin/Settings/Display/Section.php:27
+msgid "Here you can change how the plugin displays information."
+msgstr ""
+
+#: app/Admin/Settings/General/Fields/ClientName.php:14
+msgid "Client name"
+msgstr ""
+
+#: app/Admin/Settings/General/Fields/ClientName.php:18
+msgid "The client name is required for the plugin to work."
+msgstr ""
+
+#: app/Admin/Settings/General/Fields/PostTypes.php:16
+msgid "Post types"
+msgstr ""
+
+#: app/Admin/Settings/General/Fields/PostTypes.php:20
+msgid "Select the post types that can have a VoordeMensen event."
+msgstr ""
+
+#: app/Admin/Settings/General/Fields/SyncEventsInterval.php:21
+msgid "Sync events interval"
+msgstr ""
+
+#: app/Admin/Settings/General/Fields/SyncEventsInterval.php:25
+msgid "Select how often events should be synced."
+msgstr ""
+
+#: app/Admin/Settings/General/Section.php:20
+msgid "General settings"
+msgstr ""
+
+#: app/Admin/Settings/General/Section.php:27
+msgid "Here you can set the general plugin settings."
+msgstr ""
+
+#: app/PostTypes/Event.php:18
+#: app/PostTypes/Event.php:42
+msgid "Events"
+msgstr ""
+
+#: app/PostTypes/Event.php:19
+#: templates/admin/metabox.php:16
+msgid "Event"
+msgstr ""
+
+#: app/PostTypes/Event.php:20
+msgid "All Events"
+msgstr ""
+
+#: app/PostTypes/Event.php:21
+msgid "Event Archives"
+msgstr ""
+
+#: app/PostTypes/Event.php:22
+msgid "Event Attributes"
+msgstr ""
+
+#: app/PostTypes/Event.php:23
+msgid "Insert into event"
+msgstr ""
+
+#: app/PostTypes/Event.php:24
+msgid "Uploaded to this event"
+msgstr ""
+
+#: app/PostTypes/Event.php:25
+msgctxt "event"
+msgid "Featured Image"
+msgstr ""
+
+#: app/PostTypes/Event.php:26
+msgctxt "event"
+msgid "Set featured image"
+msgstr ""
+
+#: app/PostTypes/Event.php:27
+msgctxt "event"
+msgid "Remove featured image"
+msgstr ""
+
+#: app/PostTypes/Event.php:28
+msgctxt "event"
+msgid "Use as featured image"
+msgstr ""
+
+#: app/PostTypes/Event.php:29
+msgid "Filter events list"
+msgstr ""
+
+#: app/PostTypes/Event.php:30
+msgid "Events list navigation"
+msgstr ""
+
+#: app/PostTypes/Event.php:31
+msgid "Events list"
+msgstr ""
+
+#: app/PostTypes/Event.php:32
+msgid "New Event"
+msgstr ""
+
+#: app/PostTypes/Event.php:33
+#: app/PostTypes/Location.php:33
+#: app/PostTypes/SubEvent.php:33
+#: app/PostTypes/TicketType.php:33
+msgid "Add New"
+msgstr ""
+
+#: app/PostTypes/Event.php:34
+msgid "Add New Event"
+msgstr ""
+
+#: app/PostTypes/Event.php:35
+msgid "Edit Event"
+msgstr ""
+
+#: app/PostTypes/Event.php:36
+msgid "View Event"
+msgstr ""
+
+#: app/PostTypes/Event.php:37
+msgid "View Events"
+msgstr ""
+
+#: app/PostTypes/Event.php:38
+msgid "Search events"
+msgstr ""
+
+#: app/PostTypes/Event.php:39
+msgid "No events found"
+msgstr ""
+
+#: app/PostTypes/Event.php:40
+msgid "No events found in trash"
+msgstr ""
+
+#: app/PostTypes/Event.php:41
+msgid "Parent Event:"
+msgstr ""
+
+#: app/PostTypes/Location.php:18
+#: app/PostTypes/Location.php:42
+msgid "Locations"
+msgstr ""
+
+#: app/PostTypes/Location.php:19
+msgid "Location"
+msgstr ""
+
+#: app/PostTypes/Location.php:20
+msgid "All Locations"
+msgstr ""
+
+#: app/PostTypes/Location.php:21
+msgid "Location Archives"
+msgstr ""
+
+#: app/PostTypes/Location.php:22
+msgid "Location Attributes"
+msgstr ""
+
+#: app/PostTypes/Location.php:23
+msgid "Insert into location"
+msgstr ""
+
+#: app/PostTypes/Location.php:24
+msgid "Uploaded to this location"
+msgstr ""
+
+#: app/PostTypes/Location.php:25
+msgctxt "location"
+msgid "Featured Image"
+msgstr ""
+
+#: app/PostTypes/Location.php:26
+msgctxt "location"
+msgid "Set featured image"
+msgstr ""
+
+#: app/PostTypes/Location.php:27
+msgctxt "location"
+msgid "Remove featured image"
+msgstr ""
+
+#: app/PostTypes/Location.php:28
+msgctxt "location"
+msgid "Use as featured image"
+msgstr ""
+
+#: app/PostTypes/Location.php:29
+msgid "Filter locations list"
+msgstr ""
+
+#: app/PostTypes/Location.php:30
+msgid "Locations list navigation"
+msgstr ""
+
+#: app/PostTypes/Location.php:31
+msgid "Locations list"
+msgstr ""
+
+#: app/PostTypes/Location.php:32
+msgid "New Location"
+msgstr ""
+
+#: app/PostTypes/Location.php:34
+msgid "Add New Location"
+msgstr ""
+
+#: app/PostTypes/Location.php:35
+msgid "Edit Location"
+msgstr ""
+
+#: app/PostTypes/Location.php:36
+msgid "View Location"
+msgstr ""
+
+#: app/PostTypes/Location.php:37
+msgid "View Locations"
+msgstr ""
+
+#: app/PostTypes/Location.php:38
+msgid "Search locations"
+msgstr ""
+
+#: app/PostTypes/Location.php:39
+msgid "No locations found"
+msgstr ""
+
+#: app/PostTypes/Location.php:40
+msgid "No locations found in trash"
+msgstr ""
+
+#: app/PostTypes/Location.php:41
+msgid "Parent Location:"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:18
+#: app/PostTypes/SubEvent.php:42
+msgid "Sub events"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:19
+msgid "Sub event"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:20
+msgid "All Sub events"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:21
+msgid "Sub event Archives"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:22
+msgid "Sub event Attributes"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:23
+msgid "Insert into sub event"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:24
+msgid "Uploaded to this sub event"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:25
+msgctxt "sub event"
+msgid "Featured Image"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:26
+msgctxt "sub event"
+msgid "Set featured image"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:27
+msgctxt "sub event"
+msgid "Remove featured image"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:28
+msgctxt "sub event"
+msgid "Use as featured image"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:29
+msgid "Filter sub events list"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:30
+msgid "Sub events list navigation"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:31
+msgid "Sub events list"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:32
+msgid "New Sub event"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:34
+msgid "Add New Sub event"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:35
+msgid "Edit Sub event"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:36
+msgid "View Sub event"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:37
+msgid "View Sub events"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:38
+msgid "Search sub events"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:39
+msgid "No sub events found"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:40
+msgid "No sub events found in trash"
+msgstr ""
+
+#: app/PostTypes/SubEvent.php:41
+msgid "Parent Sub event:"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:18
+#: app/PostTypes/TicketType.php:42
+msgid "Ticket types"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:19
+msgid "Ticket type"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:20
+msgid "All Ticket types"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:21
+msgid "Ticket type Archives"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:22
+msgid "Ticket type Attributes"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:23
+msgid "Insert into ticket type"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:24
+msgid "Uploaded to this ticket type"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:25
+msgctxt "ticket type"
+msgid "Featured Image"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:26
+msgctxt "ticket type"
+msgid "Set featured image"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:27
+msgctxt "ticket type"
+msgid "Remove featured image"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:28
+msgctxt "ticket type"
+msgid "Use as featured image"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:29
+msgid "Filter ticket types list"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:30
+msgid "Ticket types list navigation"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:31
+msgid "Ticket types list"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:32
+msgid "New Ticket type"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:34
+msgid "Add New Ticket type"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:35
+msgid "Edit Ticket type"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:36
+msgid "View Ticket type"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:37
+msgid "View Ticket types"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:38
+msgid "Search ticket types"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:39
+msgid "No ticket types found"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:40
+msgid "No ticket types found in trash"
+msgstr ""
+
+#: app/PostTypes/TicketType.php:41
+msgid "Parent Ticket type:"
+msgstr ""
+
+#: app/ShortCodes/Calendar.php:26
+msgid "View calendar"
+msgstr ""
+
+#: app/ShortCodes/CartButton.php:26
+msgid "Cart"
+msgstr ""
+
+#: app/ShortCodes/EventBuyButton.php:26
+msgid "Buy now"
+msgstr ""
+
+#: app/ShortCodes/EventDates.php:49
+msgid " to "
+msgstr ""
+
+#: app/Sync/Setup.php:14
+msgid "Once every 15 minutes"
+msgstr ""
+
+#: app/Sync/Setup.php:20
+msgid "Once every hour"
+msgstr ""
+
+#: templates/admin/metabox.php:20
+msgid "Select a VoordeMensen event"
+msgstr ""
+
+#: templates/admin/metabox.php:28
+msgid "If your event isn't present in the list, wait for it to be synced, or sync manually at the plugin settings page."
+msgstr ""
+
+#: templates/admin/settings-page.php:13
+msgid "Settings saved"
+msgstr ""
+
+#: templates/admin/settings-page.php:18
+msgid "Synced latest %d events"
+msgstr ""
+
+#: templates/admin/settings-page.php:39
+msgid "Manually sync events"
+msgstr ""
+
+#: templates/admin/settings-page.php:43
+msgid "Events are synced automatically in the background."
+msgstr ""
+
+#: templates/admin/settings-page.php:47
+msgid "If you want to sync the latest %d events now, click the button below."
+msgstr ""
+
+#: templates/admin/settings-page.php:51
+msgid "Sync latest %d events"
+msgstr ""
