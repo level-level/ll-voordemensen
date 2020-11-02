@@ -9,7 +9,7 @@ Unofficial plugin to access the VoordeMensen ticket platform directly from WordP
 To download and install this plugin in your WordPress website, follow the steps below.
 
 1. Go to the [releases tab](https://github.com/level-level/ll-voordemensen/releases) and find the latest release.
-2. Download the zip named `ll-voordemensen-x.x.x.zip` (where x.x.x is the version number).
+2. Download the Source code zip.
 3. Rename the downloaded zip to `ll-voordemensen.zip`.
 4. Extract the zip file. Make sure it puts the contents in a directory called `ll-voordemensen`.
 5. Put the extracted folder and it's contents inside the `wp-content/plugins` directory of your WordPress installation.
