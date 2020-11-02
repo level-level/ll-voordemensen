@@ -53,6 +53,9 @@ jobs:
       - name: Build frontend assets
         run: |
           npm run build
+      - name: Add version to ll-voordemensen.php
+        run: |
+          echo "/* Version: ${{ github.event.release.tag_name }} */" | cat - ll-voordemensen.php > ll-voordemensen.temp && mv ll-voordemensen.temp ll-voordemensen.php
       - name: Remove source files
         run: |
           rm -rf 7.3linux.sh
