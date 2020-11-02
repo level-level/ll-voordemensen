@@ -17,8 +17,7 @@ To download and install this plugin in your WordPress website, follow the steps 
 
 ### Composer installation (alternative method)
 It's also possible to download the plugin via Packagist.
-Keep in mind that if you do, you will need to build the assets yourself.
-For this to work, see `package.json`.
+Keep in mind that if you do, your composer should be setup in a way that packages of the type `wordpress-plugin` are installed in your `wp-content/plugins` directory.
 
 ## Configuration
 To configure the plugin, just fill in your client name in the VoordeMensen plugin settings screen.
@@ -37,6 +36,13 @@ npm run build
 ```
 
 Run `composer run test` to verify results locally (more info about tests later in this file).
+
+### Releasing
+1. Merge all PR's in the `main` branch.
+2. Change the version number in `ll-voordemensen.php`.
+3. Wait for all GitHub Actions to finish.
+4. Update the created draft release, and select the `main-build` branch as the branch to make the tag from.
+5. Publish the release.
 
 ### Composer
 Composer is used to manage the autoloading and automatic testing. More on the testing subject can be found later in this document.
