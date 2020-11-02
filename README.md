@@ -39,9 +39,10 @@ Run `composer run test` to verify results locally (more info about tests later i
 
 ### Releasing
 1. Merge all PR's in the `main` branch.
-2. Wait for all GitHub Actions to finish.
-3. Update the created draft release, and select the `main-build` branch as the branch to make the tag from.
-4. Publish the release.
+2. Change the version number in `ll-voordemensen.php`.
+3. Wait for all GitHub Actions to finish.
+4. Update the created draft release, and select the `main-build` branch as the branch to make the tag from.
+5. Publish the release.
 
 ### Composer
 Composer is used to manage the autoloading and automatic testing. More on the testing subject can be found later in this document.

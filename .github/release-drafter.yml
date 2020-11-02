@@ -1,4 +1,5 @@
 template: |
+  ### Don't forget to bump the version number in ll-voordemensen.php
   ### Don't forget to set the tagged branch to `main-build`
 
   ## What’s Changed
