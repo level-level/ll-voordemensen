@@ -38,7 +38,12 @@ class Assets {
 	}
 
 	public function localize(): void {
-		$data = array(
+		$data = $this->get_localize_data();
+		wp_localize_script( 'll_vdm_main', 'll_vdm', $data );
+	}
+
+	public function get_localize_data(): array {
+		return array(
 			'api'     => array(
 				'base_url'    => Client::BASE_API_URL,
 				'client_name' => ( new ClientNameSetting() )->get_value(),
@@ -47,7 +52,6 @@ class Assets {
 				'name' => ( new Session() )->get_name(),
 			),
 		);
-		wp_localize_script( 'll_vdm_main', 'll_vdm', $data );
 	}
 
 	public function get_development_src( string $path = '' ): string {
