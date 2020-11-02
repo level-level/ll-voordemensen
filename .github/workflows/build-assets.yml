@@ -1,8 +1,8 @@
-name: Build release package
+name: Build assets
 on:
   push:
     branches:
-      - asset_build
+      - main
 
 jobs:
   php:
