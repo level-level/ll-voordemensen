@@ -16,7 +16,7 @@ To download and install this plugin in your WordPress website, follow the steps 
 6. Activate the plugin via the wp-admin panel.
 
 ### Composer installation (alternative method)
-It's also possible to download the plugin via packagist.
+It's also possible to download the plugin via Packagist.
 Keep in mind that if you do, you will need to build the assets yourself.
 For this to work, see `package.json`.
 
