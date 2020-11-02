@@ -66,7 +66,7 @@ jobs:
           rm -rf .stylelintignore
           rm -rf .stylelintrc.json
           rm -rf auth.json
-          rm -rf composer.*
+          rm -rf composer.lock
           rm -rf docker-compose.yml
           rm -rf package-lock.json
           rm -rf package.json
