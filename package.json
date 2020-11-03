@@ -2,7 +2,7 @@
     "name": "ll-voordemensen",
     "version": "0.0.1",
     "description": "ll-voordemensen webpack",
-    "main": "main.js",
+    "main": "src/index.js",
     "author": "Level Level",
     "license": "MIT",
     "repository": {
