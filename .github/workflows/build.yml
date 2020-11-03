@@ -1,12 +1,12 @@
-name: Build assets
+name: Build release package
 on:
-  push:
-    branches:
-      - main
+  release:
+    types:
+      - published
 
 jobs:
   php:
-    name: Build assets
+    name: Build release package
     runs-on: ubuntu-latest
     steps:
       - name: Setup Node
@@ -37,25 +37,34 @@ jobs:
           node -v
           echo 'WP-CLI:'
           wp --info
+      - name: Create plugin directory
+        run: |
+          mkdir -p wp-content/plugins/ll-voordemensen/
       - name: Checkout plugin repository
         uses: actions/checkout@v2
         with:
+          path: wp-content/plugins/ll-voordemensen/
           fetch-depth: 1
-      - name: Install composer dependencies (excluding dev)
-        run: |
-          composer install --prefer-dist --no-suggest --no-dev --optimize-autoloader --ignore-platform-reqs
-      - name: Generate translations
-        run: |
-          composer run make-pot
       - name: Clean install NPM dependencies
         run: |
+          cd wp-content/plugins/ll-voordemensen/
           npm ci
       - name: Build frontend assets
         run: |
+          cd wp-content/plugins/ll-voordemensen/
           npm run build
+      - name: Generate translations
+        run: |
+          cd wp-content/plugins/ll-voordemensen/
+          composer run make-pot
+      - name: Install composer dependencies (excluding dev)
+        run: |
+          cd wp-content/plugins/ll-voordemensen/
+          composer install --prefer-dist --no-suggest --no-dev --optimize-autoloader --ignore-platform-reqs
       - name: Remove source files
         run: |
           rm -rf 7.3linux.sh
+          cd wp-content/plugins/ll-voordemensen/
           rm -rf development
           rm -rf node_modules
           rm -rf src
@@ -66,7 +75,7 @@ jobs:
           rm -rf .stylelintignore
           rm -rf .stylelintrc.json
           rm -rf auth.json
-          rm -rf composer.lock
+          rm -rf composer.*
           rm -rf docker-compose.yml
           rm -rf package-lock.json
           rm -rf package.json
@@ -75,16 +84,18 @@ jobs:
           rm -rf psalm.baseline.xml
           rm -rf psalm.xml.dist
           rm -rf webpack.*
-      - name: Commit all changes
+      - name: Generate zip file
         run: |
-          git config --global user.email "bot-tank-top+jungle@level-level.com"
-          git config --global user.name "[BOT] Tanktop Jungle"
-          git add -A --force dist/
-          git add -A --force languages/
-          git commit -m "Asset build" -a
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
+          cd wp-content/plugins/ll-voordemensen/
+          zip -r ll-voordemensen.zip .
+          mv ll-voordemensen.zip ../
+      - name: Upload zip to release assets
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main-build
-          force: true
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./wp-content/plugins/ll-voordemensen.zip
+          asset_name: ll-voordemensen-${{ github.event.release.tag_name }}.zip
+          asset_content_type: application/zip
