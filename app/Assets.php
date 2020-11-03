@@ -39,7 +39,7 @@ class Assets {
 
 	public function localize(): void {
 		$data = $this->get_localize_data();
-		wp_localize_script( 'll_vdm_main', 'll_vdm', $data );
+		wp_localize_script( 'll_vdm_main', 'll_vdm_options', $data );
 	}
 
 	public function get_localize_data(): array {

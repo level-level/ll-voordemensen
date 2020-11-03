@@ -16,11 +16,11 @@ export default class APIHelper {
 	}
 
 	generateUrl( urlPath ) {
-		if ( ! ll_vdm.api.client_name ) {
+		if ( ! window.ll_vdm_options.api.client_name ) {
 			return null;
 		}
 
-		return ll_vdm.api.base_url + encodeURIComponent( ll_vdm.api.client_name ) + '/' + urlPath.replace( /^\/+|\/+$/g, '' );
+		return window.ll_vdm_options.api.base_url + encodeURIComponent( window.ll_vdm_options.api.client_name ) + '/' + urlPath.replace( /^\/+|\/+$/g, '' );
 	}
 
 	getCartUrl() {

@@ -4,7 +4,7 @@ export default class SessionHelper {
 	}
 
 	getName() {
-		return ll_vdm.session.name;
+		return window.ll_vdm_options.session.name;
 	}
 
 	getId() {
