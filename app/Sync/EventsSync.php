@@ -272,12 +272,12 @@ class EventsSync extends BaseSync {
 			'post_title'  => $api_ticket_type->discount_name,
 			'post_name'   => sanitize_title( $api_ticket_type->discount_name ),
 			'meta_input'  => array(
-				'vdm_id'           => $api_ticket_type->discount_id,
-				'sub_event_id'     => $sub_event_id,
-				'base_price'       => (float) $api_ticket_type->base_price,
-				'discount_type'    => $api_ticket_type->discount_type,
-				'discount_value'   => (float) $api_ticket_type->discount_value,
-				'discounted_price' => (float) $api_ticket_type->discounted_price,
+				'll_vdm_vdm_id'           => $api_ticket_type->discount_id,
+				'll_vdm_sub_event_id'     => $sub_event_id,
+				'll_vdm_base_price'       => (float) $api_ticket_type->base_price,
+				'll_vdm_discount_type'    => $api_ticket_type->discount_type,
+				'll_vdm_discount_value'   => (float) $api_ticket_type->discount_value,
+				'll_vdm_discounted_price' => (float) $api_ticket_type->discounted_price,
 			),
 		);
 		$post_data = apply_filters( 'll_vdm_update_ticket_type_post_data', $post_data, $sub_event_id, $api_ticket_type );
