@@ -106,7 +106,6 @@ class BaseTerm {
 	 */
 	public static function get_one( array $args = array() ) {
 		$args['number'] = 1;
-		$args['hide_empty'] = false;
 		$one            = static::get_many( $args );
 		return array_shift( $one );
 	}

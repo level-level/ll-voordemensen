@@ -12,6 +12,7 @@ class Location extends BaseTerm {
 	 */
 	public static function get_by_vdm_id( string $vdm_id, array $args = array() ) {
 		$default_args = array(
+			'hide_empty' => false,
 			'meta_query' => array(
 				array(
 					'key'   => 'vdm_id',
