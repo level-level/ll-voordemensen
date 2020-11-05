@@ -38,29 +38,33 @@ class LocationsSync extends BaseSync {
 
 		do_action( 'll_vdm_before_insert_location', $location_id, $api_location );
 
-		// Update post object
-		$post_data = array(
-			'ID'          => $location_id,
-			'post_status' => 'publish',
-			'post_type'   => Location::$type,
-			'post_title'  => $api_location->location_name ?? '',
-			'post_name'   => sanitize_title( $api_location->location_name ?? '' ),
-			'meta_input'  => array(
-				'vdm_id'    => $api_location->location_id,
-				'address'   => $api_location->location_address ?? null,
-				'address_1' => $api_location->location_address1 ?? null,
-				'zip_code'  => $api_location->ocation_zip ?? null,
-				'city'      => $api_location->location_city ?? null,
-				'country'   => $api_location->location_country ?? null,
-				'phone'     => $api_location->location_phone ?? null,
-			),
+		$term_data = array(
+			'name' => $api_location->location_name ?? '',
+			'slug' => sanitize_title( $api_location->location_name ?? '' ),
 		);
-		$post_data = apply_filters( 'll_vdm_update_location_post_data', $post_data, $api_location );
+		$term_data = apply_filters( 'll_vdm_update_location_term_data', $term_data, $api_location );
 
-		$location_id = wp_insert_post( $post_data );
-		if ( ! $location_id || $location_id instanceof WP_Error ) {
+		$term_result = null;
+		if ( $location_id ) {
+			$term_result = wp_insert_term( $api_location->location_name, Location::$taxonomy, $term_data );
+		} else {
+			$term_result = wp_update_term( $location_id, Location::$taxonomy, $term_data );
+		}
+
+		if ( $term_result instanceof WP_Error || ! isset( $term_result['term_id'] ) || ! $term_result['term_id'] ) {
 			return 0;
 		}
+
+		$location_id = $term_result['term_id'];
+
+		// Update meta
+		update_term_meta( $location_id, 'vdm_id', $api_location->location_id );
+		update_term_meta( $location_id, 'address', $api_location->location_address ?? null );
+		update_term_meta( $location_id, 'address_1', $api_location->location_address1 ?? null );
+		update_term_meta( $location_id, 'zip_code', $api_location->ocation_zip ?? null );
+		update_term_meta( $location_id, 'city', $api_location->location_city ?? null );
+		update_term_meta( $location_id, 'country', $api_location->location_country ?? null );
+		update_term_meta( $location_id, 'phone', $api_location->location_phone ?? null );
 
 		do_action( 'll_vdm_after_insert_location', $location_id, $api_location );
 		return $location_id;
