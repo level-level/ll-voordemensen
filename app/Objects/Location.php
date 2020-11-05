@@ -2,18 +2,17 @@
 
 namespace LevelLevel\VoorDeMensen\Objects;
 
-class Location extends BaseObject {
-	public static $type = 'll_vdm_location';
+class Location extends BaseTerm {
+	public static $taxonomy = 'll_vdm_location';
 
 	/**
-	 * Get object by vdm ID
+	 * Get by vdm ID
 	 *
 	 * @return static|null
 	 */
 	public static function get_by_vdm_id( string $vdm_id, array $args = array() ) {
 		$default_args = array(
-			'post_status' => 'any',
-			'meta_query'  => array(
+			'meta_query' => array(
 				array(
 					'key'   => 'vdm_id',
 					'value' => $vdm_id,
