@@ -63,8 +63,8 @@ class EventsSync extends BaseSync {
 			'post_name'    => sanitize_title( $api_event->event_name ?? '' ),
 			'post_content' => ! empty( $api_event->event_text ) ? '<p>' . $api_event->event_text . '</p>' : '',
 			'meta_input'   => array(
-				'vdm_id'     => $api_event->event_id,
-				'short_text' => $api_event->event_short_text ?? null,
+				'll_vdm_vdm_id'     => $api_event->event_id,
+				'll_vdm_short_text' => $api_event->event_short_text ?? null,
 			),
 		);
 		$post_data = apply_filters( 'll_vdm_update_event_post_data', $post_data, $api_event );

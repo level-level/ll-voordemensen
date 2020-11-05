@@ -17,7 +17,7 @@ class Event extends BaseObject {
 			'post_status' => 'any',
 			'meta_query'  => array(
 				array(
-					'key'   => 'vdm_id',
+					'key'   => 'll_vdm_vdm_id',
 					'value' => $vdm_id,
 				),
 			),
@@ -52,7 +52,7 @@ class Event extends BaseObject {
 			'posts_per_page' => -1,
 			'meta_query'     => array(
 				array(
-					'key'   => 'event_id',
+					'key'   => 'll_vdm_event_id',
 					'value' => $this->get_id(),
 				),
 			),
@@ -84,6 +84,6 @@ class Event extends BaseObject {
 	}
 
 	public function get_short_text(): string {
-		return (string) $this->get_meta( 'short_text', true );
+		return (string) $this->get_meta( 'll_vdm_short_text', true );
 	}
 }
