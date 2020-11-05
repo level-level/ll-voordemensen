@@ -2,7 +2,7 @@
 
 namespace LevelLevel\VoorDeMensen\PostTypes;
 
-use WP_REST_Controller;
+use WP_REST_Posts_Controller;
 
 class Event {
 
@@ -51,7 +51,7 @@ class Event {
 			'menu_icon'             => 'dashicons-id',
 			'show_in_rest'          => true,
 			'rest_base'             => 'll_vdm_events',
-			'rest_controller_class' => WP_REST_Controller::class,
+			'rest_controller_class' => WP_REST_Posts_Controller::class,
 		);
 		$args = apply_filters( self::POST_TYPE_NAME . '_post_type_args', $args );
 		register_post_type( self::POST_TYPE_NAME, $args );
