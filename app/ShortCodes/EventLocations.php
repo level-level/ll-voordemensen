@@ -36,7 +36,7 @@ class EventLocations extends BaseShortCode {
 			if ( ! $location instanceof Location ) {
 				continue;
 			}
-			$locations[] = $location->get_title();
+			$locations[] = $location->get_name();
 		}
 		$locations = array_unique( $locations );
 

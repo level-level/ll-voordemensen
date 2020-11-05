@@ -81,6 +81,7 @@ class BaseTerm {
 	 */
 	public static function get_many( array $args = array() ): array {
 		$args['taxonomy'] = static::$taxonomy;
+		$args['fields']   = 'all';
 
 		$query = new WP_Term_Query( $args );
 
@@ -93,7 +94,7 @@ class BaseTerm {
 				 */
 				return new $class( $term );
 			},
-			$query->terms
+			$query->get_terms()
 		);
 	}
 
@@ -105,6 +106,7 @@ class BaseTerm {
 	 */
 	public static function get_one( array $args = array() ) {
 		$args['number'] = 1;
+		$args['hide_empty'] = false;
 		$one            = static::get_many( $args );
 		return array_shift( $one );
 	}

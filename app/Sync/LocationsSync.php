@@ -45,7 +45,7 @@ class LocationsSync extends BaseSync {
 		$term_data = apply_filters( 'll_vdm_update_location_term_data', $term_data, $api_location );
 
 		$term_result = null;
-		if ( $location_id ) {
+		if ( ! $location_id ) {
 			$term_result = wp_insert_term( $api_location->location_name, Location::$taxonomy, $term_data );
 		} else {
 			$term_result = wp_update_term( $location_id, Location::$taxonomy, $term_data );
