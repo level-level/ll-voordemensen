@@ -15,7 +15,7 @@ class Location extends BaseTerm {
 			'hide_empty' => false,
 			'meta_query' => array(
 				array(
-					'key'   => 'vdm_id',
+					'key'   => 'll_vdm_vdm_id',
 					'value' => $vdm_id,
 				),
 			),
@@ -25,7 +25,7 @@ class Location extends BaseTerm {
 	}
 
 	public function get_address(): ?string {
-		$address = $this->get_meta( 'vdm_address', true );
+		$address = $this->get_meta( 'll_vdm_address', true );
 		if ( empty( $address ) ) {
 			return null;
 		}
@@ -33,7 +33,7 @@ class Location extends BaseTerm {
 	}
 
 	public function get_address_1(): ?string {
-		$address_1 = $this->get_meta( 'vdm_address_1', true );
+		$address_1 = $this->get_meta( 'll_vdm_address_1', true );
 		if ( empty( $address_1 ) ) {
 			return null;
 		}
@@ -41,7 +41,7 @@ class Location extends BaseTerm {
 	}
 
 	public function get_zip_code(): ?string {
-		$zip_code = $this->get_meta( 'vdm_zip_code', true );
+		$zip_code = $this->get_meta( 'll_vdm_zip_code', true );
 		if ( empty( $zip_code ) ) {
 			return null;
 		}
@@ -49,7 +49,7 @@ class Location extends BaseTerm {
 	}
 
 	public function get_city(): ?string {
-		$city = $this->get_meta( 'vdm_city', true );
+		$city = $this->get_meta( 'll_vdm_city', true );
 		if ( empty( $city ) ) {
 			return null;
 		}
@@ -57,7 +57,7 @@ class Location extends BaseTerm {
 	}
 
 	public function get_country(): ?string {
-		$country = $this->get_meta( 'vdm_country', true );
+		$country = $this->get_meta( 'll_vdm_country', true );
 		if ( empty( $country ) ) {
 			return null;
 		}
@@ -65,7 +65,7 @@ class Location extends BaseTerm {
 	}
 
 	public function get_phone(): ?string {
-		$phone = $this->get_meta( 'vdm_phone', true );
+		$phone = $this->get_meta( 'll_vdm_phone', true );
 		if ( empty( $phone ) ) {
 			return null;
 		}
