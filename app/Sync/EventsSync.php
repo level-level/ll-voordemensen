@@ -163,16 +163,16 @@ class EventsSync extends BaseSync {
 			'post_name'    => sanitize_title( $api_sub_event->event_name ),
 			'post_content' => ! empty( $api_sub_event->event_text ) ? '<p>' . $api_sub_event->event_text . '</p>' : '',
 			'meta_input'   => array(
-				'vdm_id'                => $api_sub_event->event_id,
-				'event_id'              => $event_id,
-				'vdm_event_id'          => $api_sub_event->event_main_id ?? null,
-				'vdm_status'            => $api_sub_event->event_status ?? null,
-				'short_text'            => $api_sub_event->event_short_text ?? null,
-				'url'                   => $api_sub_event->event_url ?? null,
-				'start_date'            => $start_timestamp,
-				'end_date'              => $end_timestamp,
-				'rep'                   => $api_sub_event->event_rep ?? null,
-				'max_tickets_per_order' => $api_sub_event->event_free ?? null,
+				'll_vdm_vdm_id'                => $api_sub_event->event_id,
+				'll_vdm_event_id'              => $event_id,
+				'll_vdm_vdm_event_id'          => $api_sub_event->event_main_id ?? null,
+				'll_vdm_vdm_status'            => $api_sub_event->event_status ?? null,
+				'll_vdm_short_text'            => $api_sub_event->event_short_text ?? null,
+				'll_vdm_url'                   => $api_sub_event->event_url ?? null,
+				'll_vdm_start_date'            => $start_timestamp,
+				'll_vdm_end_date'              => $end_timestamp,
+				'll_vdm_rep'                   => $api_sub_event->event_rep ?? null,
+				'll_vdm_max_tickets_per_order' => $api_sub_event->event_free ?? null,
 			),
 		);
 		$post_data = apply_filters( 'll_vdm_update_sub_event_post_data', $post_data, $api_sub_event, $event_id );
@@ -234,7 +234,7 @@ class EventsSync extends BaseSync {
 				'post__not_in'   => $updated_ids,
 				'meta_query'     => array(
 					array(
-						'key'   => 'sub_event_id',
+						'key'   => 'll_vdm_sub_event_id',
 						'value' => $sub_event_id,
 					),
 				),

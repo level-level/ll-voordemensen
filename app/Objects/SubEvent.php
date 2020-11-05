@@ -19,7 +19,7 @@ class SubEvent extends BaseObject {
 			'post_status' => 'any',
 			'meta_query'  => array(
 				array(
-					'key'   => 'vdm_id',
+					'key'   => 'll_vdm_vdm_id',
 					'value' => $vdm_id,
 				),
 			),
@@ -33,7 +33,7 @@ class SubEvent extends BaseObject {
 			'post_status' => 'any',
 			'meta_query'  => array(
 				array(
-					'key'   => 'event_id',
+					'key'   => 'll_vdm_event_id',
 					'value' => $event_id,
 				),
 			),
@@ -43,7 +43,7 @@ class SubEvent extends BaseObject {
 	}
 
 	public function get_event_id(): int {
-		return (int) $this->get_meta( 'event_id', true );
+		return (int) $this->get_meta( 'll_vdm_event_id', true );
 	}
 
 	public function get_event(): ?Event {
@@ -51,11 +51,11 @@ class SubEvent extends BaseObject {
 	}
 
 	public function get_short_text(): string {
-		return (string) $this->get_meta( 'short_text', true );
+		return (string) $this->get_meta( 'll_vdm_short_text', true );
 	}
 
 	public function get_vdm_event_id(): ?string {
-		$vdm_event_id = (string) $this->get_meta( 'vdm_event_id', true );
+		$vdm_event_id = (string) $this->get_meta( 'll_vdm_vdm_event_id', true );
 		if ( empty( $vdm_event_id ) ) {
 			return null;
 		}
@@ -63,7 +63,7 @@ class SubEvent extends BaseObject {
 	}
 
 	public function get_vdm_location_id(): ?string {
-		$vdm_location_id = (string) $this->get_meta( 'vdm_location_id', true );
+		$vdm_location_id = (string) $this->get_meta( 'll_vdm_vdm_location_id', true );
 		if ( empty( $vdm_location_id ) ) {
 			return null;
 		}
@@ -71,7 +71,7 @@ class SubEvent extends BaseObject {
 	}
 
 	public function get_vdm_status(): ?string {
-		$status = $this->get_meta( 'vdm_status', true );
+		$status = $this->get_meta( 'll_vdm_vdm_status', true );
 		if ( empty( $status ) ) {
 			return null;
 		}
@@ -79,7 +79,7 @@ class SubEvent extends BaseObject {
 	}
 
 	public function get_url(): ?string {
-		$url = $this->get_meta( 'url', true );
+		$url = $this->get_meta( 'll_vdm_url', true );
 		if ( empty( $url ) ) {
 			return null;
 		}
@@ -92,7 +92,7 @@ class SubEvent extends BaseObject {
 	 * @return DateTime|null
 	 */
 	public function get_start_date(): ?DateTime {
-		$timestamp = (int) $this->get_meta( 'start_date', true );
+		$timestamp = (int) $this->get_meta( 'll_vdm_start_date', true );
 		if ( ! $timestamp ) {
 			return null;
 		}
@@ -114,7 +114,7 @@ class SubEvent extends BaseObject {
 	 * @return DateTime|null
 	 */
 	public function get_end_date(): ?DateTime {
-		$timestamp = (int) $this->get_meta( 'end_date', true );
+		$timestamp = (int) $this->get_meta( 'll_vdm_end_date', true );
 		if ( ! $timestamp ) {
 			return null;
 		}
@@ -131,7 +131,7 @@ class SubEvent extends BaseObject {
 	}
 
 	public function get_rep(): ?string {
-		$rep = $this->get_meta( 'rep', true );
+		$rep = $this->get_meta( 'll_vdm_rep', true );
 		if ( empty( $rep ) ) {
 			return null;
 		}
@@ -139,7 +139,7 @@ class SubEvent extends BaseObject {
 	}
 
 	public function get_max_tickets_per_order(): ?int {
-		$max = $this->get_meta( 'max_tickets_per_order', true );
+		$max = $this->get_meta( 'll_vdm_max_tickets_per_order', true );
 		if ( ! is_numeric( $max ) ) {
 			return null;
 		}
@@ -168,7 +168,7 @@ class SubEvent extends BaseObject {
 			'posts_per_page' => -1,
 			'meta_query'     => array(
 				array(
-					'key'   => 'sub_event_id',
+					'key'   => 'll_vdm_sub_event_id',
 					'value' => $this->get_id(),
 				),
 			),
