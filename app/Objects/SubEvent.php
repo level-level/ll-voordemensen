@@ -151,7 +151,7 @@ class SubEvent extends BaseObject {
 	}
 
 	public function get_location(): ?Location {
-		return Location::get( $this->get_location_id() );
+		return Location::get_by_id( $this->get_location_id() );
 	}
 
 	/**
