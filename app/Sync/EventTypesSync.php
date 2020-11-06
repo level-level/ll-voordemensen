@@ -5,7 +5,6 @@ namespace LevelLevel\VoorDeMensen\Sync;
 use LevelLevel\VoorDeMensen\API\Client;
 use LevelLevel\VoorDeMensen\Objects\Event;
 use LevelLevel\VoorDeMensen\Objects\EventType;
-use LevelLevel\VoorDeMensen\Objects\Location;
 use LevelLevel\VoorDeMensen\Objects\SubEvent;
 use WP_Error;
 
@@ -98,7 +97,7 @@ class EventTypesSync extends BaseSync {
 		$api_event_type_event_sub_events = $api_event_type_event->sub_events ?? array();
 
 		foreach ( $api_event_type_event_sub_events as $api_event_type_event_sub_event ) {
-			$sub_event = SubEvent::get_by_vdm_id( $api_event_type_event->event_id );
+			$sub_event = SubEvent::get_by_vdm_id( $api_event_type_event_sub_event->event_id );
 			if ( ! $sub_event instanceof SubEvent ) {
 				continue;
 			}
