@@ -56,12 +56,12 @@ class EventsSync extends BaseSync {
 
 		// Update post object
 		$post_data = array(
-			'ID'           => $event_id,
-			'post_status'  => 'publish',
-			'post_type'    => Event::$type,
-			'post_title'   => $api_event->event_name ?? '',
-			'post_name'    => sanitize_title( $api_event->event_name ?? '' ),
-			'meta_input'   => array(
+			'ID'          => $event_id,
+			'post_status' => 'publish',
+			'post_type'   => Event::$type,
+			'post_title'  => $api_event->event_name ?? '',
+			'post_name'   => sanitize_title( $api_event->event_name ?? '' ),
+			'meta_input'  => array(
 				'll_vdm_vdm_id'     => $api_event->event_id,
 				'll_vdm_text'       => $api_event->event_text ?? null,
 				'll_vdm_short_text' => $api_event->event_short_text ?? null,
@@ -156,12 +156,12 @@ class EventsSync extends BaseSync {
 
 		// Update post object
 		$post_data = array(
-			'ID'           => $sub_event_id,
-			'post_status'  => $status,
-			'post_type'    => SubEvent::$type,
-			'post_title'   => $api_sub_event->event_name,
-			'post_name'    => sanitize_title( $api_sub_event->event_name ),
-			'meta_input'   => array(
+			'ID'          => $sub_event_id,
+			'post_status' => $status,
+			'post_type'   => SubEvent::$type,
+			'post_title'  => $api_sub_event->event_name,
+			'post_name'   => sanitize_title( $api_sub_event->event_name ),
+			'meta_input'  => array(
 				'll_vdm_vdm_id'                => $api_sub_event->event_id,
 				'll_vdm_event_id'              => $event_id,
 				'll_vdm_vdm_event_id'          => $api_sub_event->event_main_id ?? null,
