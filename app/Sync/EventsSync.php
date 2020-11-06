@@ -61,9 +61,9 @@ class EventsSync extends BaseSync {
 			'post_type'    => Event::$type,
 			'post_title'   => $api_event->event_name ?? '',
 			'post_name'    => sanitize_title( $api_event->event_name ?? '' ),
-			'post_content' => ! empty( $api_event->event_text ) ? '<p>' . $api_event->event_text . '</p>' : '',
 			'meta_input'   => array(
 				'll_vdm_vdm_id'     => $api_event->event_id,
+				'll_vdm_text'       => $api_event->event_text ?? null,
 				'll_vdm_short_text' => $api_event->event_short_text ?? null,
 			),
 		);
@@ -161,12 +161,12 @@ class EventsSync extends BaseSync {
 			'post_type'    => SubEvent::$type,
 			'post_title'   => $api_sub_event->event_name,
 			'post_name'    => sanitize_title( $api_sub_event->event_name ),
-			'post_content' => ! empty( $api_sub_event->event_text ) ? '<p>' . $api_sub_event->event_text . '</p>' : '',
 			'meta_input'   => array(
 				'll_vdm_vdm_id'                => $api_sub_event->event_id,
 				'll_vdm_event_id'              => $event_id,
 				'll_vdm_vdm_event_id'          => $api_sub_event->event_main_id ?? null,
 				'll_vdm_vdm_status'            => $api_sub_event->event_status ?? null,
+				'll_vdm_text'                  => $api_sub_event->event_text ?? null,
 				'll_vdm_short_text'            => $api_sub_event->event_short_text ?? null,
 				'll_vdm_url'                   => $api_sub_event->event_url ?? null,
 				'll_vdm_start_date'            => $start_timestamp,

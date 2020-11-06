@@ -83,6 +83,10 @@ class Event extends BaseObject {
 		return get_posts( $args );
 	}
 
+	public function get_text(): string {
+		return (string) $this->get_meta( 'll_vdm_text', true );
+	}
+
 	public function get_short_text(): string {
 		return (string) $this->get_meta( 'll_vdm_short_text', true );
 	}
