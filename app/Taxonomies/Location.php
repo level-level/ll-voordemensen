@@ -46,6 +46,7 @@ class Location {
 			'rest_base'             => 'll_vdm_locations',
 			'rest_controller_class' => WP_REST_Terms_Controller::class,
 		);
+		$args = apply_filters( self::TAXONOMY_NAME . '_taxonomy_args', $args );
 		register_taxonomy( self::TAXONOMY_NAME, self::POST_TYPES, $args );
 
 		foreach ( self::POST_TYPES as $post_type ) {
