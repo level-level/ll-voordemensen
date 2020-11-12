@@ -16,27 +16,24 @@ class Location {
 	public function register(): void {
 		$args = array(
 			'labels'                => array(
-				'name'                  => __( 'FAQ Locations', 'll-vdm' ),
-				'singular_name'         => __( 'FAQ location', 'll-vdm' ),
-				'all_items'             => __( 'Alle FAQ locations', 'll-vdm' ),
-				'archives'              => __( 'FAQ location archieven', 'll-vdm' ),
-				'attributes'            => __( 'FAQ location attributen', 'll-vdm' ),
-				'insert_into_item'      => __( 'Voeg in FAQ location', 'll-vdm' ),
-				'uploaded_to_this_item' => __( 'Geupload naar deze FAQ location', 'll-vdm' ),
-				'filter_items_list'     => __( 'Filter FAQ locations lijst', 'll-vdm' ),
-				'items_list_navigation' => __( 'FAQ Locations lijst navigatie', 'll-vdm' ),
-				'items_list'            => __( 'FAQ Locations lijst', 'll-vdm' ),
-				'new_item'              => __( 'Nieuwe FAQ location', 'll-vdm' ),
-				'add_new'               => __( 'Voeg nieuwe toe', 'll-vdm' ),
-				'add_new_item'          => __( 'Voeg nieuw FAQ location toe', 'll-vdm' ),
-				'edit_item'             => __( 'Bewerk FAQ location', 'll-vdm' ),
-				'view_item'             => __( 'Bekijk FAQ location', 'll-vdm' ),
-				'view_items'            => __( 'Bekijk FAQ locations', 'll-vdm' ),
-				'search_items'          => __( 'Zoek FAQ locations', 'll-vdm' ),
-				'not_found'             => __( 'Geen FAQ locations gevonden', 'll-vdm' ),
-				'not_found_in_trash'    => __( 'Geen FAQ locations gevonden in prullenbak', 'll-vdm' ),
-				'parent_item_colon'     => __( 'Hoofd FAQ location:', 'll-vdm' ),
-				'menu_name'             => __( 'FAQ location', 'll-vdm' ),
+				'name'                       => _x( 'Locations', 'taxonomy general name', 'll-vdm' ),
+				'singular_name'              => _x( 'Locations', 'taxonomy singular name', 'll-vdm' ),
+				'menu_name'                  => __( 'Locations', 'll-vdm' ),
+				'all_items'                  => __( 'All Locations', 'll-vdm' ),
+				'edit_item'                  => __( 'Edit Location', 'll-vdm' ),
+				'view_item'                  => __( 'View Location', 'll-vdm' ),
+				'update_item'                => __( 'Update Location', 'll-vdm' ),
+				'add_new_item'               => __( 'Add New Location', 'll-vdm' ),
+				'new_item_name'              => __( 'New Location Name', 'll-vdm' ),
+				'parent_item'                => __( 'Parent Location', 'll-vdm' ),
+				'parent_item_colon'          => __( 'Parent Location:', 'll-vdm' ),
+				'search_items'               => __( 'Search Locations', 'll-vdm' ),
+				'popular_items'              => __( 'Popular Locations', 'll-vdm' ),
+				'separate_items_with_commas' => __( 'Separate locations with commas', 'll-vdm' ),
+				'add_or_remove_items'        => __( 'Add or remove locations', 'll-vdm' ),
+				'choose_from_most_used'      => __( 'Choose from the most used locations', 'll-vdm' ),
+				'not_found'                  => __( 'No locations found.', 'll-vdm' ),
+				'back_to_items'              => __( 'Back to locations', 'll-vdm' ),
 			),
 			'public'                => false,
 			'show_in_rest'          => true,
@@ -49,6 +46,7 @@ class Location {
 			'rest_base'             => 'll_vdm_locations',
 			'rest_controller_class' => WP_REST_Terms_Controller::class,
 		);
+		$args = apply_filters( self::TAXONOMY_NAME . '_taxonomy_args', $args );
 		register_taxonomy( self::TAXONOMY_NAME, self::POST_TYPES, $args );
 
 		foreach ( self::POST_TYPES as $post_type ) {

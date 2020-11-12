@@ -6,6 +6,10 @@ use WP_Error;
 use WP_Term;
 use WP_Term_Query;
 
+/**
+ * @psalm-consistent-constructor
+ */
+
 class BaseTerm {
 
 	/**
@@ -32,11 +36,7 @@ class BaseTerm {
 		if ( ! $term instanceof WP_Term ) {
 			return null;
 		}
-		$class = get_called_class();
-		/**
-		 * @psalm-suppress UnsafeInstantiation
-		 */
-		return new $class( $term );
+		return new static( $term );
 	}
 
 	/**
@@ -49,11 +49,7 @@ class BaseTerm {
 		if ( ! $term instanceof WP_Term ) {
 			return null;
 		}
-		$class = get_called_class();
-		/**
-		 * @psalm-suppress UnsafeInstantiation
-		 */
-		return new $class( $term );
+		return new static( $term );
 	}
 
 	/**
@@ -66,11 +62,7 @@ class BaseTerm {
 		if ( ! $term instanceof WP_Term ) {
 			return null;
 		}
-		$class = get_called_class();
-		/**
-		 * @psalm-suppress UnsafeInstantiation
-		 */
-		return new $class( $term );
+		return new static( $term );
 	}
 
 	/**
@@ -85,14 +77,9 @@ class BaseTerm {
 
 		$query = new WP_Term_Query( $args );
 
-		$class = static::class;
-
 		return array_map(
-			function( $term ) use ( $class ) {
-				/**
-				 * @psalm-suppress UnsafeInstantiation
-				 */
-				return new $class( $term );
+			function( $term ) {
+				return new static( $term );
 			},
 			$query->get_terms()
 		);
