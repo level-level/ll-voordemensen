@@ -25,7 +25,7 @@ class EventContent extends BaseShortCode {
 		$content = '';
 		$event   = Event::get_by_post_id( (int) $args['post_id'] );
 		if ( $event instanceof Event ) {
-			$content = $event->get_content();
+			$content = $event->get_text();
 		}
 
 		// Render html

@@ -106,7 +106,7 @@ class BaseTerm {
 	}
 
 	public function get_vdm_id(): ?string {
-		$vdm_id = (string) $this->get_meta( 'vdm_id', true );
+		$vdm_id = (string) $this->get_meta( 'll_vdm_vdm_id', true );
 		if ( empty( $vdm_id ) ) {
 			return null;
 		}

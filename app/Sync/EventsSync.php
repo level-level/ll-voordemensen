@@ -56,15 +56,15 @@ class EventsSync extends BaseSync {
 
 		// Update post object
 		$post_data = array(
-			'ID'           => $event_id,
-			'post_status'  => 'publish',
-			'post_type'    => Event::$type,
-			'post_title'   => $api_event->event_name ?? '',
-			'post_name'    => sanitize_title( $api_event->event_name ?? '' ),
-			'post_content' => ! empty( $api_event->event_text ) ? '<p>' . $api_event->event_text . '</p>' : '',
-			'meta_input'   => array(
-				'vdm_id'     => $api_event->event_id,
-				'short_text' => $api_event->event_short_text ?? null,
+			'ID'          => $event_id,
+			'post_status' => 'publish',
+			'post_type'   => Event::$type,
+			'post_title'  => $api_event->event_name ?? '',
+			'post_name'   => sanitize_title( $api_event->event_name ?? '' ),
+			'meta_input'  => array(
+				'll_vdm_vdm_id'     => $api_event->event_id,
+				'll_vdm_text'       => $api_event->event_text ?? null,
+				'll_vdm_short_text' => $api_event->event_short_text ?? null,
 			),
 		);
 		$post_data = apply_filters( 'll_vdm_update_event_post_data', $post_data, $api_event );
@@ -156,23 +156,23 @@ class EventsSync extends BaseSync {
 
 		// Update post object
 		$post_data = array(
-			'ID'           => $sub_event_id,
-			'post_status'  => $status,
-			'post_type'    => SubEvent::$type,
-			'post_title'   => $api_sub_event->event_name,
-			'post_name'    => sanitize_title( $api_sub_event->event_name ),
-			'post_content' => ! empty( $api_sub_event->event_text ) ? '<p>' . $api_sub_event->event_text . '</p>' : '',
-			'meta_input'   => array(
-				'vdm_id'                => $api_sub_event->event_id,
-				'event_id'              => $event_id,
-				'vdm_event_id'          => $api_sub_event->event_main_id ?? null,
-				'vdm_status'            => $api_sub_event->event_status ?? null,
-				'short_text'            => $api_sub_event->event_short_text ?? null,
-				'url'                   => $api_sub_event->event_url ?? null,
-				'start_date'            => $start_timestamp,
-				'end_date'              => $end_timestamp,
-				'rep'                   => $api_sub_event->event_rep ?? null,
-				'max_tickets_per_order' => $api_sub_event->event_free ?? null,
+			'ID'          => $sub_event_id,
+			'post_status' => $status,
+			'post_type'   => SubEvent::$type,
+			'post_title'  => $api_sub_event->event_name,
+			'post_name'   => sanitize_title( $api_sub_event->event_name ),
+			'meta_input'  => array(
+				'll_vdm_vdm_id'                => $api_sub_event->event_id,
+				'll_vdm_event_id'              => $event_id,
+				'll_vdm_vdm_event_id'          => $api_sub_event->event_main_id ?? null,
+				'll_vdm_vdm_status'            => $api_sub_event->event_status ?? null,
+				'll_vdm_text'                  => $api_sub_event->event_text ?? null,
+				'll_vdm_short_text'            => $api_sub_event->event_short_text ?? null,
+				'll_vdm_url'                   => $api_sub_event->event_url ?? null,
+				'll_vdm_start_date'            => $start_timestamp,
+				'll_vdm_end_date'              => $end_timestamp,
+				'll_vdm_rep'                   => $api_sub_event->event_rep ?? null,
+				'll_vdm_max_tickets_per_order' => $api_sub_event->event_free ?? null,
 			),
 		);
 		$post_data = apply_filters( 'll_vdm_update_sub_event_post_data', $post_data, $api_sub_event, $event_id );
@@ -234,7 +234,7 @@ class EventsSync extends BaseSync {
 				'post__not_in'   => $updated_ids,
 				'meta_query'     => array(
 					array(
-						'key'   => 'sub_event_id',
+						'key'   => 'll_vdm_sub_event_id',
 						'value' => $sub_event_id,
 					),
 				),
@@ -272,12 +272,12 @@ class EventsSync extends BaseSync {
 			'post_title'  => $api_ticket_type->discount_name,
 			'post_name'   => sanitize_title( $api_ticket_type->discount_name ),
 			'meta_input'  => array(
-				'vdm_id'           => $api_ticket_type->discount_id,
-				'sub_event_id'     => $sub_event_id,
-				'base_price'       => (float) $api_ticket_type->base_price,
-				'discount_type'    => $api_ticket_type->discount_type,
-				'discount_value'   => (float) $api_ticket_type->discount_value,
-				'discounted_price' => (float) $api_ticket_type->discounted_price,
+				'll_vdm_vdm_id'           => $api_ticket_type->discount_id,
+				'll_vdm_sub_event_id'     => $sub_event_id,
+				'll_vdm_base_price'       => (float) $api_ticket_type->base_price,
+				'll_vdm_discount_type'    => $api_ticket_type->discount_type,
+				'll_vdm_discount_value'   => (float) $api_ticket_type->discount_value,
+				'll_vdm_discounted_price' => (float) $api_ticket_type->discounted_price,
 			),
 		);
 		$post_data = apply_filters( 'll_vdm_update_ticket_type_post_data', $post_data, $sub_event_id, $api_ticket_type );

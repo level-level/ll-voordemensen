@@ -58,13 +58,13 @@ class LocationsSync extends BaseSync {
 		$location_id = $term_result['term_id'];
 
 		// Update meta
-		update_term_meta( $location_id, 'vdm_id', $api_location->location_id );
-		update_term_meta( $location_id, 'address', $api_location->location_address ?? null );
-		update_term_meta( $location_id, 'address_1', $api_location->location_address1 ?? null );
-		update_term_meta( $location_id, 'zip_code', $api_location->ocation_zip ?? null );
-		update_term_meta( $location_id, 'city', $api_location->location_city ?? null );
-		update_term_meta( $location_id, 'country', $api_location->location_country ?? null );
-		update_term_meta( $location_id, 'phone', $api_location->location_phone ?? null );
+		update_term_meta( $location_id, 'll_vdm_vdm_id', $api_location->location_id );
+		update_term_meta( $location_id, 'll_vdm_address', $api_location->location_address ?? null );
+		update_term_meta( $location_id, 'll_vdm_address_1', $api_location->location_address1 ?? null );
+		update_term_meta( $location_id, 'll_vdm_zip_code', $api_location->ocation_zip ?? null );
+		update_term_meta( $location_id, 'll_vdm_city', $api_location->location_city ?? null );
+		update_term_meta( $location_id, 'll_vdm_country', $api_location->location_country ?? null );
+		update_term_meta( $location_id, 'll_vdm_phone', $api_location->location_phone ?? null );
 
 		do_action( 'll_vdm_after_insert_location', $location_id, $api_location );
 		return $location_id;

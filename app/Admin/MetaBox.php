@@ -31,7 +31,7 @@ class MetaBox {
 		$events   = Event::get_many(
 			array(
 				'posts_per_page' => -1,
-				'meta_key'       => 'vdm_id',
+				'meta_key'       => 'll_vdm_vdm_id',
 				'orderby'        => 'meta_value_num',
 				'order'          => 'DESC',
 			)

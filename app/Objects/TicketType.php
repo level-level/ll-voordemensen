@@ -10,7 +10,7 @@ class TicketType extends BaseObject {
 			'post_status' => 'any',
 			'meta_query'  => array(
 				array(
-					'key'   => 'vdm_id',
+					'key'   => 'll_vdm_vdm_id',
 					'value' => $vdm_id,
 				),
 			),
@@ -23,7 +23,7 @@ class TicketType extends BaseObject {
 			'post_status' => 'any',
 			'meta_query'  => array(
 				array(
-					'key'   => 'sub_event_id',
+					'key'   => 'll_vdm_sub_event_id',
 					'value' => $sub_event_id,
 				),
 			),
@@ -43,11 +43,11 @@ class TicketType extends BaseObject {
 			'post_status' => 'any',
 			'meta_query'  => array(
 				array(
-					'key'   => 'vdm_id',
+					'key'   => 'll_vdm_vdm_id',
 					'value' => $vdm_id,
 				),
 				array(
-					'key'   => 'sub_event_id',
+					'key'   => 'll_vdm_sub_event_id',
 					'value' => $sub_event_id,
 				),
 			),
@@ -57,7 +57,7 @@ class TicketType extends BaseObject {
 	}
 
 	public function get_sub_event_id(): int {
-		return (int) $this->get_meta( 'sub_event_id', true );
+		return (int) $this->get_meta( 'll_vdm_sub_event_id', true );
 	}
 
 	public function get_sub_event(): ?SubEvent {
@@ -65,19 +65,19 @@ class TicketType extends BaseObject {
 	}
 
 	public function get_base_price(): float {
-		return (float) $this->get_meta( 'base_price', true );
+		return (float) $this->get_meta( 'll_vdm_base_price', true );
 	}
 
 	public function get_discount_type(): string {
-		return (string) $this->get_meta( 'discount_type', true );
+		return (string) $this->get_meta( 'll_vdm_discount_type', true );
 	}
 
 	public function get_discount_value(): float {
-		return (float) $this->get_meta( 'discount_value', true );
+		return (float) $this->get_meta( 'll_vdm_discount_value', true );
 	}
 
 	public function get_discounted_price(): float {
-		return (float) $this->get_meta( 'discounted_price', true );
+		return (float) $this->get_meta( 'll_vdm_discounted_price', true );
 	}
 
 	public function get_discount(): float {
