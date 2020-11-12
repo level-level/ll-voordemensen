@@ -116,14 +116,6 @@ class EventsSync extends BaseSync {
 			$status = 'publish';
 		}
 
-		// Prepare location
-		$location_id     = 0;
-		$location_vdm_id = $api_sub_event->location_id ?? null;
-		$location        = Location::get_by_vdm_id( (string) $location_vdm_id );
-		if ( $location instanceof Location ) {
-			$location_id = $location->get_id();
-		}
-
 		// Prepare start and end time
 		$start_timestamp = null;
 		$end_timestamp   = null;
@@ -174,8 +166,6 @@ class EventsSync extends BaseSync {
 				'vdm_id'                => $api_sub_event->event_id,
 				'event_id'              => $event_id,
 				'vdm_event_id'          => $api_sub_event->event_main_id ?? null,
-				'location_id'           => $location_id,
-				'vdm_location_id'       => $api_sub_event->location_id ?? null,
 				'vdm_status'            => $api_sub_event->event_status ?? null,
 				'short_text'            => $api_sub_event->event_short_text ?? null,
 				'url'                   => $api_sub_event->event_url ?? null,
@@ -197,6 +187,15 @@ class EventsSync extends BaseSync {
 			$image_util = new ImageUtil();
 			$image_util->set_post_thumbnail( $sub_event_id, $api_sub_event->event_image );
 		}
+
+		// Set terms
+		$location_vdm_id = $api_sub_event->location_id ?? null;
+		$location        = Location::get_by_vdm_id( (string) $location_vdm_id );
+		$locations       = array();
+		if ( $location instanceof Location ) {
+			$locations[] = $location->get_id();
+		}
+		wp_set_object_terms( $sub_event_id, $locations, Location::$taxonomy );
 
 		do_action( 'll_vdm_after_insert_sub_event', $sub_event_id, $api_sub_event );
 

@@ -146,13 +146,16 @@ class SubEvent extends BaseObject {
 		return (int) $max;
 	}
 
-	public function get_location_id(): int {
-		return (int) $this->get_meta( 'location_id', true );
+	public function get_location(): ?Location {
+		$terms = wp_get_post_terms( $this->get_id(), Location::$taxonomy );
+
+		if ( $terms instanceof \WP_Error || empty( $terms ) ) {
+			return null;
+		}
+
+		return new Location( $terms[0] );
 	}
 
-	public function get_location(): ?Location {
-		return Location::get( $this->get_location_id() );
-	}
 
 	/**
 	 * Get sub events
