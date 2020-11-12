@@ -62,46 +62,6 @@ class EventTypesSync extends BaseSync {
 		update_term_meta( $event_type_id, 'll_vdm_vdm_id', $api_event_type->eventtype_name );
 
 		do_action( 'll_vdm_after_insert_event_type', $event_type_id, $api_event_type );
-
-		$event_type_events = $api_event_type->eventtype_events ?? 0;
-		if ( $event_type_events ) {
-			$this->assign_event_type_to_events( $event_type_id, $api_event_type );
-		}
 		return $event_type_id;
-	}
-
-	/**
-	 * Add event type term to events
-	 *
-	 * @param object $api_event_type
-	 */
-	public function assign_event_type_to_events( int $event_type_id, $api_event_type ): void {
-		$client                = new Client();
-		$api_event_type_events = $client->get_event_type_events( $api_event_type->eventtype_name );
-		foreach ( $api_event_type_events as $api_event_type_event ) {
-			$event = Event::get_by_vdm_id( $api_event_type_event->event_id );
-			if ( ! $event instanceof Event ) {
-				continue;
-			}
-			wp_set_post_terms( $event->get_id(), array( $event_type_id ), EventType::$taxonomy, true );
-			$this->assign_event_type_to_sub_events( $event_type_id, $api_event_type_event );
-		}
-	}
-
-	/**
-	 * Add event type term to sub events
-	 *
-	 * @param object $api_event_type_event
-	 */
-	public function assign_event_type_to_sub_events( int $event_type_id, $api_event_type_event ): void {
-		$api_event_type_event_sub_events = $api_event_type_event->sub_events ?? array();
-
-		foreach ( $api_event_type_event_sub_events as $api_event_type_event_sub_event ) {
-			$sub_event = SubEvent::get_by_vdm_id( $api_event_type_event_sub_event->event_id );
-			if ( ! $sub_event instanceof SubEvent ) {
-				continue;
-			}
-			wp_set_post_terms( $sub_event->get_id(), array( $event_type_id ), EventType::$taxonomy, true );
-		}
 	}
 }

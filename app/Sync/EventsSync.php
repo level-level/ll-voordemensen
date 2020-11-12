@@ -6,6 +6,7 @@ use DateTime;
 use DateTimeZone;
 use LevelLevel\VoorDeMensen\API\Client;
 use LevelLevel\VoorDeMensen\Objects\Event;
+use LevelLevel\VoorDeMensen\Objects\EventType;
 use LevelLevel\VoorDeMensen\Objects\Location;
 use LevelLevel\VoorDeMensen\Objects\SubEvent;
 use LevelLevel\VoorDeMensen\Objects\TicketType;
@@ -82,6 +83,22 @@ class EventsSync extends BaseSync {
 
 		do_action( 'll_vdm_after_insert_event', $event_id, $api_event );
 
+		// Set terms
+		$event_type_vdm_ids = $api_event->event_type ?? array();
+		$event_types        = array();
+		foreach ( $event_type_vdm_ids as $event_type_vdm_id ) {
+			if ( empty( $event_type_vdm_id ) ) {
+				continue;
+			}
+			$event_type = EventType::get_by_vdm_id( (string) $event_type_vdm_id );
+			if ( ! $event_type instanceof EventType ) {
+				continue;
+			}
+			$event_types[] = $event_type->get_id();
+		}
+		wp_set_object_terms( $event_id, $event_types, EventType::$taxonomy );
+
+		// Create sub events
 		if ( isset( $api_event->sub_events ) && is_array( $api_event->sub_events ) ) {
 			foreach ( $api_event->sub_events as $api_sub_event ) {
 				if ( ! isset( $api_sub_event->event_id ) ) {
@@ -196,6 +213,20 @@ class EventsSync extends BaseSync {
 			$locations[] = $location->get_id();
 		}
 		wp_set_object_terms( $sub_event_id, $locations, Location::$taxonomy );
+
+		$event_type_vdm_ids = $api_sub_event->event_type ?? array();
+		$event_types        = array();
+		foreach ( $event_type_vdm_ids as $event_type_vdm_id ) {
+			if ( empty( $event_type_vdm_id ) ) {
+				continue;
+			}
+			$event_type = EventType::get_by_vdm_id( (string) $event_type_vdm_id );
+			if ( ! $event_type instanceof EventType ) {
+				continue;
+			}
+			$event_types[] = $event_type->get_id();
+		}
+		wp_set_object_terms( $sub_event_id, $event_types, EventType::$taxonomy );
 
 		do_action( 'll_vdm_after_insert_sub_event', $sub_event_id, $api_sub_event );
 

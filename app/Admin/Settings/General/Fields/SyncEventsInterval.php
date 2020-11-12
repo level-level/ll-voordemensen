@@ -87,7 +87,7 @@ class SyncEventsInterval extends BaseField {
 			return;
 		}
 		( new LocationsSync() )->reschedule_sync();
-		( new EventsSync() )->reschedule_sync();
 		( new EventTypesSync() )->reschedule_sync();
+		( new EventsSync() )->reschedule_sync();
 	}
 }

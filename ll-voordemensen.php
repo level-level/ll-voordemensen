@@ -67,8 +67,8 @@ add_action(
 		( new LevelLevel\VoorDeMensen\PostTypes\TicketType() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Sync\Setup() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Sync\LocationsSync() )->register_hooks();
-		( new LevelLevel\VoorDeMensen\Sync\EventsSync() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Sync\EventTypesSync() )->register_hooks();
+		( new LevelLevel\VoorDeMensen\Sync\EventsSync() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Taxonomies\Location() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Taxonomies\EventType() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Assets() )->register_hooks();
