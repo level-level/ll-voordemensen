@@ -2,6 +2,8 @@
 
 namespace LevelLevel\VoorDeMensen\Admin;
 
+use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\ClientName;
+use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\PostTypes;
 use LevelLevel\VoorDeMensen\API\Client;
 use LevelLevel\VoorDeMensen\Objects\Event;
 use WP_Post;
@@ -13,8 +15,13 @@ class MetaBox {
 	}
 
 	public function add_meta_box( string $post_type ): void {
-		$client_name = get_option( 'll_vdm_api_client_name', null );
+		$client_name = ( new ClientName() )->get_value();
 		if ( empty( $client_name ) ) {
+			return;
+		}
+
+		$post_types = ( new PostTypes() )->get_value();
+		if ( ! in_array( $post_type, $post_types, true ) ) {
 			return;
 		}
 
