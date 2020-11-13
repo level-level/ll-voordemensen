@@ -111,6 +111,54 @@ class Client {
 	}
 
 	/**
+	 * Get array of API event types response objects
+	 *
+	 * @return object[]
+	 */
+	public function get_event_types(): array {
+		$url = $this->get_event_types_url();
+		if ( ! $url ) {
+			return array();
+		}
+
+		$response = $this->request( $url );
+		if ( ! isset( $response['success'] ) || ! $response['success'] || ! is_array( $response['data'] ) ) {
+			return array();
+		}
+
+		// Filter out object errors
+		return array_filter(
+			$response['data'], function( $api_event ) {
+				return isset( $api_event->eventtype_name );
+			}
+		);
+	}
+
+	/**
+	 * Get array of API events response objects for an event type
+	 *
+	 * @return object[]
+	 */
+	public function get_event_type_events( string $vdm_event_type_id ): array {
+		$url = $this->get_event_types_url( $vdm_event_type_id );
+		if ( ! $url ) {
+			return array();
+		}
+
+		$response = $this->request( $url );
+		if ( ! isset( $response['success'] ) || ! $response['success'] || ! is_array( $response['data'] ) ) {
+			return array();
+		}
+
+		// Filter out object errors
+		return array_filter(
+			$response['data'], function( $api_event ) {
+				return isset( $api_event->event_id );
+			}
+		);
+	}
+
+	/**
 	 * Perform an API request
 	 */
 	public function request( string $url, string $method = 'GET', array $request_args = array() ): array {
@@ -163,8 +211,22 @@ class Client {
 	/**
 	 * Get url for the locations endpoint
 	 */
-	protected function get_locations_url(): ?string {
+	protected function get_locations_url( string $vdm_location_id = null ): ?string {
 		$url_path = '/locations/';
+		if ( $vdm_location_id ) {
+			$url_path .= $vdm_location_id;
+		}
+		return $this->generate_url( $url_path );
+	}
+
+	/**
+	 * Get url for the event types endpoint
+	 */
+	protected function get_event_types_url( string $vdm_event_type_name = null ): ?string {
+		$url_path = '/eventtypes/';
+		if ( $vdm_event_type_name ) {
+			$url_path .= rawurlencode( $vdm_event_type_name );
+		}
 		return $this->generate_url( $url_path );
 	}
 

@@ -3,6 +3,7 @@
 namespace LevelLevel\VoorDeMensen\Admin\Settings\General\Fields;
 
 use LevelLevel\VoorDeMensen\Sync\EventsSync;
+use LevelLevel\VoorDeMensen\Sync\EventTypesSync;
 use LevelLevel\VoorDeMensen\Sync\LocationsSync;
 
 class SyncEventsInterval extends BaseField {
@@ -86,6 +87,7 @@ class SyncEventsInterval extends BaseField {
 			return;
 		}
 		( new LocationsSync() )->reschedule_sync();
+		( new EventTypesSync() )->reschedule_sync();
 		( new EventsSync() )->reschedule_sync();
 	}
 }
