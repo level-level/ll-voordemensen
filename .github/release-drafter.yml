@@ -1,6 +1,8 @@
 template: |
   ### Don't forget to bump the version number in ll-voordemensen.php
 
+  ### Don't forget to build CSS and JS with npm run build
+
   ## What’s Changed
 
   $CHANGES
