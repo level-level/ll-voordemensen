@@ -7,6 +7,7 @@ import SessionHelper from '../helpers/session-helper';
 		const $element      = $( element ),
 			eventId         = $element.data( 'vdm-event-id' ),
 			sessionHelper   = new SessionHelper();
+		let isOpen = false;
 
 		// Initialize an instance
 		function initialize() {
@@ -20,12 +21,14 @@ import SessionHelper from '../helpers/session-helper';
 				}
 				window.vdm_order( eventId, sessionHelper.getId() );
 				focusCloseButton();
+				isOpen = true;
 			} );
 
 			$( window ).on( 'message', ( e ) => {
 				const eventData = e.originalEvent.data;
-				if ( ( typeof eventData.close_overlay !== 'undefined' && eventData.close_overlay ) || ( typeof eventData.vdm_closeoverlay !== 'undefined' && eventData.vdm_closeoverlay ) ) {
+				if ( isOpen && typeof eventData.vdm_close !== 'undefined' && eventData.vdm_close ) {
 					$element.focus();
+					isOpen = false;
 				}
 			} );
 		}
