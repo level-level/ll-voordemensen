@@ -19,7 +19,7 @@ import SessionHelper from '../helpers/session-helper';
 					return;
 				}
 				window.vdm_order( eventId, sessionHelper.getId() );
-				$( '.tingle-modal__close' ).focus();
+				focusCloseButton();
 			} );
 
 			$( window ).on( 'message', ( e ) => {
@@ -28,6 +28,15 @@ import SessionHelper from '../helpers/session-helper';
 					$element.focus();
 				}
 			} );
+		}
+
+		function focusCloseButton() {
+			if ( $( '.tingle-modal__close' ).length > 0 ) {
+				$( '.tingle-modal__close' ).focus();
+			}
+			if ( $( '.vdmClosebutton' ).length > 0 ) {
+				$( '.vdmClosebutton' ).focus();
+			}
 		}
 
 		initialize();

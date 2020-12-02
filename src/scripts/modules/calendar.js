@@ -15,7 +15,7 @@
 					return;
 				}
 				window.vdm_calendar();
-				$( '.tingle-modal__close' ).focus();
+				focusCloseButton();
 			} );
 
 			$( window ).on( 'message', ( e ) => {
@@ -24,6 +24,15 @@
 					$element.focus();
 				}
 			} );
+		}
+
+		function focusCloseButton() {
+			if ( $( '.tingle-modal__close' ).length > 0 ) {
+				$( '.tingle-modal__close' ).focus();
+			}
+			if ( $( '.vdmClosebutton' ).length > 0 ) {
+				$( '.vdmClosebutton' ).focus();
+			}
 		}
 
 		initialize();
