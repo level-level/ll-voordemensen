@@ -6,6 +6,7 @@ import SessionHelper from '../helpers/session-helper';
 
 		const $element      = $( element ),
 			sessionHelper   = new SessionHelper();
+		let isOpen = false;
 
 		// Initialize an instance
 		function initialize() {
@@ -18,15 +19,26 @@ import SessionHelper from '../helpers/session-helper';
 					return;
 				}
 				window.vdm_order( 'cart', sessionHelper.getId() );
-				$( '.tingle-modal__close' ).focus();
+				focusCloseButton();
+				isOpen = true;
 			} );
 
 			$( window ).on( 'message', ( e ) => {
 				const eventData = e.originalEvent.data;
-				if ( ( typeof eventData.close_overlay !== 'undefined' && eventData.close_overlay ) || ( typeof eventData.vdm_closeoverlay !== 'undefined' && eventData.vdm_closeoverlay ) ) {
+				if ( isOpen && typeof eventData.vdm_close !== 'undefined' && eventData.vdm_close ) {
 					$element.focus();
+					isOpen = false;
 				}
 			} );
+		}
+
+		function focusCloseButton() {
+			if ( $( '.tingle-modal__close' ).length > 0 ) {
+				$( '.tingle-modal__close' ).focus();
+			}
+			if ( $( '.vdmClosebutton' ).length > 0 ) {
+				$( '.vdmClosebutton' ).focus();
+			}
 		}
 
 		initialize();
