@@ -30,7 +30,7 @@ class PostTypes extends BaseField {
 	}
 
 	public function get_default_value(): array {
-		return array( 'post', 'page' );
+		return array();
 	}
 
 	/**
