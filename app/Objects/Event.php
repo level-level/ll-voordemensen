@@ -90,4 +90,19 @@ class Event extends BaseObject {
 	public function get_short_text(): string {
 		return (string) $this->get_meta( 'll_vdm_short_text', true );
 	}
+
+	public function get_event_types(): array {
+		$terms   = wp_get_post_terms( $this->get_id(), EventType::$taxonomy );
+		$objects = array();
+
+		if ( ! is_array( $terms ) ) {
+			return $objects;
+		}
+
+		foreach ( $terms as $term ) {
+			$objects[] = new EventType( $term );
+		}
+
+		return $objects;
+	}
 }

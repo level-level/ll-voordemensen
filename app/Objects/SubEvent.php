@@ -180,4 +180,19 @@ class SubEvent extends BaseObject {
 		$args         = wp_parse_args( $args, $default_args );
 		return TicketType::get_many( $args );
 	}
+
+	public function get_event_types(): array {
+		$terms   = wp_get_post_terms( $this->get_id(), EventType::$taxonomy );
+		$objects = array();
+
+		if ( ! is_array( $terms ) ) {
+			return $objects;
+		}
+
+		foreach ( $terms as $term ) {
+			$objects[] = new EventType( $term );
+		}
+
+		return $objects;
+	}
 }
