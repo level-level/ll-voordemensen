@@ -1,7 +1,9 @@
 template: |
-  ### Don't forget to bump the version number in ll-voordemensen.php
+  ### Don't forget to prepare the release:
 
-  ### Don't forget to build CSS and JS with npm run build
+  - Bump the version number in ll-voordemensen.php
+  - Build CSS and JS with `npm run build`
+  - Generate translations with `composer run make-pot`
 
   ## What’s Changed
 
