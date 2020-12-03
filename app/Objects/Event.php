@@ -2,6 +2,7 @@
 
 namespace LevelLevel\VoorDeMensen\Objects;
 
+use DateTime;
 use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\PostTypes as PostTypesSetting;
 
 class Event extends BaseObject {
@@ -104,5 +105,54 @@ class Event extends BaseObject {
 		}
 
 		return $objects;
+	}
+
+	/**
+	 * Get start date from earliest sub events start date
+	 *
+	 * @return DateTime|null
+	 */
+	public function get_start_date(): ?DateTime {
+		$start_date = null;
+		$sub_events = $this->get_sub_events();
+		foreach ( $sub_events as $sub_event ) {
+			$sub_event_start_date = $sub_event->get_start_date();
+			if ( ! $sub_event_start_date instanceof DateTime ) {
+				continue;
+			}
+
+			if ( $start_date instanceof DateTime && $sub_event_start_date->getTimestamp() > $start_date->getTimestamp() ) {
+				continue;
+			}
+
+			$start_date = $sub_event_start_date;
+		}
+		return $start_date;
+	}
+
+	/**
+	 * Get end date from latest sub events end date
+	 *
+	 * @return DateTime|null
+	 */
+	public function get_end_date(): ?DateTime {
+		$end_date   = null;
+		$sub_events = $this->get_sub_events();
+		foreach ( $sub_events as $sub_event ) {
+			$sub_event_end_date = $sub_event->get_end_date();
+			if ( ! $sub_event_end_date instanceof DateTime ) {
+				$sub_event_end_date = $sub_event->get_start_date();
+			}
+			if ( ! $sub_event_end_date instanceof DateTime ) {
+				continue;
+			}
+
+			if ( $end_date instanceof DateTime && $sub_event_end_date->getTimestamp() < $end_date->getTimestamp() ) {
+				continue;
+			}
+
+			$end_date = $sub_event_end_date;
+		}
+		return $end_date;
 	}
 }
