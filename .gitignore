@@ -3,7 +3,6 @@
 /node_modules/
 /development/config.local.json
 bundle-analyzer.json
-/languages/*
 /vendor/
 
 # Ignore Mac OSX related files
