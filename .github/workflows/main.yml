@@ -17,7 +17,6 @@ jobs:
           - 3306/tcp
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-      steps:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
