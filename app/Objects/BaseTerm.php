@@ -75,14 +75,22 @@ class BaseTerm {
 		$args['taxonomy'] = static::$taxonomy;
 		$args['fields']   = 'all';
 
-		$query = new WP_Term_Query( $args );
+		$query       = new WP_Term_Query( $args );
+		$query_terms = $query->get_terms();
 
-		return array_map(
-			function( $term ) {
-				return new static( $term );
-			},
-			$query->get_terms()
-		);
+		$terms = array();
+		/**
+		 * @psalm-suppress PossiblyInvalidIterator
+		 *
+		 * Ignore iterator is not an array, as this is always an array
+		 */
+		foreach ( $query_terms as $term ) {
+			if ( ! $term instanceof WP_Term ) {
+				continue;
+			}
+			$terms[] = new static( $term );
+		}
+		return $terms;
 	}
 
 	/**

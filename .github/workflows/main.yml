@@ -6,11 +6,23 @@ jobs:
   php:
     name: PHP test
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: false
+          MYSQL_ROOT_PASSWORD: wordpress
+          MYSQL_DATABASE: wordpress
+        ports:
+          - 3306/tcp
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - name: Install PHP
-        uses: shivammathur/setup-php@1.3.7
+        uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.3
+          php-version: 7.4
+          extensions: mbstring, dom, simplexml
+          tools: wp
       - uses: actions/checkout@v2
         with:
           path: wp-content/plugins/ll-voordemensen
@@ -37,18 +49,18 @@ jobs:
         run: |
           cd wp-content/plugins/ll-voordemensen
           composer run test:phpcs
-      - name: integration:setup
+      - name: Start mysql service
+        run: sudo /etc/init.d/mysql start
+      - name: Download & configure WP
+        run: |
+          wp core download --allow-root --skip-content
+          wp config create --allow-root --dbname=wordpress --dbuser=root --dbpass=wordpress --dbhost=127.0.0.1:${{ job.services.mysql.ports['3306'] }}
+          wp core install --allow-root  --url=localhost --title=Test --admin_user=admin --admin_password=password --admin_email=test@test.test
+          wp plugin activate ll-voordemensen --allow-root
+      - name: test:psalm
         run: |
           cd wp-content/plugins/ll-voordemensen
-          composer run integration:setup
-      - name: test:ci:psalm
-        run: |
-          cd wp-content/plugins/ll-voordemensen
-          composer run test:ci:psalm
-      - name: integration:teardown
-        run: |
-          cd wp-content/plugins/ll-voordemensen
-          composer run integration:teardown
+          composer run test:psalm
       - name: test:docs
         run: |
           cd wp-content/plugins/ll-voordemensen
