@@ -70,7 +70,11 @@ class EventsSync extends BaseSync {
 		);
 		$post_data = apply_filters( 'll_vdm_update_event_post_data', $post_data, $api_event );
 
-		$event_id = wp_insert_post( $post_data );
+		if ( ! $post_data['ID'] ) {
+			$event_id = wp_insert_post( $post_data );
+		} else {
+			$event_id = wp_update_post( $post_data );
+		}
 		if ( ! $event_id || $event_id instanceof WP_Error ) {
 			return 0;
 		}
@@ -194,7 +198,11 @@ class EventsSync extends BaseSync {
 		);
 		$post_data = apply_filters( 'll_vdm_update_sub_event_post_data', $post_data, $api_sub_event, $event_id );
 
-		$sub_event_id = wp_insert_post( $post_data );
+		if ( ! $post_data['ID'] ) {
+			$sub_event_id = wp_insert_post( $post_data );
+		} else {
+			$sub_event_id = wp_update_post( $post_data );
+		}
 		if ( ! $sub_event_id || $sub_event_id instanceof WP_Error ) {
 			return 0;
 		}
@@ -313,7 +321,12 @@ class EventsSync extends BaseSync {
 		);
 		$post_data = apply_filters( 'll_vdm_update_ticket_type_post_data', $post_data, $sub_event_id, $api_ticket_type );
 
-		$ticket_type_id = wp_insert_post( $post_data );
+		if ( ! $post_data['ID'] ) {
+			$ticket_type_id = wp_insert_post( $post_data );
+		} else {
+			$ticket_type_id = wp_update_post( $post_data );
+		}
+
 		if ( ! $ticket_type_id || $ticket_type_id instanceof WP_Error ) {
 			return 0;
 		}
