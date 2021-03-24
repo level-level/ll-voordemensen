@@ -79,6 +79,10 @@ class BaseTerm {
 		$query_terms = $query->get_terms();
 
 		$terms = array();
+		if ( ! is_array( $query_terms ) ) {
+			return $terms;
+		}
+
 		foreach ( $query_terms as $term ) {
 			if ( ! $term instanceof WP_Term ) {
 				continue;
