@@ -79,6 +79,11 @@ class BaseTerm {
 		$query_terms = $query->get_terms();
 
 		$terms = array();
+		/**
+		 * @psalm-suppress PossiblyInvalidIterator
+		 *
+		 * Ignore iterator is not an array, as this is always an array
+		 */
 		foreach ( $query_terms as $term ) {
 			if ( ! $term instanceof WP_Term ) {
 				continue;
