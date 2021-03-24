@@ -70,10 +70,10 @@
         ]
     },
     "require-dev": {
-        "niels-de-blaauw/php-doc-check": "^0.2.2",
         "psalm/phar": "^4.0",
         "wp-coding-standards/wpcs": "^2.3",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-        "phpcompatibility/php-compatibility": "^9.3"
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "niels-de-blaauw/php-doc-check": "^0.2.2"
     }
 }
