@@ -19,7 +19,7 @@ class EventsSync extends BaseSync {
 	public const RECENT_LIMIT         = 10;
 	protected const API_STATUSSES_MAP = array(
 		'pub'   => 'publish',
-		'arch'  => 'publish',
+		'arch'  => 'draft',
 		'nosal' => 'publish',
 		'trash' => 'trash',
 	);
