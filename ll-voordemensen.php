@@ -54,7 +54,6 @@ add_action(
 		}
 
 		// Register hooks
-		( new LevelLevel\VoorDeMensen\Init() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\MetaBox() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\Menu() )->register_hooks();
 		( new LevelLevel\VoorDeMensen\Admin\Settings\QuickSyncEventsController() )->register_hooks();
