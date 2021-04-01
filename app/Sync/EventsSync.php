@@ -20,6 +20,7 @@ class EventsSync extends BaseSync {
 	protected const API_STATUSSES_MAP = array(
 		'pub'   => 'publish',
 		'arch'  => 'publish',
+		'nosal' => 'publish',
 		'trash' => 'trash',
 	);
 
@@ -134,7 +135,7 @@ class EventsSync extends BaseSync {
 		// Prepare status
 		$status = 'draft';
 		if ( isset( $api_sub_event->event_status ) && $api_sub_event->event_status === 'pub' ) {
-			$status = 'publish';
+			$status = $this->api_sub_event_status_to_post_status( $api_sub_event->event_status );
 		}
 
 		// Prepare start and end time
@@ -194,6 +195,7 @@ class EventsSync extends BaseSync {
 				'll_vdm_end_date'              => $end_timestamp,
 				'll_vdm_rep'                   => $api_sub_event->event_rep ?? null,
 				'll_vdm_max_tickets_per_order' => $api_sub_event->event_free ?? null,
+				'll_vdm_sale_enabled'          => ( isset( $api_sub_event->event_status ) && $api_sub_event->event_status !== 'nosal' ),
 			),
 		);
 		$post_data = apply_filters( 'll_vdm_update_sub_event_post_data', $post_data, $api_sub_event, $event_id );
@@ -248,9 +250,10 @@ class EventsSync extends BaseSync {
 	 *
 	 * @param string $api_status One of pub, unpub, nosal, arch, trash
 	 */
-	protected function api_event_status_to_post_status( string $api_status ): string {
-		if ( isset( self::API_STATUSSES_MAP[ $api_status ] ) ) {
-			return self::API_STATUSSES_MAP[ $api_status ];
+	protected function api_sub_event_status_to_post_status( string $api_status ): string {
+		$status_map = apply_filters( 'll_vdm_api_statusses_map', self::API_STATUSSES_MAP );
+		if ( isset( $status_map[ $api_status ] ) ) {
+			return $status_map[ $api_status ];
 		}
 		return 'draft';
 	}

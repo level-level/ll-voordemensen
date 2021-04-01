@@ -142,6 +142,10 @@ class SubEvent extends BaseObject {
 		return (string) $rep;
 	}
 
+	public function get_sale_enabled(): bool {
+		return (bool) $this->get_meta( 'll_vdm_sale_enabled', true );
+	}
+
 	public function get_max_tickets_per_order(): ?int {
 		$max = $this->get_meta( 'll_vdm_max_tickets_per_order', true );
 		if ( ! is_numeric( $max ) ) {
