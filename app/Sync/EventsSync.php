@@ -134,7 +134,7 @@ class EventsSync extends BaseSync {
 
 		// Prepare status
 		$status = 'draft';
-		if ( isset( $api_sub_event->event_status ) && $api_sub_event->event_status === 'pub' ) {
+		if ( isset( $api_sub_event->event_status ) ) {
 			$status = $this->api_sub_event_status_to_post_status( $api_sub_event->event_status );
 		}
 
