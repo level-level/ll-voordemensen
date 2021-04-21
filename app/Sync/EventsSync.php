@@ -50,6 +50,7 @@ class EventsSync extends BaseSync {
 		$vdm_id   = (string) $api_event->event_id;
 		$event    = Event::get_by_vdm_id( $vdm_id );
 		$event_id = 0;
+		$update   = false;
 		if ( $event instanceof Event ) {
 			$event_id = $event->get_id();
 		}
@@ -75,6 +76,7 @@ class EventsSync extends BaseSync {
 			$event_id = wp_insert_post( $post_data );
 		} else {
 			$event_id = wp_update_post( $post_data );
+			$update   = true;
 		}
 		if ( ! $event_id || $event_id instanceof WP_Error ) {
 			return 0;
@@ -86,7 +88,7 @@ class EventsSync extends BaseSync {
 			$image_util->set_post_thumbnail( $event_id, $api_event->event_image );
 		}
 
-		do_action( 'll_vdm_after_insert_event', $event_id, $api_event );
+		do_action( 'll_vdm_after_insert_event', $event_id, $api_event, $update );
 
 		// Set terms
 		$event_type_vdm_ids = $api_event->event_type ?? array();
@@ -126,6 +128,7 @@ class EventsSync extends BaseSync {
 		$vdm_id       = (string) $api_sub_event->event_id;
 		$sub_event    = SubEvent::get_by_vdm_id( $vdm_id );
 		$sub_event_id = 0;
+		$update       = false;
 		if ( $sub_event instanceof SubEvent ) {
 			$sub_event_id = $sub_event->get_id();
 		}
@@ -204,6 +207,7 @@ class EventsSync extends BaseSync {
 			$sub_event_id = wp_insert_post( $post_data );
 		} else {
 			$sub_event_id = wp_update_post( $post_data );
+			$update       = true;
 		}
 		if ( ! $sub_event_id || $sub_event_id instanceof WP_Error ) {
 			return 0;
@@ -238,7 +242,7 @@ class EventsSync extends BaseSync {
 		}
 		wp_set_object_terms( $sub_event_id, $event_types, EventType::$taxonomy );
 
-		do_action( 'll_vdm_after_insert_sub_event', $sub_event_id, $api_sub_event );
+		do_action( 'll_vdm_after_insert_sub_event', $sub_event_id, $event_id, $api_sub_event, $update );
 
 		$this->create_or_update_ticket_types( $sub_event_id, $api_sub_event->event_id );
 
@@ -285,7 +289,7 @@ class EventsSync extends BaseSync {
 		foreach ( $old_ticket_types as $old_ticket_type ) {
 			do_action( 'll_vdm_before_delete_ticket_type', $sub_event_id, $old_ticket_type );
 			$old_ticket_type->delete();
-			do_action( 'll_vdm_after_insert_ticket_type', $sub_event_id );
+			do_action( 'll_vdm_after_delete_ticket_type', $sub_event_id );
 		}
 	}
 
@@ -300,6 +304,7 @@ class EventsSync extends BaseSync {
 		$vdm_id         = (string) $api_ticket_type->discount_id;
 		$ticket_type    = TicketType::get_by_vdm_id_and_sub_event_id( $vdm_id, $sub_event_id );
 		$ticket_type_id = 0;
+		$update         = false;
 		if ( $ticket_type instanceof TicketType ) {
 			$ticket_type_id = $ticket_type->get_id();
 		}
@@ -328,13 +333,14 @@ class EventsSync extends BaseSync {
 			$ticket_type_id = wp_insert_post( $post_data );
 		} else {
 			$ticket_type_id = wp_update_post( $post_data );
+			$update         = true;
 		}
 
 		if ( ! $ticket_type_id || $ticket_type_id instanceof WP_Error ) {
 			return 0;
 		}
 
-		do_action( 'll_vdm_after_insert_ticket_type', $ticket_type_id, $api_ticket_type );
+		do_action( 'll_vdm_after_insert_ticket_type', $ticket_type_id, $api_ticket_type, $update );
 		return $ticket_type_id;
 	}
 }
