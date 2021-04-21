@@ -61,7 +61,7 @@ class LocationsSync extends BaseSync {
 		update_term_meta( $location_id, 'll_vdm_vdm_id', $api_location->location_id );
 		update_term_meta( $location_id, 'll_vdm_address', $api_location->location_address ?? null );
 		update_term_meta( $location_id, 'll_vdm_address_1', $api_location->location_address1 ?? null );
-		update_term_meta( $location_id, 'll_vdm_zip_code', $api_location->ocation_zip ?? null );
+		update_term_meta( $location_id, 'll_vdm_zip_code', $api_location->location_zip ?? null );
 		update_term_meta( $location_id, 'll_vdm_city', $api_location->location_city ?? null );
 		update_term_meta( $location_id, 'll_vdm_country', $api_location->location_country ?? null );
 		update_term_meta( $location_id, 'll_vdm_phone', $api_location->location_phone ?? null );
