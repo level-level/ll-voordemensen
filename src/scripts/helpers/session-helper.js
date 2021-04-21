@@ -1,23 +1,28 @@
+import Cookies from 'js-cookie';
+
 export default class SessionHelper {
 	constructor() {
 		this.$ = jQuery;
 	}
 
-	getName() {
-		return window.ll_vdm_options.session.name;
+	getId() {
+		const sessionId = Cookies.get( 'll_vdm_session_id' );
+
+		if ( sessionId ) {
+			return sessionId;
+		}
+		return this.generateId();
 	}
 
-	getId() {
-		const cookies = document.cookie.split( '; ' );
-		const fullSessionIdCookie = cookies.find( row => row.startsWith( this.getName() ) );
-		if ( ! fullSessionIdCookie ) {
-			return null;
+	generateId( length = 12 ) {
+		let result           = '';
+		const characters       = 'abcdefghijklmnopqrstuvwxyz0123456789';
+		const charactersLength = characters.length;
+		for ( let i = 0; i < length; i++ ) {
+			result += characters.charAt( Math.floor( Math.random() * charactersLength ) );
 		}
 
-		const sessionIdCookieParts = fullSessionIdCookie.split( '=', 2 );
-		if ( sessionIdCookieParts.length < 2 && sessionIdCookieParts[ 1 ].length > 0 ) {
-			return null;
-		}
-		return sessionIdCookieParts[ 1 ];
+		Cookies.set( 'll_vdm_session_id', result );
+		return result;
 	}
 }

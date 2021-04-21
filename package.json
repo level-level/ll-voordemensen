@@ -10,7 +10,8 @@
         "url": "https://github.com/level-level/ll-voordemensen.git"
     },
     "dependencies": {
-        "@babel/polyfill": "^7.11.5"
+        "@babel/polyfill": "^7.11.5",
+        "js-cookie": "^2.2.1"
     },
     "scripts": {
         "lint": "npm run scripts:lint && npm run styles:lint",

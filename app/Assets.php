@@ -44,12 +44,9 @@ class Assets {
 
 	public function get_localize_data(): array {
 		return array(
-			'api'     => array(
+			'api' => array(
 				'base_url'    => Client::BASE_API_URL,
 				'client_name' => ( new ClientNameSetting() )->get_value(),
-			),
-			'session' => array(
-				'name' => ( new Session() )->get_name(),
 			),
 		);
 	}
