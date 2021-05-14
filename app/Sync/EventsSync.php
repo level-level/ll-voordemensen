@@ -19,7 +19,7 @@ class EventsSync extends BaseSync {
 	public const RECENT_LIMIT         = 10;
 	protected const API_STATUSSES_MAP = array(
 		'pub'   => 'publish',
-		'arch'  => 'draft',
+		'arch'  => 'trash',
 		'nosal' => 'publish',
 		'trash' => 'trash',
 	);
@@ -55,6 +55,10 @@ class EventsSync extends BaseSync {
 			$event_id = $event->get_id();
 		}
 
+		if ( ! apply_filters( 'll_vdm_should_insert_event', true, $event_id, $api_event ) ) {
+			return 0;
+		}
+
 		do_action( 'll_vdm_before_insert_event', $event_id, $api_event );
 
 		// Update post object
@@ -71,7 +75,6 @@ class EventsSync extends BaseSync {
 			),
 		);
 		$post_data = apply_filters( 'll_vdm_update_event_post_data', $post_data, $api_event );
-
 		if ( ! $post_data['ID'] ) {
 			$event_id = wp_insert_post( $post_data );
 		} else {
@@ -133,13 +136,17 @@ class EventsSync extends BaseSync {
 			$sub_event_id = $sub_event->get_id();
 		}
 
-		do_action( 'll_vdm_before_insert_sub_event', $event_id, $api_sub_event );
-
 		// Prepare status
 		$status = 'draft';
 		if ( isset( $api_sub_event->event_status ) ) {
 			$status = $this->api_sub_event_status_to_post_status( $api_sub_event->event_status );
 		}
+
+		if ( ! apply_filters( 'll_vdm_should_insert_sub_event', ( $status !== 'trash' ), $sub_event_id, $api_sub_event ) ) {
+			return 0;
+		}
+
+		do_action( 'll_vdm_before_insert_sub_event', $event_id, $api_sub_event );
 
 		// Prepare start and end time
 		$start_timestamp = null;
@@ -307,6 +314,10 @@ class EventsSync extends BaseSync {
 		$update         = false;
 		if ( $ticket_type instanceof TicketType ) {
 			$ticket_type_id = $ticket_type->get_id();
+		}
+
+		if ( ! apply_filters( 'll_vdm_should_insert_ticket_type', true, $ticket_type_id, $api_ticket_type ) ) {
+			return 0;
 		}
 
 		do_action( 'll_vdm_before_insert_ticket_type', $sub_event_id, $api_ticket_type );

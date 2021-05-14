@@ -36,6 +36,10 @@ class LocationsSync extends BaseSync {
 			$location_id = $location->get_id();
 		}
 
+		if ( ! apply_filters( 'll_vdm_should_insert_location', true, $location_id, $api_location ) ) {
+			return 0;
+		}
+
 		do_action( 'll_vdm_before_insert_location', $location_id, $api_location );
 
 		$term_data = array(
