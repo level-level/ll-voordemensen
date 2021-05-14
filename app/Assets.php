@@ -5,13 +5,13 @@ namespace LevelLevel\VoorDeMensen;
 use LevelLevel\VoorDeMensen\Admin\Settings\Display\Fields\TicketSalesScreenType as TicketSalesScreenTypeSetting;
 use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\ClientName as ClientNameSetting;
 use LevelLevel\VoorDeMensen\API\Client;
-use LevelLevel\VoorDeMensen\Utilities\Session;
 
 class Assets {
 
 	public function register_hooks(): void {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_external_vdm_script' ) );
+		add_action( 'script_loader_tag', array( $this, 'defer_external_vdm_script' ), 10, 2 );
 	}
 
 	public function is_development_mode(): bool {
@@ -96,5 +96,12 @@ class Assets {
 		}
 
 		wp_enqueue_script( 'll_vdm_external_script', $src, array(), LL_VDM_PLUGIN_VERSION, true );
+	}
+
+	public function defer_external_vdm_script( string $tag, string $handle ): string {
+		if ( $handle !== 'll_vdm_external_script' ) {
+			return $tag;
+		}
+		return str_replace( ' src=', ' defer src=', $tag );
 	}
 }
