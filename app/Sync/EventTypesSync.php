@@ -37,6 +37,10 @@ class EventTypesSync extends BaseSync {
 			$event_type_id = $event_type->get_id();
 		}
 
+		if ( ! apply_filters( 'll_vdm_should_insert_event_type', true, $event_type_id, $api_event_type ) ) {
+			return 0;
+		}
+
 		do_action( 'll_vdm_before_insert_event_type', $event_type_id, $api_event_type );
 
 		$term_data = array(
