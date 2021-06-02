@@ -55,7 +55,7 @@ class EventsSync extends BaseSync {
 			$event_id = $event->get_id();
 		}
 
-		if ( ! apply_filters( 'll_vdm_should_insert_event', true, $event_id, $api_event ) ) {
+		if ( ! apply_filters( 'll_vdm_should_insert_event', $this->has_sub_events_to_be_imported( $api_event ), $event_id, $api_event ) ) {
 			return 0;
 		}
 
@@ -118,6 +118,42 @@ class EventsSync extends BaseSync {
 			}
 		}
 		return $event_id;
+	}
+
+	/**
+	 * Check if event has sub events to be imported
+	 *
+	 * @param object $api_event
+	 * @return boolean
+	 */
+	protected function has_sub_events_to_be_imported( $api_event ): bool {
+		if ( ! isset( $api_event->sub_events ) || ! is_array( $api_event->sub_events ) ) {
+			return false;
+		}
+
+		// Only get sub events that need to be imported
+		$sub_events_to_import = array_filter(
+			$api_event->sub_events,
+			/**
+			 * @param object $api_sub_event
+			 * @return bool
+			 */
+			function( $api_sub_event ): bool {
+				$status = 'draft';
+				if ( isset( $api_sub_event->event_status ) ) {
+					$status = $this->api_sub_event_status_to_post_status( $api_sub_event->event_status );
+				}
+
+				$sub_event    = SubEvent::get_by_vdm_id( (string) $api_sub_event->event_id );
+				$sub_event_id = 0;
+				if ( $sub_event instanceof SubEvent ) {
+					$sub_event_id = $sub_event->get_id();
+				}
+				return apply_filters( 'll_vdm_should_insert_sub_event', ( $status !== 'trash' ), $sub_event_id, $api_sub_event );
+			}
+		);
+
+		return ! empty( $sub_events_to_import );
 	}
 
 	/**
