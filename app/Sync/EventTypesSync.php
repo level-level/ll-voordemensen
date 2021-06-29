@@ -38,6 +38,7 @@ class EventTypesSync extends BaseSync {
 		}
 
 		if ( ! apply_filters( 'll_vdm_should_insert_event_type', true, $event_type_id, $api_event_type ) ) {
+			do_action( 'll_vdm_skip_sync_event_type', $event_type_id, $api_event_type );
 			return 0;
 		}
 
