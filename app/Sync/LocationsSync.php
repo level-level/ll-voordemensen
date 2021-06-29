@@ -37,6 +37,7 @@ class LocationsSync extends BaseSync {
 		}
 
 		if ( ! apply_filters( 'll_vdm_should_insert_location', true, $location_id, $api_location ) ) {
+			do_action( 'll_vdm_skip_sync_location', $location_id, $api_location );
 			return 0;
 		}
 
