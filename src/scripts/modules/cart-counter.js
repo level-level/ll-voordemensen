@@ -38,6 +38,9 @@ import APIHelper from '../helpers/api-helper';
 
 		function setCounter( count ) {
 			$element.text( count );
+			$element.trigger( 'll_vdm_cart_counter_changed', {
+				count
+			} );
 		}
 
 		initialize();
