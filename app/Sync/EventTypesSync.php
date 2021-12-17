@@ -48,7 +48,7 @@ class EventTypesSync extends BaseSync {
 			'name' => $api_event_type->eventtype_name ?? '',
 			'slug' => sanitize_title( $api_event_type->eventtype_name ?? '' ),
 		);
-		$term_data = apply_filters( 'll_vdm_update_event_type_term_data', $term_data, $api_event_type );
+		$term_data = apply_filters( 'll_vdm_update_event_type_term_data', $term_data, $api_event_type, $event_type_id );
 
 		$term_result = null;
 		if ( ! $event_type_id ) {
