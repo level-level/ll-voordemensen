@@ -47,7 +47,7 @@ class LocationsSync extends BaseSync {
 			'name' => $api_location->location_name ?? '',
 			'slug' => sanitize_title( $api_location->location_name ?? '' ),
 		);
-		$term_data = apply_filters( 'll_vdm_update_location_term_data', $term_data, $api_location );
+		$term_data = apply_filters( 'll_vdm_update_location_term_data', $term_data, $api_location, $location_id );
 
 		$term_result = null;
 		if ( ! $location_id ) {

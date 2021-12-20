@@ -75,7 +75,7 @@ class EventsSync extends BaseSync {
 				'll_vdm_short_text' => $api_event->event_short_text ?? null,
 			),
 		);
-		$post_data = apply_filters( 'll_vdm_update_event_post_data', $post_data, $api_event );
+		$post_data = apply_filters( 'll_vdm_update_event_post_data', $post_data, $api_event, $event_id );
 		if ( ! $post_data['ID'] ) {
 			$event_id = wp_insert_post( $post_data );
 		} else {
@@ -242,7 +242,7 @@ class EventsSync extends BaseSync {
 				'll_vdm_sale_enabled'          => ( isset( $api_sub_event->event_status ) && $api_sub_event->event_status !== 'nosal' ),
 			),
 		);
-		$post_data = apply_filters( 'll_vdm_update_sub_event_post_data', $post_data, $api_sub_event, $event_id );
+		$post_data = apply_filters( 'll_vdm_update_sub_event_post_data', $post_data, $api_sub_event, $event_id, $sub_event_id );
 
 		if ( ! $post_data['ID'] ) {
 			$sub_event_id = wp_insert_post( $post_data );
@@ -388,7 +388,7 @@ class EventsSync extends BaseSync {
 				'll_vdm_discounted_price' => (float) $api_ticket_type->discounted_price,
 			),
 		);
-		$post_data = apply_filters( 'll_vdm_update_ticket_type_post_data', $post_data, $sub_event_id, $api_ticket_type );
+		$post_data = apply_filters( 'll_vdm_update_ticket_type_post_data', $post_data, $sub_event_id, $api_ticket_type, $ticket_type_id );
 
 		if ( ! $post_data['ID'] ) {
 			$ticket_type_id = wp_insert_post( $post_data );
