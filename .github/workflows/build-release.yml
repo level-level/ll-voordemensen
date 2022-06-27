@@ -102,5 +102,5 @@ jobs:
         with:
           directory: wp-content/plugins/ll-voordemensen/
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: master-build
+          branch: main-build
           force: true
