@@ -1,8 +1,8 @@
-commitish: 'master-build'
+commitish: 'main-build'
 template: |
   ### Don't forget to prepare the release:
   - Bump the version number in `ll-voordemensen.php`.
   - Wait for all GitHub actions to finish.
-  - Select the `master-build` branch as the target to tag.
+  - Select the `main-build` branch as the target to tag.
   ## What’s Changed
   $CHANGES
