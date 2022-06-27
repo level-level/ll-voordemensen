@@ -1,10 +1,8 @@
+commitish: 'master-build'
 template: |
   ### Don't forget to prepare the release:
-
-  - Bump the version number in ll-voordemensen.php
-  - Build CSS and JS with `npm run build`
-  - Generate translations with `composer run make-pot`
-
+  - Bump the version number in `ll-voordemensen.php`.
+  - Wait for all GitHub actions to finish.
+  - Select the `master-build` branch as the target to tag.
   ## What’s Changed
-
   $CHANGES

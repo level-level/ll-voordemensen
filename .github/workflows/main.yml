@@ -1,31 +1,45 @@
 name: Build & test
 
-on: [push]
+on:
+  push:
+    branches:
+      - 'master'
+      - 'main'
+  pull_request_target:
+    branches:
+      - 'master'
+      - 'main'
 
 jobs:
   php:
     name: PHP test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['7.4']
+        wp: ['5.9']
+        mysql: ['5.7']
     services:
       mysql:
-        image: mysql:5.7
+        image: mysql:${{ matrix.mysql }}
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: false
-          MYSQL_ROOT_PASSWORD: wordpress
-          MYSQL_DATABASE: wordpress
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test
         ports:
-          - 3306/tcp
+          - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: ${{ matrix.php }}
           extensions: mbstring, dom, simplexml
           tools: wp
       - uses: actions/checkout@v2
         with:
           path: wp-content/plugins/ll-voordemensen
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Debugging
         run: |
           php --version
@@ -33,10 +47,9 @@ jobs:
           composer --version
       - name: Composer build
         run: |
-          ls -lsah
           cd wp-content/plugins/ll-voordemensen
           composer config http-basic.${{ secrets.SATIS_DOMAIN }} "${{ secrets.SATIS_USERNAME }}" "${{ secrets.SATIS_PASSWORD }}"
-          composer install --prefer-dist --no-suggest
+          composer install --prefer-dist
         env:
           SATIS_DOMAIN: ${{ secrets.SATIS_DOMAIN }}
           SATIS_USERNAME: ${{ secrets.SATIS_USERNAME }}
@@ -49,13 +62,13 @@ jobs:
         run: |
           cd wp-content/plugins/ll-voordemensen
           composer run test:phpcs
-      - name: Start mysql service
-        run: sudo /etc/init.d/mysql start
+      # Edit the WordPress install, activated theme and plugins for your test here.
       - name: Download & configure WP
         run: |
-          wp core download --allow-root --skip-content
-          wp config create --allow-root --dbname=wordpress --dbuser=root --dbpass=wordpress --dbhost=127.0.0.1:${{ job.services.mysql.ports['3306'] }}
-          wp core install --allow-root  --url=localhost --title=Test --admin_user=admin --admin_password=password --admin_email=test@test.test
+          wp core download --allow-root --version=${{ matrix.wp }} --skip-content
+          wp config create --allow-root --dbname=test --dbuser=root --dbpass=root --dbhost=127.0.0.1
+          wp config set WP_DEBUG true --allow-root
+          wp core install --allow-root  --url=localhost --title=Test --admin_user=admin --admin_password=password --admin_email=admin@test.test
           wp plugin activate ll-voordemensen --allow-root
       - name: test:psalm
         run: |
@@ -66,21 +79,31 @@ jobs:
           cd wp-content/plugins/ll-voordemensen
           composer run test:docs
   npm-project:
-    name: NPM project test
+    name: NPM test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['12.x']
     steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
       - name: checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 1
           path: wp-content/plugins/ll-voordemensen
+          ref: ${{github.event.pull_request.head.sha}}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          always-auth: true
+          node-version: ${{ matrix.node-version }}
+          registry-url: https://npm.pkg.github.com
+          scope: '@level-level'
       - name: Clean install dependencies
         run: |
           cd wp-content/plugins/ll-voordemensen
           npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Lint
         run: |
           cd wp-content/plugins/ll-voordemensen

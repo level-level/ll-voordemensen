@@ -1,0 +1,106 @@
+name: Build release
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'main'
+
+jobs:
+  build-release:
+    name: Build release
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['7.4']
+        wp: ['5.7']
+        mysql: ['5.7']
+        node-version: ['12.x']
+    services:
+      mysql:
+        image: mysql:${{ matrix.mysql }}
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: false
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, dom, simplexml
+          tools: wp
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: actions/checkout@v2
+        with:
+          path: wp-content/plugins/ll-voordemensen/
+      - name: Debugging
+        run: |
+          php --version
+          php -m
+          composer --version
+          node -v
+          npm -v
+          ls -lsah
+      - name: Download & configure WP
+        run: |
+          wp core download --allow-root --version=${{ matrix.wp }} --skip-content
+          wp config create --allow-root --dbname=test --dbuser=root --dbpass=root --dbhost=127.0.0.1
+          wp config set WP_DEBUG true --allow-root
+          wp core install --allow-root  --url=localhost --title=Test --admin_user=admin --admin_password=password --admin_email=admin@test.test
+          wp plugin activate ll-voordemensen --allow-root
+      - name: Build translations
+        run: |
+          cd wp-content/plugins/ll-voordemensen/
+          composer run make-pot
+      - name: Clean install dependencies
+        run: |
+          cd wp-content/plugins/ll-voordemensen/
+          npm ci
+      - name: Build
+        run: |
+          cd wp-content/plugins/ll-voordemensen/
+          npm run build
+      - name: Remove build and source files
+        run: |
+          cd wp-content/plugins/ll-voordemensen/
+          rm -rf node_modules
+          rm -rf development
+          rm -rf src
+          rm -rf .editorconfig
+          rm -rf .eslintrc
+          rm -rf .eslintrc.json
+          rm -rf .gitignore
+          rm -rf .stylelintignore
+          rm -rf .stylelintrc.json
+          rm -rf auth.json
+          rm -rf composer.*
+          rm -rf docker-compose.yml
+          rm -rf package-lock.json
+          rm -rf package.json
+          rm -rf phpcs.xml.dist
+          rm -rf psalm-autoloader.php
+          rm -rf psalm.baseline.xml
+          rm -rf psalm.xml.dist
+          rm -rf webpack.*
+      - name: Commit all changes
+        run: |
+          cd wp-content/plugins/ll-voordemensen/
+          git config --global user.email "github-build-release-bot@users.noreply.github.com"
+          git config --global user.name "[BOT] Build Release"
+          git add -A --force dist/
+          git add -A --force languages/
+          git commit -m "Asset build" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          directory: wp-content/plugins/ll-voordemensen/
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master-build
+          force: true
