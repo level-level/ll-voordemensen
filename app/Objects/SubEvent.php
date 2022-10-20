@@ -100,13 +100,10 @@ class SubEvent extends BaseObject {
 		if ( ! $timestamp ) {
 			return null;
 		}
+		
 		$date = DateTime::createFromFormat( 'U', (string) $timestamp );
 		if ( $date instanceof DateTime ) {
-			$timezone = (string) get_option( 'timezone_string' ) ?: null;
-			if ( ! empty( $timezone ) ) {
-				$datetimezone = new DateTimeZone( $timezone );
-				$date->setTimezone( $datetimezone );
-			}
+			$date->setTimezone( wp_timezone() );
 			return $date;
 		}
 		return null;
@@ -124,11 +121,7 @@ class SubEvent extends BaseObject {
 		}
 		$date = DateTime::createFromFormat( 'U', (string) $timestamp );
 		if ( $date instanceof DateTime ) {
-			$timezone = (string) get_option( 'timezone_string' ) ?: null;
-			if ( ! empty( $timezone ) ) {
-				$datetimezone = new DateTimeZone( $timezone );
-				$date->setTimezone( $datetimezone );
-			}
+			$date->setTimezone( wp_timezone() );
 			return $date;
 		}
 		return null;
