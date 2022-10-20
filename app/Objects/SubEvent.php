@@ -100,7 +100,7 @@ class SubEvent extends BaseObject {
 		if ( ! $timestamp ) {
 			return null;
 		}
-		
+
 		$date = DateTime::createFromFormat( 'U', (string) $timestamp );
 		if ( $date instanceof DateTime ) {
 			$date->setTimezone( wp_timezone() );
