@@ -9,12 +9,13 @@
             "homepage": "https://level-level.com"
         }
     ],
-    "repositories": [
-        {
+    "repositories": {
+        "packagist.org": false,
+        "private-packagist": {
             "type": "composer",
-            "url": "https://satis.level-level.com"
+            "url": "https://repo.packagist.com/level-level/"
         }
-    ],
+    },
     "require": {
         "php": "^7.1",
         "level-level/coding-standards": "^1.0"
@@ -31,7 +32,7 @@
         "post-update-cmd": [
             "composer dump-autoload"
         ],
-        "test":[
+        "test": [
             "echo Running tests",
             "@test:composer",
             "@test:phpcs",
@@ -39,7 +40,7 @@
             "@test:docs"
         ],
         "test:composer": [
-          "composer validate"
+            "composer validate"
         ],
         "test:phpcs": [
             "phpcs"
@@ -63,7 +64,7 @@
         "test:docs": [
             "php-doc-check ./app -x vendor"
         ],
-        "fix":[
+        "fix": [
             "phpcbf"
         ],
         "make-pot": [
