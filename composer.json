@@ -14,10 +14,6 @@
         "private-packagist": {
             "type": "composer",
             "url": "https://repo.packagist.com/level-level/"
-        },
-        "0": {
-            "type": "composer",
-            "url": "https://satis.level-level.com"
         }
     },
     "require": {

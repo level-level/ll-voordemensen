@@ -1,7 +1,0 @@
---- composer.json
-+++ composer.json
-@@ -7,4 +6,0 @@
--        {
--            "type": "composer",
--            "url": "https://satis.level-level.com"
--        },

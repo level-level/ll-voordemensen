@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2760283bf49a01f17fef4e6d4cfee0a4",
+    "content-hash": "6b73997772024a172b49424e95a0c258",
     "packages": [
         {
             "name": "automattic/vipwpcs",
@@ -18,7 +18,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/Automattic/VIP-Coding-Standards/zipball/4d0612461232b313d06321f1501c3989bd6aecf9",
                 "reference": "4d0612461232b313d06321f1501c3989bd6aecf9",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/level-level/dists/%package%/%version%/r%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.4",
@@ -35,7 +41,7 @@
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7 || This Composer plugin will manage the PHPCS 'installed_paths' automatically."
             },
             "type": "phpcodesniffer-standard",
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.com/level-level/downloads/",
             "license": [
                 "MIT"
             ],
@@ -70,7 +76,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/fe390591e0241955f22eb9ba327d137e501c771c",
                 "reference": "fe390591e0241955f22eb9ba327d137e501c771c",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/level-level/dists/%package%/%version%/r%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "composer-plugin-api": "^1.0 || ^2.0",
@@ -91,7 +103,7 @@
                     "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.com/level-level/downloads/",
             "license": [
                 "MIT"
             ],
@@ -138,9 +150,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://satis.level-level.com/packages/level-level/coding-standards/level-level-coding-standards-529e4874bb7b89e6b15982d66ceb4d023df6695b-zip-c725f7.zip",
+                "url": "https://api.github.com/repos/level-level/coding-standards/zipball/529e4874bb7b89e6b15982d66ceb4d023df6695b",
                 "reference": "529e4874bb7b89e6b15982d66ceb4d023df6695b",
-                "shasum": "4b41a66f9318138fe022ae5cdf9fe1f313c0042b"
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/level-level/dists/%package%/%version%/r%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "automattic/vipwpcs": "^2.1",
@@ -150,6 +168,7 @@
                 "wp-coding-standards/wpcs": "^2.1"
             },
             "type": "phpcodesniffer-standard",
+            "notification-url": "https://repo.packagist.com/level-level/downloads/",
             "scripts": {
                 "install-codestandards": [
                     "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run"
@@ -165,6 +184,10 @@
                 }
             ],
             "description": "Level Level Coding standards",
+            "support": {
+                "source": "https://github.com/level-level/coding-standards/tree/v1.0.9",
+                "issues": "https://github.com/level-level/coding-standards/issues"
+            },
             "time": "2021-03-16T08:15:30+00:00"
         },
         {
@@ -179,7 +202,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/PHPCompatibility/PHPCompatibility/zipball/9fb324479acf6f39452e0655d2429cc0d3914243",
                 "reference": "9fb324479acf6f39452e0655d2429cc0d3914243",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/level-level/dists/%package%/%version%/r%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3",
@@ -196,7 +225,7 @@
                 "roave/security-advisories": "dev-master || Helps prevent installing dependencies with known security issues."
             },
             "type": "phpcodesniffer-standard",
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.com/level-level/downloads/",
             "license": [
                 "LGPL-3.0-or-later"
             ],
@@ -223,10 +252,6 @@
                 "phpcs",
                 "standards"
             ],
-            "support": {
-                "issues": "https://github.com/PHPCompatibility/PHPCompatibility/issues",
-                "source": "https://github.com/PHPCompatibility/PHPCompatibility"
-            },
             "time": "2019-12-27T09:44:58+00:00"
         },
         {
@@ -241,7 +266,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/98a088b17966bdf6ee25c8a4b634df313d8aa531",
                 "reference": "98a088b17966bdf6ee25c8a4b634df313d8aa531",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/level-level/dists/%package%/%version%/r%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1 || ^8.0"
@@ -271,15 +302,11 @@
                     ]
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.com/level-level/downloads/",
             "license": [
                 "MIT"
             ],
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
-            "support": {
-                "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/master"
-            },
             "time": "2020-08-03T20:32:43+00:00"
         },
         {
@@ -294,7 +321,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/e76e816236f401458dd8e16beecab905861b5867",
                 "reference": "e76e816236f401458dd8e16beecab905861b5867",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/level-level/dists/%package%/%version%/r%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.4.0",
@@ -313,7 +346,7 @@
                     "VariableAnalysis\\": "VariableAnalysis/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.com/level-level/downloads/",
             "license": [
                 "BSD-2-Clause"
             ],
@@ -347,7 +380,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/696dcca217d0c9da2c40d02731526c1e25b65346",
                 "reference": "696dcca217d0c9da2c40d02731526c1e25b65346",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/level-level/dists/%package%/%version%/r%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2 || ^0.7",
@@ -375,7 +414,7 @@
                     "SlevomatCodingStandard\\": "SlevomatCodingStandard"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.com/level-level/downloads/",
             "license": [
                 "MIT"
             ],
@@ -408,7 +447,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/9d583721a7157ee997f235f327de038e7ea6dac4",
                 "reference": "9d583721a7157ee997f235f327de038e7ea6dac4",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/level-level/dists/%package%/%version%/r%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "ext-simplexml": "*",
@@ -429,7 +474,7 @@
                     "dev-master": "3.x-dev"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.com/level-level/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -464,7 +509,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/7da1894633f168fe244afc6de00d141f27517b62",
                 "reference": "7da1894633f168fe244afc6de00d141f27517b62",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/level-level/dists/%package%/%version%/r%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.4",
@@ -480,7 +531,7 @@
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.6 || This Composer plugin will sort out the PHPCS 'installed_paths' automatically."
             },
             "type": "phpcodesniffer-standard",
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.com/level-level/downloads/",
             "license": [
                 "MIT"
             ],
@@ -496,11 +547,6 @@
                 "standards",
                 "wordpress"
             ],
-            "support": {
-                "issues": "https://github.com/WordPress/WordPress-Coding-Standards/issues",
-                "source": "https://github.com/WordPress/WordPress-Coding-Standards",
-                "wiki": "https://github.com/WordPress/WordPress-Coding-Standards/wiki"
-            },
             "time": "2020-05-13T23:57:56+00:00"
         }
     ],
@@ -517,7 +563,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/NielsdeBlaauw/php-doc-check/zipball/c0262fb76db3ed3f93ae0a2857bf41b695ec3b62",
                 "reference": "c0262fb76db3ed3f93ae0a2857bf41b695ec3b62",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/level-level/dists/%package%/%version%/r%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "nikic/php-parser": "^4.2",
@@ -540,7 +592,7 @@
                     "NdB\\PhpDocCheck\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.com/level-level/downloads/",
             "license": [
                 "MIT"
             ],
@@ -551,10 +603,6 @@
                 }
             ],
             "description": "Command line tool that identifies code that needs documentation.",
-            "support": {
-                "issues": "https://github.com/NielsdeBlaauw/php-doc-check/issues",
-                "source": "https://github.com/NielsdeBlaauw/php-doc-check/tree/master"
-            },
             "time": "2019-02-10T20:38:29+00:00"
         },
         {
@@ -569,7 +617,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/c6d052fc58cb876152f89f532b95a8d7907e7f0e",
                 "reference": "c6d052fc58cb876152f89f532b95a8d7907e7f0e",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/level-level/dists/%package%/%version%/r%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "ext-tokenizer": "*",
@@ -593,7 +647,7 @@
                     "PhpParser\\": "lib/PhpParser"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.com/level-level/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -625,7 +679,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/psalm/phar/zipball/5553af24461a60b65378a07f74d19ac4d806a562",
                 "reference": "5553af24461a60b65378a07f74d19ac4d806a562",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/level-level/dists/%package%/%version%/r%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1"
@@ -637,11 +697,15 @@
                 "psalm.phar"
             ],
             "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.com/level-level/downloads/",
             "license": [
                 "MIT"
             ],
             "description": "Composer-based Psalm Phar",
+            "support": {
+                "issues": "https://github.com/psalm/phar/issues",
+                "source": "https://github.com/psalm/phar/tree/4.0.1"
+            },
             "time": "2020-10-20T14:29:25+00:00"
         },
         {
@@ -656,7 +720,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/getopt-php/getopt-php/zipball/9121d7c2c51a6a59ee407c49a13b4d8cfae71075",
                 "reference": "9121d7c2c51a6a59ee407c49a13b4d8cfae71075",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/level-level/dists/%package%/%version%/r%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "ext-mbstring": "*",
@@ -672,7 +742,7 @@
                     "GetOpt\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.com/level-level/downloads/",
             "license": [
                 "MIT"
             ],
@@ -688,10 +758,6 @@
             ],
             "description": "Command line arguments parser for PHP 5.4 - 7.3",
             "homepage": "http://getopt-php.github.io/getopt-php",
-            "support": {
-                "issues": "https://github.com/getopt-php/getopt-php/issues",
-                "source": "https://github.com/getopt-php/getopt-php/tree/v3.4.0"
-            },
             "time": "2020-07-14T06:09:04+00:00"
         },
         {
@@ -706,7 +772,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/wp-cli/php-cli-tools/zipball/e472e08489f7504d9e8c5c5a057e1419cd1b2b3e",
                 "reference": "e472e08489f7504d9e8c5c5a057e1419cd1b2b3e",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/level-level/dists/%package%/%version%/r%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">= 5.3.0"
@@ -720,7 +792,7 @@
                     "lib/cli/cli.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.com/level-level/downloads/",
             "license": [
                 "MIT"
             ],
@@ -758,5 +830,5 @@
         "php": "^7.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
