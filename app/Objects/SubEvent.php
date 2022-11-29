@@ -8,26 +8,6 @@ use DateTimeZone;
 class SubEvent extends BaseObject {
 	public static $type = 'll_vdm_sub_event';
 
-	/**
-	 * Get object by vdm ID
-	 *
-	 * @param array $args
-	 * @return static|null
-	 */
-	public static function get_by_vdm_id( string $vdm_id, array $args = array() ) {
-		$default_args = array(
-			'post_status' => 'any',
-			'meta_query'  => array(
-				array(
-					'key'   => 'll_vdm_vdm_id',
-					'value' => $vdm_id,
-				),
-			),
-		);
-		$args         = wp_parse_args( $args, $default_args );
-		return static::get_one( $args );
-	}
-
 	public static function get_many_by_event_id( int $event_id, array $args = array() ): array {
 		$default_args = array(
 			'post_status' => 'any',

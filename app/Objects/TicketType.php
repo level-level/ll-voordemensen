@@ -5,19 +5,6 @@ namespace LevelLevel\VoorDeMensen\Objects;
 class TicketType extends BaseObject {
 	public static $type = 'll_vdm_ticket_type';
 
-	public static function get_many_by_vdm_id( string $vdm_id ): array {
-		$args = array(
-			'post_status' => 'any',
-			'meta_query'  => array(
-				array(
-					'key'   => 'll_vdm_vdm_id',
-					'value' => $vdm_id,
-				),
-			),
-		);
-		return static::get_many( $args );
-	}
-
 	public static function get_many_by_sub_event_id( int $sub_event_id, array $args = array() ): array {
 		$default_args = array(
 			'post_status' => 'any',
