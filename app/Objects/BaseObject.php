@@ -98,6 +98,7 @@ class BaseObject {
 	/**
 	 * Get objects by vdm ID
 	 *
+	 * @param string $vdm_id
 	 * @param array<string,mixed> $args
 	 * @return static[]
 	 */
@@ -118,6 +119,7 @@ class BaseObject {
 	/**
 	 * Get object by vdm ID
 	 *
+	 * @param string $vdm_id
 	 * @param array<string,mixed> $args
 	 * @return static|null
 	 */

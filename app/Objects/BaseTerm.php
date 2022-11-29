@@ -68,6 +68,8 @@ class BaseTerm {
 	/**
 	 * Get term by vdm ID
 	 *
+	 * @param string $vdm_id
+	 * @param array<string,mixed> $args
 	 * @return static|null
 	 */
 	public static function get_by_vdm_id( string $vdm_id, array $args = array() ) {
@@ -87,7 +89,9 @@ class BaseTerm {
 	/**
 	 * Get terms by vdm ID
 	 *
-	 * @return static|null
+	 * @param string $vdm_id
+	 * @param array<string,mixed> $args
+	 * @return static[]
 	 */
 	public static function get_many_by_vdm_id( string $vdm_id, array $args = array() ) {
 		$default_args = array(
