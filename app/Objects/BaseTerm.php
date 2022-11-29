@@ -66,6 +66,44 @@ class BaseTerm {
 	}
 
 	/**
+	 * Get term by vdm ID
+	 *
+	 * @return static|null
+	 */
+	public static function get_by_vdm_id( string $vdm_id, array $args = array() ) {
+		$default_args = array(
+			'hide_empty' => false,
+			'meta_query' => array(
+				array(
+					'key'   => 'll_vdm_vdm_id',
+					'value' => $vdm_id,
+				),
+			),
+		);
+		$args         = wp_parse_args( $args, $default_args );
+		return static::get_one( $args );
+	}
+
+	/**
+	 * Get terms by vdm ID
+	 *
+	 * @return static|null
+	 */
+	public static function get_many_by_vdm_id( string $vdm_id, array $args = array() ) {
+		$default_args = array(
+			'hide_empty' => false,
+			'meta_query' => array(
+				array(
+					'key'   => 'll_vdm_vdm_id',
+					'value' => $vdm_id,
+				),
+			),
+		);
+		$args         = wp_parse_args( $args, $default_args );
+		return static::get_many( $args );
+	}
+
+	/**
 	 * Get multiple terms
 	 *
 	 * @param array $args
