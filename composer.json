@@ -74,5 +74,10 @@
     "require-dev": {
         "psalm/phar": "^4.0",
         "niels-de-blaauw/php-doc-check": "^0.2.2"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }

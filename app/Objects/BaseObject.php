@@ -2,7 +2,6 @@
 
 namespace LevelLevel\VoorDeMensen\Objects;
 
-use Exception;
 use WP_Post;
 
 class BaseObject {
@@ -67,10 +66,10 @@ class BaseObject {
 	 */
 	public static function get_many( array $args = array() ): array {
 		$args['post_type']     = static::$type;
+		$args['fields']        = '';
 		$args['no_found_rows'] = true;
 
-		$query = new \WP_Query( $args );
-
+		$posts = get_posts( $args );
 		$class = static::class;
 
 		return array_map(
@@ -80,7 +79,7 @@ class BaseObject {
 				 */
 				return new $class( $post );
 			},
-			$query->posts
+			$posts
 		);
 	}
 
@@ -94,6 +93,48 @@ class BaseObject {
 		$args['posts_per_page'] = 1;
 		$one                    = static::get_many( $args );
 		return array_shift( $one );
+	}
+
+	/**
+	 * Get objects by vdm ID
+	 *
+	 * @param string $vdm_id
+	 * @param array<string,mixed> $args
+	 * @return static[]
+	 */
+	public static function get_many_by_vdm_id( string $vdm_id, array $args = array() ): array {
+		$default_args = array(
+			'post_status' => 'any',
+			'meta_query'  => array(
+				array(
+					'key'   => 'll_vdm_vdm_id',
+					'value' => $vdm_id,
+				),
+			),
+		);
+		$args         = wp_parse_args( $args, $default_args );
+		return static::get_many( $args );
+	}
+
+	/**
+	 * Get object by vdm ID
+	 *
+	 * @param string $vdm_id
+	 * @param array<string,mixed> $args
+	 * @return static|null
+	 */
+	public static function get_by_vdm_id( string $vdm_id, array $args = array() ) {
+		$default_args = array(
+			'post_status' => 'any',
+			'meta_query'  => array(
+				array(
+					'key'   => 'll_vdm_vdm_id',
+					'value' => $vdm_id,
+				),
+			),
+		);
+		$args         = wp_parse_args( $args, $default_args );
+		return static::get_one( $args );
 	}
 
 	public function get_object(): WP_Post {
