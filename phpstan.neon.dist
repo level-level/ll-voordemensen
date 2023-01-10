@@ -1,0 +1,9 @@
+includes:
+  - phpstan-baseline.neon
+  - vendor/level-level/phpstan-config/config/default.neon
+
+parameters:
+    paths:
+      - ./app
+      - ./templates
+      - ./ll-voordemensen.php

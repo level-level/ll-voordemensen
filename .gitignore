@@ -4,6 +4,7 @@
 /development/config.local.json
 bundle-analyzer.json
 /vendor/
+phpstan.neon
 
 # Ignore Mac OSX related files
 .DS_Store
