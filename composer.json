@@ -36,7 +36,7 @@
             "echo Running tests",
             "@test:composer",
             "@test:phpcs",
-            "@test:psalm",
+            "@test:phpstan",
             "@test:docs"
         ],
         "test:composer": [
@@ -46,8 +46,12 @@
             "phpcs"
         ],
         "test:psalm": [
-            "./vendor/bin/psalm.phar"
-        ],
+            "echo Deprecated: use 'test:phpstan' instead.",
+            "@test:phpstan"
+          ],
+        "test:phpstan": [
+            "phpstan --memory-limit=2g"
+          ],
         "integration:setup": [
             "docker-compose up -d",
             "echo Waiting for docker to become alive.",
@@ -72,12 +76,15 @@
         ]
     },
     "require-dev": {
-        "psalm/phar": "^4.0",
-        "niels-de-blaauw/php-doc-check": "^0.2.2"
+        "niels-de-blaauw/php-doc-check": "^0.2.2",
+        "level-level/phpstan-config": "^1.0",
+        "szepeviktor/phpstan-wordpress": "^1.1",
+        "phpstan/extension-installer": "^1.2"
     },
     "config": {
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true
         }
     }
 }

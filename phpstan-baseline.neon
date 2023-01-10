@@ -1,0 +1,376 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\API\\\\Client\\:\\:get_ticket_types\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/API/Client.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\API\\\\Client\\:\\:request\\(\\) has parameter \\$request_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/API/Client.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\API\\\\Client\\:\\:request\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/API/Client.php
+
+		-
+			message: "#^Constant LL_VDM_PLUGIN_PATH not found\\.$#"
+			count: 1
+			path: app/Admin/MetaBox.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Admin\\\\Settings\\\\Display\\\\Fields\\\\TicketSalesScreenType\\:\\:get_options\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Admin/Settings/Display/Fields/TicketSalesScreenType.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Admin\\\\Settings\\\\Display\\\\Section\\:\\:render_description\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Admin/Settings/Display/Section.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Admin\\\\Settings\\\\General\\\\Fields\\\\PostTypes\\:\\:get_default_value\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Admin/Settings/General/Fields/PostTypes.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Admin\\\\Settings\\\\General\\\\Fields\\\\PostTypes\\:\\:get_options\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Admin/Settings/General/Fields/PostTypes.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Admin\\\\Settings\\\\General\\\\Fields\\\\PostTypes\\:\\:get_value\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Admin/Settings/General/Fields/PostTypes.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Admin\\\\Settings\\\\General\\\\Fields\\\\SyncEventsInterval\\:\\:get_options\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Admin/Settings/General/Fields/SyncEventsInterval.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Admin\\\\Settings\\\\General\\\\Section\\:\\:render_description\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Admin/Settings/General/Section.php
+
+		-
+			message: "#^Constant LL_VDM_PLUGIN_PATH not found\\.$#"
+			count: 1
+			path: app/Admin/Settings/Menu.php
+
+		-
+			message: "#^Action callback returns string but should not return anything\\.$#"
+			count: 1
+			path: app/Assets.php
+
+		-
+			message: "#^Constant LL_VDM_PLUGIN_PATH not found\\.$#"
+			count: 3
+			path: app/Assets.php
+
+		-
+			message: "#^Constant LL_VDM_PLUGIN_URL not found\\.$#"
+			count: 3
+			path: app/Assets.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Assets\\:\\:enqueue_development\\(\\) has parameter \\$deps with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Assets.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Assets\\:\\:get_localize_data\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Assets.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Assets\\:\\:get_src_config\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Assets.php
+
+		-
+			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
+			count: 2
+			path: app/Assets.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\BaseObject\\:\\:get_many\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/BaseObject.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\BaseObject\\:\\:get_one\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/BaseObject.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\BaseObject\\:\\:get_thumbnail\\(\\) has parameter \\$attr with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/BaseObject.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\BaseObject\\:\\:get_thumbnail\\(\\) has parameter \\$size with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/BaseObject.php
+
+		-
+			message: "#^Property LevelLevel\\\\VoorDeMensen\\\\Objects\\\\BaseObject\\:\\:\\$post has no type specified\\.$#"
+			count: 1
+			path: app/Objects/BaseObject.php
+
+		-
+			message: "#^Property LevelLevel\\\\VoorDeMensen\\\\Objects\\\\BaseObject\\:\\:\\$posts type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/BaseObject.php
+
+		-
+			message: "#^Argument of an invalid type array\\<int\\|string\\|WP_Term\\>\\|string supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: app/Objects/BaseTerm.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\BaseTerm\\:\\:get_many\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/BaseTerm.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\BaseTerm\\:\\:get_one\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/BaseTerm.php
+
+		-
+			message: "#^Property LevelLevel\\\\VoorDeMensen\\\\Objects\\\\BaseTerm\\:\\:\\$taxonomy has no type specified\\.$#"
+			count: 1
+			path: app/Objects/BaseTerm.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\Event\\:\\:get_connected_posts\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/Event.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\Event\\:\\:get_connected_posts\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/Event.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\Event\\:\\:get_event_types\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/Event.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\Event\\:\\:get_sub_events\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/Event.php
+
+		-
+			message: "#^Property LevelLevel\\\\VoorDeMensen\\\\Objects\\\\EventType\\:\\:\\$taxonomy has no type specified\\.$#"
+			count: 1
+			path: app/Objects/EventType.php
+
+		-
+			message: "#^Property LevelLevel\\\\VoorDeMensen\\\\Objects\\\\Location\\:\\:\\$taxonomy has no type specified\\.$#"
+			count: 1
+			path: app/Objects/Location.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\SubEvent\\:\\:get_event_types\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/SubEvent.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\SubEvent\\:\\:get_many_by_event_id\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/SubEvent.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\SubEvent\\:\\:get_many_by_event_id\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/SubEvent.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\SubEvent\\:\\:get_ticket_types\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/SubEvent.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\TicketType\\:\\:get_by_vdm_id_and_sub_event_id\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/TicketType.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\TicketType\\:\\:get_many_by_sub_event_id\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/TicketType.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Objects\\\\TicketType\\:\\:get_many_by_sub_event_id\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Objects/TicketType.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\ShortCodes\\\\BaseShortCode\\:\\:get_args\\(\\) has parameter \\$user_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/ShortCodes/BaseShortCode.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\ShortCodes\\\\BaseShortCode\\:\\:get_args\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/ShortCodes/BaseShortCode.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\ShortCodes\\\\BaseShortCode\\:\\:get_html\\(\\) has parameter \\$user_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/ShortCodes/BaseShortCode.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\ShortCodes\\\\Calendar\\:\\:get_html\\(\\) has parameter \\$user_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/ShortCodes/Calendar.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\ShortCodes\\\\CartButton\\:\\:get_html\\(\\) has parameter \\$user_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/ShortCodes/CartButton.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\ShortCodes\\\\CartCounter\\:\\:get_html\\(\\) has parameter \\$user_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/ShortCodes/CartCounter.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\ShortCodes\\\\EventBuyButton\\:\\:get_html\\(\\) has parameter \\$user_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/ShortCodes/EventBuyButton.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\ShortCodes\\\\EventBuyButtons\\:\\:get_html\\(\\) has parameter \\$user_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/ShortCodes/EventBuyButtons.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\ShortCodes\\\\EventContent\\:\\:get_html\\(\\) has parameter \\$user_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/ShortCodes/EventContent.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\ShortCodes\\\\EventDates\\:\\:get_html\\(\\) has parameter \\$user_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/ShortCodes/EventDates.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\ShortCodes\\\\EventExtraText\\:\\:get_html\\(\\) has parameter \\$user_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/ShortCodes/EventExtraText.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\ShortCodes\\\\EventLocations\\:\\:get_html\\(\\) has parameter \\$user_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/ShortCodes/EventLocations.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\ShortCodes\\\\EventName\\:\\:get_html\\(\\) has parameter \\$user_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/ShortCodes/EventName.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\ShortCodes\\\\EventTicketTypes\\:\\:get_html\\(\\) has parameter \\$user_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/ShortCodes/EventTicketTypes.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$eventtype_name\\.$#"
+			count: 3
+			path: app/Sync/EventTypesSync.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$base_price\\.$#"
+			count: 1
+			path: app/Sync/EventsSync.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$discount_id\\.$#"
+			count: 2
+			path: app/Sync/EventsSync.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$discount_name\\.$#"
+			count: 2
+			path: app/Sync/EventsSync.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$discount_type\\.$#"
+			count: 1
+			path: app/Sync/EventsSync.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$discount_value\\.$#"
+			count: 1
+			path: app/Sync/EventsSync.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$discounted_price\\.$#"
+			count: 1
+			path: app/Sync/EventsSync.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$event_id\\.$#"
+			count: 5
+			path: app/Sync/EventsSync.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$event_name\\.$#"
+			count: 2
+			path: app/Sync/EventsSync.php
+
+		-
+			message: "#^Instanceof between int\\<1, max\\> and WP_Error will always evaluate to false\\.$#"
+			count: 3
+			path: app/Sync/EventsSync.php
+
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$event_id$#"
+			count: 1
+			path: app/Sync/EventsSync.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$location_id\\.$#"
+			count: 2
+			path: app/Sync/LocationsSync.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$location_name\\.$#"
+			count: 1
+			path: app/Sync/LocationsSync.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Sync\\\\Setup\\:\\:add_cron_schedules\\(\\) has parameter \\$schedules with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Sync/Setup.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Sync\\\\Setup\\:\\:add_cron_schedules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Sync/Setup.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Utilities\\\\Image\\:\\:download_image\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Utilities/Image.php
+
+		-
+			message: "#^Method LevelLevel\\\\VoorDeMensen\\\\Utilities\\\\Image\\:\\:set_post_thumbnail\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Utilities/Image.php
+
+		-
+			message: "#^Offset 'Version' on array\\{Name\\: string, PluginURI\\: string, Version\\: string, Description\\: string, Author\\: string, AuthorURI\\: string, TextDomain\\: string, DomainPath\\: string, \\.\\.\\.\\} in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: ll-voordemensen.php
+
+		-
+			message: "#^Parameter \\#1 \\$autoload_function of function spl_autoload_register expects callable\\(string\\)\\: void, Closure\\(string\\)\\: bool given\\.$#"
+			count: 1
+			path: ll-voordemensen.php
