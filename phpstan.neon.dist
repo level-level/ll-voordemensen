@@ -4,6 +4,6 @@ includes:
 
 parameters:
     paths:
-      - ./app
-      - ./templates
-      - ./ll-voordemensen.php
+      - app
+      - templates
+      - ll-voordemensen.php
