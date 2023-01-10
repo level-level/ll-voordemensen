@@ -34,21 +34,20 @@ add_action(
 			 */
 			$autoload_dir = LL_VDM_PLUGIN_PATH . 'app' . DIRECTORY_SEPARATOR;
 			spl_autoload_register(
-				function ( string $class ) use ( $autoload_dir ) {
+				function ( string $class ) use ( $autoload_dir ): void {
 					$no_plugin_ns_class = str_replace( LL_VDM_PLUGIN_NAMESPACE, '', $class );
 					if ( $no_plugin_ns_class === $class ) {
-						return false; // Class not in plugin namespace, skip autoloading
+						return; // Class not in plugin namespace, skip autoloading
 					}
 
 					$file = str_replace( '\\', DIRECTORY_SEPARATOR, $no_plugin_ns_class ) . '.php';
 					$file = $autoload_dir . $file;
 					if ( ! file_exists( $file ) ) {
-						throw new \Exception( 'Class ' . $class . 'not found' );
+						return;
 					}
 
 					// Require the file
 					require_once $file;
-					return true;
 				}
 			);
 		}
