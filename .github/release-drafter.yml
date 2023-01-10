@@ -4,5 +4,7 @@ template: |
   - Bump the version number in `ll-voordemensen.php`.
   - Wait for all GitHub actions to finish.
   - Select the `main-build` branch as the target to tag.
+  - Delete this section from the release description.
+  
   ## What’s Changed
   $CHANGES
