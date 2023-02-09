@@ -1,6 +1,7 @@
 /.idea/
 /cache/
 /node_modules/
+/dist/
 /development/config.local.json
 bundle-analyzer.json
 /vendor/
