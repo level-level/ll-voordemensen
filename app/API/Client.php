@@ -31,7 +31,7 @@ class Client {
 
 		// Filter out object errors
 		return array_filter(
-			$response['data'], function( $api_event ) {
+			$response['data'], function ( $api_event ) {
 				return isset( $api_event->event_id ) && ! empty( $api_event->sub_events );
 			}
 		);
@@ -80,7 +80,7 @@ class Client {
 
 		// Filter out object errors
 		return array_filter(
-			$response['data'], function( $api_ticket_type ) {
+			$response['data'], function ( $api_ticket_type ) {
 				return isset( $api_ticket_type->discount_id );
 			}
 		);
@@ -104,7 +104,7 @@ class Client {
 
 		// Filter out object errors
 		return array_filter(
-			$response['data'], function( $api_event ) {
+			$response['data'], function ( $api_event ) {
 				return isset( $api_event->location_id );
 			}
 		);
@@ -128,7 +128,7 @@ class Client {
 
 		// Filter out object errors
 		return array_filter(
-			$response['data'], function( $api_event ) {
+			$response['data'], function ( $api_event ) {
 				return isset( $api_event->eventtype_name );
 			}
 		);
@@ -152,7 +152,7 @@ class Client {
 
 		// Filter out object errors
 		return array_filter(
-			$response['data'], function( $api_event ) {
+			$response['data'], function ( $api_event ) {
 				return isset( $api_event->event_id );
 			}
 		);

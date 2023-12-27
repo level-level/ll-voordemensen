@@ -50,7 +50,7 @@ class SyncEventsInterval extends BaseField {
 
 		$options = array();
 		foreach ( $schedules as $schedule_name => $schedule_args ) {
-			$options[ $schedule_name ] = $schedule_args['display'] ?? $schedule_name;
+			$options[ $schedule_name ] = $schedule_args['display'];
 		}
 
 		return $options;

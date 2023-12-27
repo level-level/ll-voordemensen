@@ -56,7 +56,7 @@ class MetaBox {
 			return;
 		}
 
-		$nonce_value = filter_input( INPUT_POST, 'll_vdm_nonce' );
+		$nonce_value = (string) filter_input( INPUT_POST, 'll_vdm_nonce' );
 		$nonce_valid = wp_verify_nonce( $nonce_value, 'll_vdm_metabox' );
 
 		if ( ! $nonce_valid ) {

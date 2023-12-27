@@ -12,7 +12,7 @@
 
 add_action(
 	'plugins_loaded',
-	function() {
+	function () {
 		// Set plugin variables
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		$plugin_path = realpath( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR;
@@ -34,9 +34,9 @@ add_action(
 			 */
 			$autoload_dir = LL_VDM_PLUGIN_PATH . 'app' . DIRECTORY_SEPARATOR;
 			spl_autoload_register(
-				function ( string $class ) use ( $autoload_dir ): void {
-					$no_plugin_ns_class = str_replace( LL_VDM_PLUGIN_NAMESPACE, '', $class );
-					if ( $no_plugin_ns_class === $class ) {
+				function ( string $classname ) use ( $autoload_dir ): void {
+					$no_plugin_ns_class = str_replace( LL_VDM_PLUGIN_NAMESPACE, '', $classname );
+					if ( $no_plugin_ns_class === $classname ) {
 						return; // Class not in plugin namespace, skip autoloading
 					}
 
@@ -73,6 +73,6 @@ add_action(
 		( new LevelLevel\VoorDeMensen\ShortCodes\Init() )->register_hooks();
 
 		// Load textdomain
-		load_plugin_textdomain( 'll-vdm', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'll-vdm', false, basename( __DIR__ ) . '/languages/' );
 	}
 );
