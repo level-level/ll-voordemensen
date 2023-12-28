@@ -73,7 +73,7 @@ class BaseObject {
 		$class = static::class;
 
 		return array_map(
-			function( $post ) use ( $class ) {
+			function ( $post ) use ( $class ) {
 				/**
 				 * @psalm-suppress UnsafeInstantiation
 				 */

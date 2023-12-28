@@ -30,7 +30,7 @@ class QuickSyncEventsController {
 		}
 
 		$redirect = add_query_arg( 'll_vdm_quick_sync_events', 1, $redirect );
-		wp_safe_redirect( $redirect );
+		wp_safe_redirect( $redirect, 302, 'LLVDM Events are quick synced' );
 		exit;
 	}
 }

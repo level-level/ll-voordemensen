@@ -4,7 +4,7 @@ use LevelLevel\VoorDeMensen\Admin\Settings\Menu;
 use LevelLevel\VoorDeMensen\Sync\EventsSync;
 
 if ( ! current_user_can( 'manage_options' ) ) {
-	wp_safe_redirect( admin_url( 'admin.php' ) );
+	wp_safe_redirect( admin_url( 'admin.php' ), 302, 'LLVDM User has no permission' );
 	exit;
 }
 

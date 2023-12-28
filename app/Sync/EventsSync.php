@@ -140,7 +140,7 @@ class EventsSync extends BaseSync {
 			 * @param object $api_sub_event
 			 * @return bool
 			 */
-			function( $api_sub_event ): bool {
+			function ( $api_sub_event ): bool {
 				$sub_event    = SubEvent::get_by_vdm_id( (string) $api_sub_event->event_id );
 				$sub_event_id = 0;
 				if ( $sub_event instanceof SubEvent ) {
