@@ -3,6 +3,7 @@
 namespace LevelLevel\VoorDeMensen\Admin\Settings\General;
 
 use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\ClientName;
+use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\DomainName;
 use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\PostTypes;
 use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\SyncEventsInterval;
 use LevelLevel\VoorDeMensen\Admin\Settings\Menu;
@@ -10,6 +11,7 @@ use LevelLevel\VoorDeMensen\Admin\Settings\Menu;
 class Settings {
 	public const FIELDS = array(
 		ClientName::class,
+		DomainName::class,
 		PostTypes::class,
 		SyncEventsInterval::class,
 	);
