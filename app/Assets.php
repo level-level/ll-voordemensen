@@ -93,17 +93,14 @@ class Assets {
 		}
 
 		if ( empty( $domain_name ) ) {
-			$domain_name='tickets.voordemensen.nl';
+			$domain_name = 'tickets.voordemensen.nl';
 		}
-
-
 
 		$display_type = ( new TicketSalesScreenTypeSetting() )->get_value();
-		$src          = 'https://' . rawurlencode ( $domain_name ) . '/' . rawurlencode( $client_name ) . '/event/vdm_loader.js';
-		if ( $display_type === 'side' ) {
-			$src = 'https://' . rawurlencode ( $domain_name ) . '/' . rawurlencode( $client_name ) . '/event/vdm_sideloader.js';
+		$src = 'https://' . rawurlencode($domain_name) . '/' . rawurlencode($client_name) . '/event/vdm_loader.js';
+		if ($display_type === 'side') {
+			$src = 'https://' . rawurlencode($domain_name) . '/' . rawurlencode($client_name) . '/event/vdm_sideloader.js';
 		}
-
 		wp_enqueue_script( 'll_vdm_external_script', $src, array(), LL_VDM_PLUGIN_VERSION, true );
 	}
 
