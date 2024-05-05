@@ -30,7 +30,7 @@ class DomainName extends BaseField {
 	/**
 	 * Get default value
 	 *
-	 * @return null
+	 * @return string The default URL.
 	 */
 	protected function get_default_value() {
 		return 'tickets.voordemensen.nl';
