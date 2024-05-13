@@ -14,14 +14,9 @@ jobs:
   php:
     name: PHP test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php: ['8.0']
-        wp: ['5.9']
-        mysql: ['5.7']
     services:
       mysql:
-        image: mysql:${{ matrix.mysql }}
+        image: mysql:5.7
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: false
           MYSQL_ROOT_PASSWORD: root
@@ -33,10 +28,10 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: 8.0
           extensions: mbstring, dom, simplexml
           tools: wp
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           path: wp-content/plugins/ll-voordemensen
           ref: ${{ github.event.pull_request.head.sha }}
@@ -63,7 +58,7 @@ jobs:
       # Edit the WordPress install, activated theme and plugins for your test here.
       - name: Download & configure WP
         run: |
-          wp core download --allow-root --version=${{ matrix.wp }} --skip-content
+          wp core download --allow-root --version=6.5 --skip-content
           wp config create --allow-root --dbname=test --dbuser=root --dbpass=root --dbhost=127.0.0.1
           wp config set WP_DEBUG true --allow-root
           wp core install --allow-root  --url=localhost --title=Test --admin_user=admin --admin_password=password --admin_email=admin@test.test
@@ -79,21 +74,18 @@ jobs:
   npm-project:
     name: NPM test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: ['16.x']
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
           path: wp-content/plugins/ll-voordemensen
           ref: ${{github.event.pull_request.head.sha}}
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v4
         with:
           always-auth: true
-          node-version: ${{ matrix.node-version }}
+          node-version-file: '.nvmrc'
           registry-url: https://npm.pkg.github.com
           scope: '@level-level'
       - name: Clean install dependencies
