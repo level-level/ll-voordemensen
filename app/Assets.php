@@ -4,6 +4,7 @@ namespace LevelLevel\VoorDeMensen;
 
 use LevelLevel\VoorDeMensen\Admin\Settings\Display\Fields\TicketSalesScreenType as TicketSalesScreenTypeSetting;
 use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\ClientName as ClientNameSetting;
+use LevelLevel\VoorDeMensen\Admin\Settings\General\Fields\DomainName as DomainNameSetting;
 use LevelLevel\VoorDeMensen\API\Client;
 
 class Assets {
@@ -85,16 +86,16 @@ class Assets {
 
 	public function enqueue_external_vdm_script(): void {
 		$client_name = ( new ClientNameSetting() )->get_value();
+		$domain_name = ( new DomainNameSetting() )->get_value() ?: 'tickets.voordemensen.nl';
 		if ( empty( $client_name ) ) {
 			return;
 		}
 
 		$display_type = ( new TicketSalesScreenTypeSetting() )->get_value();
-		$src          = 'https://tickets.voordemensen.nl/' . rawurlencode( $client_name ) . '/event/vdm_loader.js';
+		$src          = 'https://' . $domain_name . '/' . $client_name . '/event/vdm_loader.js';
 		if ( $display_type === 'side' ) {
-			$src = 'https://tickets.voordemensen.nl/' . rawurlencode( $client_name ) . '/event/vdm_sideloader.js';
+			$src = 'https://' . $domain_name . '/' . $client_name . '/event/vdm_sideloader.js';
 		}
-
 		wp_enqueue_script( 'll_vdm_external_script', $src, array(), LL_VDM_PLUGIN_VERSION, true );
 	}
 
