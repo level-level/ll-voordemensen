@@ -21,6 +21,9 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
+      - uses: actions/checkout@v4
+        with:
+          path: wp-content/plugins/ll-voordemensen/
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -34,9 +37,6 @@ jobs:
           node-version-file: 'wp-content/plugins/ll-voordemensen/.nvmrc'
           registry-url: https://npm.pkg.github.com
           scope: '@level-level'
-      - uses: actions/checkout@v4
-        with:
-          path: wp-content/plugins/ll-voordemensen/
       - name: Debugging
         run: |
           php --version
