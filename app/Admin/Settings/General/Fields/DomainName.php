@@ -15,7 +15,7 @@ class DomainName extends BaseField {
 	}
 
 	public function get_description(): string {
-		return __( 'If VoordeMensen is running on a private (sub)domain, enter it here - otherwise leave to the standard tickets.voordemensen.nl', 'll-vdm' );
+		return __( 'If VoordeMensen is running on a private (sub)domain, enter it here. Otherwise keep it the default value of tickets.voordemensen.nl. Please note that your private (sub)domain needs to support https.', 'll-vdm' );
 	}
 
 	public function get_value(): ?string {
