@@ -86,14 +86,9 @@ class Assets {
 
 	public function enqueue_external_vdm_script(): void {
 		$client_name = ( new ClientNameSetting() )->get_value();
-		$domain_name = ( new DomainNameSetting() )->get_value();
-
+		$domain_name = ( new DomainNameSetting() )->get_value() ?: 'tickets.voordemensen.nl';
 		if ( empty( $client_name ) ) {
 			return;
-		}
-
-		if ( empty( $domain_name ) ) {
-			$domain_name = 'tickets.voordemensen.nl';
 		}
 
 		$display_type = ( new TicketSalesScreenTypeSetting() )->get_value();
