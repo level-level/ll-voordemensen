@@ -1,33 +1,37 @@
-# Copyright (C) 2020 Level Level
+# Copyright (C) 2024 Level Level
 # This file is distributed under the same license as the VoordeMensen plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: VoordeMensen 0.3.2\n"
+"Project-Id-Version: VoordeMensen 1.6.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ll-vdm\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-12-08T07:30:34+00:00\n"
+"POT-Creation-Date: 2024-05-13T11:59:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: ll-vdm\n"
 
 #. Plugin Name of the plugin
+#: ll-voordemensen.php
 #: app/Admin/Settings/Menu.php:16
 msgid "VoordeMensen"
 msgstr ""
 
 #. Description of the plugin
+#: ll-voordemensen.php
 msgid "Unofficial plugin to access the VoordeMensen ticket platform directly from WordPress"
 msgstr ""
 
 #. Author of the plugin
+#: ll-voordemensen.php
 msgid "Level Level"
 msgstr ""
 
 #. Author URI of the plugin
+#: ll-voordemensen.php
 msgid "https://www.level-level.com"
 msgstr ""
 
@@ -66,6 +70,14 @@ msgstr ""
 
 #: app/Admin/Settings/General/Fields/ClientName.php:18
 msgid "The client name is required for the plugin to work."
+msgstr ""
+
+#: app/Admin/Settings/General/Fields/DomainName.php:14
+msgid "Domain name"
+msgstr ""
+
+#: app/Admin/Settings/General/Fields/DomainName.php:18
+msgid "If VoordeMensen is running on a private (sub)domain, enter it here. Otherwise keep it the default value of tickets.voordemensen.nl. Please note that your private (sub)domain needs to support https."
 msgstr ""
 
 #: app/Admin/Settings/General/Fields/PostTypes.php:16
