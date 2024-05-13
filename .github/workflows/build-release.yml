@@ -31,7 +31,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           always-auth: true
-          node-version-file: '.nvmrc'
+          node-version-file: 'wp-content/plugins/ll-voordemensen/.nvmrc'
           registry-url: https://npm.pkg.github.com
           scope: '@level-level'
       - uses: actions/checkout@v4
