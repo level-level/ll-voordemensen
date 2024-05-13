@@ -10,8 +10,8 @@ use LevelLevel\VoorDeMensen\Admin\Settings\Menu;
 
 class Settings {
 	public const FIELDS = array(
-		ClientName::class,
 		DomainName::class,
+		ClientName::class,
 		PostTypes::class,
 		SyncEventsInterval::class,
 	);
