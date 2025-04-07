@@ -3,6 +3,7 @@
     "description": "Unofficial plugin to access the VoordeMensen ticket platform directly from WordPress",
     "type": "wordpress-plugin",
     "license": "GPL-3.0-or-later",
+    "abandoned": "wpackagist-plugin/voordemensen",
     "authors": [
         {
             "name": "Level Level",
