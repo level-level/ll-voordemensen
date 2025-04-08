@@ -1,8 +1,12 @@
 [![GitHub Actions status](https://github.com/level-level/ll-voordemensen/workflows/Build%20%26%20test/badge.svg)](https://github.com/level-level/ll-voordemensen/actions)
 
-
 # VoordeMensen (ll-voordemensen)
 Unofficial plugin to access the VoordeMensen ticket platform directly from WordPress
+
+## ⚠️ Abandoned
+This package has been abandoned because none of our customers use this plugin anymore.
+Instead, VoordeMensen has [their own plugin](https://wordpress.org/plugins/voordemensen/) available in the WordPress plugin repository.
+You can also download it with Composer by [requiring it from WPackagist](https://wpackagist.org/search?q=voordemensen).
 
 ## Installation
 ### Zip download (recommended)
